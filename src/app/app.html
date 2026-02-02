@@ -3,7 +3,7 @@
 	<nav class="mx-auto flex max-w-6xl items-center px-4 py-3">
 		<div class="text-sm font-semibold text-slate-900">theme-tailwind</div>
 
-		<div class="ml-auto flex gap-2">
+		<div class="ml-auto flex gap-1 flex-wrap justify-end">
 			<a
 				routerLink="/"
 				routerLinkActive="bg-slate-900 text-white"
@@ -14,12 +14,51 @@
 			</a>
 
 			<a
-				routerLink="/list"
+				routerLink="/dev1/list"
 				routerLinkActive="bg-slate-900 text-white"
-				[routerLinkActiveOptions]="{ exact: true }"
 				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
 			>
 				List
+			</a>
+
+			<a
+				routerLink="/dev1/profile"
+				routerLinkActive="bg-slate-900 text-white"
+				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+			>
+				Profile
+			</a>
+
+			<a
+				routerLink="/dev2/form"
+				routerLinkActive="bg-slate-900 text-white"
+				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+			>
+				Form
+			</a>
+
+			<a
+				routerLink="/dev2/table"
+				routerLinkActive="bg-slate-900 text-white"
+				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+			>
+				Table
+			</a>
+
+			<a
+				routerLink="/dev3/gallery"
+				routerLinkActive="bg-slate-900 text-white"
+				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+			>
+				Gallery
+			</a>
+
+			<a
+				routerLink="/dev3/content"
+				routerLinkActive="bg-slate-900 text-white"
+				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+			>
+				Blog
 			</a>
 		</div>
 	</nav>
