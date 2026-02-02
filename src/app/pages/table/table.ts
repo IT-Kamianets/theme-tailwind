@@ -12,12 +12,12 @@ interface TableData {
 }
 
 @Component({
-  selector: 'app-table-dev2',
+  selector: 'app-table',
   imports: [CommonModule],
-  templateUrl: './table-dev2.html',
-  styleUrl: './table-dev2.css',
+  templateUrl: './table.html',
+  styleUrl: './table.css',
 })
-export class TableDev2 {
+export class Table {
   tableData = signal<TableData[]>([
     {
       id: 1,

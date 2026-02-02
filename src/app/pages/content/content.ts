@@ -14,12 +14,12 @@ interface BlogPost {
 }
 
 @Component({
-  selector: 'app-content-dev3',
+  selector: 'app-content',
   imports: [CommonModule],
-  templateUrl: './content-dev3.html',
-  styleUrl: './content-dev3.css',
+  templateUrl: './content.html',
+  styleUrl: './content.css',
 })
-export class ContentDev3 {
+export class Content {
   posts = signal<BlogPost[]>([
     {
       id: 1,

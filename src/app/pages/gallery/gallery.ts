@@ -11,12 +11,12 @@ interface GalleryItem {
 }
 
 @Component({
-  selector: 'app-gallery-dev3',
+  selector: 'app-gallery',
   imports: [CommonModule],
-  templateUrl: './gallery-dev3.html',
-  styleUrl: './gallery-dev3.css',
+  templateUrl: './gallery.html',
+  styleUrl: './gallery.css',
 })
-export class GalleryDev3 {
+export class Gallery {
   items = signal<GalleryItem[]>([
     {
       id: 1,
