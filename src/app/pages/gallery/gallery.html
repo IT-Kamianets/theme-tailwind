@@ -1,141 +1,156 @@
 <div class="min-h-screen bg-gradient-to-b from-slate-50 to-slate-100 py-8">
-  <div class="max-w-7xl mx-auto px-4">
-    <!-- Header -->
-    <div class="mb-12">
-      <h1 class="text-4xl font-bold text-slate-900 mb-2">Developer 3 - Gallery</h1>
-      <p class="text-lg text-slate-600">Beautiful image gallery with media handling and SEO optimization</p>
-    </div>
+	<div class="max-w-7xl mx-auto px-4">
+		<!-- Header -->
+		<div class="mb-12">
+			<h1 class="text-4xl font-bold text-slate-900 mb-2">Developer 3 - Gallery</h1>
+			<p class="text-lg text-slate-600">
+				Beautiful image gallery with media handling and SEO optimization
+			</p>
+		</div>
 
-    <!-- Category Filter -->
-    <div class="mb-12">
-      <div class="flex flex-wrap gap-3 items-center">
-        <span class="text-sm font-semibold text-slate-700">FILTER:</span>
-        <button
-          (click)="selectedCategory.set(null)"
-          [class.ring-2]="!selectedCategory()"
-          [class.ring-blue-500]="!selectedCategory()"
-          class="px-4 py-2 rounded-full font-semibold transition text-sm"
-          [class]="!selectedCategory()
-            ? 'bg-blue-600 text-white'
-            : 'bg-white text-slate-900 border border-slate-300 hover:bg-slate-50'"
-        >
-          All
-        </button>
+		<!-- Category Filter -->
+		<div class="mb-12">
+			<div class="flex flex-wrap gap-3 items-center">
+				<span class="text-sm font-semibold text-slate-700">FILTER:</span>
+				<button
+					(click)="selectedCategory.set(null)"
+					[class.ring-2]="!selectedCategory()"
+					[class.ring-blue-500]="!selectedCategory()"
+					class="px-4 py-2 rounded-full font-semibold transition text-sm"
+					[class]="
+						!selectedCategory()
+							? 'bg-blue-600 text-white'
+							: 'bg-white text-slate-900 border border-slate-300 hover:bg-slate-50'
+					"
+				>
+					All
+				</button>
 
-        @for (category of getCategories(); track category) {
-          <button
-            (click)="selectedCategory.set(category)"
-            [class.ring-2]="selectedCategory() === category"
-            [class.ring-blue-500]="selectedCategory() === category"
-            class="px-4 py-2 rounded-full font-semibold transition text-sm"
-            [class]="selectedCategory() === category
-              ? 'bg-blue-600 text-white'
-              : 'bg-white text-slate-900 border border-slate-300 hover:bg-slate-50'"
-          >
-            {{ category }}
-          </button>
-        }
-      </div>
-    </div>
+				@for (category of getCategories(); track category) {
+					<button
+						(click)="selectedCategory.set(category)"
+						[class.ring-2]="selectedCategory() === category"
+						[class.ring-blue-500]="selectedCategory() === category"
+						class="px-4 py-2 rounded-full font-semibold transition text-sm"
+						[class]="
+							selectedCategory() === category
+								? 'bg-blue-600 text-white'
+								: 'bg-white text-slate-900 border border-slate-300 hover:bg-slate-50'
+						"
+					>
+						{{ category }}
+					</button>
+				}
+			</div>
+		</div>
 
-    <!-- Gallery Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      @for (item of getFilteredItems(); track item.id) {
-        <div
-          (click)="selectItem(item)"
-          class="group relative overflow-hidden rounded-lg shadow-md hover:shadow-2xl cursor-pointer transition-all duration-300"
-        >
-          <!-- Image Container -->
-          <div class="relative overflow-hidden bg-slate-200 aspect-square">
-            <img
-              [src]="item.imageUrl"
-              [alt]="item.title"
-              loading="lazy"
-              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-            />
-            <!-- Overlay -->
-            <div
-              class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-end"
-            >
-              <div class="p-6 w-full text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-                <h3 class="font-bold text-lg mb-1">{{ item.title }}</h3>
-                <p class="text-sm opacity-90">{{ item.description }}</p>
-              </div>
-            </div>
-          </div>
+		<!-- Gallery Grid -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+			@for (item of getFilteredItems(); track item.id) {
+				<div
+					(click)="selectItem(item)"
+					class="group relative overflow-hidden rounded-lg shadow-md hover:shadow-2xl cursor-pointer transition-all duration-300"
+				>
+					<!-- Image Container -->
+					<div class="relative overflow-hidden bg-slate-200 aspect-square">
+						<img
+							[src]="item.imageUrl"
+							[alt]="item.title"
+							loading="lazy"
+							class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+						/>
+						<!-- Overlay -->
+						<div
+							class="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors duration-300 flex items-end"
+						>
+							<div
+								class="p-6 w-full text-white transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300"
+							>
+								<h3 class="font-bold text-lg mb-1">{{ item.title }}</h3>
+								<p class="text-sm opacity-90">{{ item.description }}</p>
+							</div>
+						</div>
+					</div>
 
-          <!-- Tags -->
-          <div class="absolute top-3 right-3 flex gap-2 flex-wrap justify-end">
-            @for (tag of item.tags.slice(0, 2); track tag) {
-              <span class="bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity">
-                {{ tag }}
-              </span>
-            }
-          </div>
-        </div>
-      }
-    </div>
+					<!-- Tags -->
+					<div class="absolute top-3 right-3 flex gap-2 flex-wrap justify-end">
+						@for (tag of item.tags.slice(0, 2); track tag) {
+							<span
+								class="bg-blue-600 text-white text-xs font-semibold px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+							>
+								{{ tag }}
+							</span>
+						}
+					</div>
+				</div>
+			}
+		</div>
 
-    <!-- Results Count -->
-    <div class="text-center text-slate-600">
-      <p class="text-sm">
-        Showing
-        <span class="font-semibold">{{ getFilteredItems().length }}</span>
-        @if (selectedCategory()) {
-          {{ selectedCategory() }}
-        } @else {
-          all
-        }
-        items
-      </p>
-    </div>
-  </div>
+		<!-- Results Count -->
+		<div class="text-center text-slate-600">
+			<p class="text-sm">
+				Showing
+				<span class="font-semibold">{{ getFilteredItems().length }}</span>
+				@if (selectedCategory()) {
+					{{ selectedCategory() }}
+				} @else {
+					all
+				}
+				items
+			</p>
+		</div>
+	</div>
 
-  <!-- Modal -->
-  @if (selectedItem(); as item) {
-    <div class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50" (click)="closeModal()">
-      <div class="relative max-w-4xl w-full" (click)="$event.stopPropagation()">
-        <!-- Close Button -->
-        <button
-          (click)="closeModal()"
-          class="absolute -top-10 right-0 text-white hover:text-slate-300 transition font-bold text-2xl"
-        >
-          ✕
-        </button>
+	<!-- Modal -->
+	@if (selectedItem(); as item) {
+		<div
+			class="fixed inset-0 bg-black/80 flex items-center justify-center p-4 z-50"
+			(click)="closeModal()"
+		>
+			<div class="relative max-w-4xl w-full" (click)="$event.stopPropagation()">
+				<!-- Close Button -->
+				<button
+					(click)="closeModal()"
+					class="absolute -top-10 right-0 text-white hover:text-slate-300 transition font-bold text-2xl"
+				>
+					✕
+				</button>
 
-        <!-- Image -->
-        <div class="relative bg-black rounded-lg overflow-hidden mb-4">
-          <img [src]="item.imageUrl" [alt]="item.title" class="w-full h-auto" />
+				<!-- Image -->
+				<div class="relative bg-black rounded-lg overflow-hidden mb-4">
+					<img [src]="item.imageUrl" [alt]="item.title" class="w-full h-auto" />
 
-          <!-- Navigation Arrows -->
-          <button
-            (click)="prevItem()"
-            class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition"
-          >
-            ←
-          </button>
-          <button
-            (click)="nextItem()"
-            class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition"
-          >
-            →
-          </button>
-        </div>
+					<!-- Navigation Arrows -->
+					<button
+						(click)="prevItem()"
+						class="absolute left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition"
+					>
+						←
+					</button>
+					<button
+						(click)="nextItem()"
+						class="absolute right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 rounded-full transition"
+					>
+						→
+					</button>
+				</div>
 
-        <!-- Details -->
-        <div class="bg-white rounded-lg p-6">
-          <h2 class="text-2xl font-bold text-slate-900 mb-2">{{ item.title }}</h2>
-          <p class="text-slate-600 mb-4">{{ item.description }}</p>
+				<!-- Details -->
+				<div class="bg-white rounded-lg p-6">
+					<h2 class="text-2xl font-bold text-slate-900 mb-2">{{ item.title }}</h2>
+					<p class="text-slate-600 mb-4">{{ item.description }}</p>
 
-          <div class="flex flex-wrap gap-2">
-            @for (tag of item.tags; track tag) {
-              <span class="bg-slate-100 text-slate-800 text-xs font-semibold px-3 py-1 rounded-full">
-                {{ tag }}
-              </span>
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  }
+					<div class="flex flex-wrap gap-2">
+						@for (tag of item.tags; track tag) {
+							<span
+								class="bg-slate-100 text-slate-800 text-xs font-semibold px-3 py-1 rounded-full"
+							>
+								{{ tag }}
+							</span>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	}
 </div>

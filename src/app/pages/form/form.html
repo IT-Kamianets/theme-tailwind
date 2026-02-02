@@ -1,151 +1,154 @@
 <div class="max-w-2xl mx-auto px-4 py-8">
-  <div class="mb-8">
-    <h1 class="text-4xl font-bold text-slate-900 mb-2">Developer 2 - Form with Validation</h1>
-    <p class="text-lg text-slate-600">Schema-driven form with real-time validation</p>
-  </div>
+	<div class="mb-8">
+		<h1 class="text-4xl font-bold text-slate-900 mb-2">Developer 2 - Form with Validation</h1>
+		<p class="text-lg text-slate-600">Schema-driven form with real-time validation</p>
+	</div>
 
-  @if (submitted()) {
-    <div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
-      <h3 class="text-lg font-bold text-green-900 mb-2">✓ Form Submitted Successfully!</h3>
-      <p class="text-green-800">Thank you for your submission. Your data has been recorded.</p>
-    </div>
-  }
+	@if (submitted()) {
+		<div class="bg-green-50 border border-green-200 rounded-lg p-6 mb-6">
+			<h3 class="text-lg font-bold text-green-900 mb-2">✓ Form Submitted Successfully!</h3>
+			<p class="text-green-800">
+				Thank you for your submission. Your data has been recorded.
+			</p>
+		</div>
+	}
 
-  <div class="bg-white rounded-lg shadow-md p-8">
-    <form (submit)="submitForm()" class="space-y-6">
-      <!-- Name Field -->
-      <div>
-        <label class="block text-slate-700 font-semibold mb-2">Full Name *</label>
-        <input
-          type="text"
-          [(ngModel)]="formData().name"
-          (ngModelChange)="updateFormData('name', $event)"
-          name="name"
-          placeholder="John Doe"
-          [class.border-red-500]="errors()['name']"
-          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-        />
-        @if (errors()['name']) {
-          <p class="text-red-600 text-sm mt-1">{{ errors()['name'] }}</p>
-        }
-      </div>
+	<div class="bg-white rounded-lg shadow-md p-8">
+		<form (submit)="submitForm()" class="space-y-6">
+			<!-- Name Field -->
+			<div>
+				<label class="block text-slate-700 font-semibold mb-2">Full Name *</label>
+				<input
+					type="text"
+					[(ngModel)]="formData().name"
+					(ngModelChange)="updateFormData('name', $event)"
+					name="name"
+					placeholder="John Doe"
+					[class.border-red-500]="errors()['name']"
+					class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+				/>
+				@if (errors()['name']) {
+					<p class="text-red-600 text-sm mt-1">{{ errors()['name'] }}</p>
+				}
+			</div>
 
-      <!-- Email Field -->
-      <div>
-        <label class="block text-slate-700 font-semibold mb-2">Email Address *</label>
-        <input
-          type="email"
-          [(ngModel)]="formData().email"
-          (ngModelChange)="updateFormData('email', $event)"
-          name="email"
-          placeholder="john@example.com"
-          [class.border-red-500]="errors()['email']"
-          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-        />
-        @if (errors()['email']) {
-          <p class="text-red-600 text-sm mt-1">{{ errors()['email'] }}</p>
-        }
-      </div>
+			<!-- Email Field -->
+			<div>
+				<label class="block text-slate-700 font-semibold mb-2">Email Address *</label>
+				<input
+					type="email"
+					[(ngModel)]="formData().email"
+					(ngModelChange)="updateFormData('email', $event)"
+					name="email"
+					placeholder="john@example.com"
+					[class.border-red-500]="errors()['email']"
+					class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+				/>
+				@if (errors()['email']) {
+					<p class="text-red-600 text-sm mt-1">{{ errors()['email'] }}</p>
+				}
+			</div>
 
-      <!-- Phone Field -->
-      <div>
-        <label class="block text-slate-700 font-semibold mb-2">Phone Number *</label>
-        <input
-          type="tel"
-          [(ngModel)]="formData().phone"
-          (ngModelChange)="updateFormData('phone', $event)"
-          name="phone"
-          placeholder="+1 (555) 123-4567"
-          [class.border-red-500]="errors()['phone']"
-          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-        />
-        @if (errors()['phone']) {
-          <p class="text-red-600 text-sm mt-1">{{ errors()['phone'] }}</p>
-        }
-      </div>
+			<!-- Phone Field -->
+			<div>
+				<label class="block text-slate-700 font-semibold mb-2">Phone Number *</label>
+				<input
+					type="tel"
+					[(ngModel)]="formData().phone"
+					(ngModelChange)="updateFormData('phone', $event)"
+					name="phone"
+					placeholder="+1 (555) 123-4567"
+					[class.border-red-500]="errors()['phone']"
+					class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+				/>
+				@if (errors()['phone']) {
+					<p class="text-red-600 text-sm mt-1">{{ errors()['phone'] }}</p>
+				}
+			</div>
 
-      <!-- Country Select -->
-      <div>
-        <label class="block text-slate-700 font-semibold mb-2">Country *</label>
-        <select
-          [(ngModel)]="formData().country"
-          (ngModelChange)="updateFormData('country', $event)"
-          name="country"
-          [class.border-red-500]="errors()['country']"
-          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-        >
-          <option value="">Select a country</option>
-          <option value="US">United States</option>
-          <option value="CA">Canada</option>
-          <option value="UK">United Kingdom</option>
-          <option value="AU">Australia</option>
-          <option value="DE">Germany</option>
-        </select>
-        @if (errors()['country']) {
-          <p class="text-red-600 text-sm mt-1">{{ errors()['country'] }}</p>
-        }
-      </div>
+			<!-- Country Select -->
+			<div>
+				<label class="block text-slate-700 font-semibold mb-2">Country *</label>
+				<select
+					[(ngModel)]="formData().country"
+					(ngModelChange)="updateFormData('country', $event)"
+					name="country"
+					[class.border-red-500]="errors()['country']"
+					class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+				>
+					<option value="">Select a country</option>
+					<option value="US">United States</option>
+					<option value="CA">Canada</option>
+					<option value="UK">United Kingdom</option>
+					<option value="AU">Australia</option>
+					<option value="DE">Germany</option>
+				</select>
+				@if (errors()['country']) {
+					<p class="text-red-600 text-sm mt-1">{{ errors()['country'] }}</p>
+				}
+			</div>
 
-      <!-- Message Textarea -->
-      <div>
-        <label class="block text-slate-700 font-semibold mb-2">Message</label>
-        <textarea
-          [(ngModel)]="formData().message"
-          (ngModelChange)="updateFormData('message', $event)"
-          name="message"
-          placeholder="Your message here..."
-          rows="4"
-          class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
-        ></textarea>
-      </div>
+			<!-- Message Textarea -->
+			<div>
+				<label class="block text-slate-700 font-semibold mb-2">Message</label>
+				<textarea
+					[(ngModel)]="formData().message"
+					(ngModelChange)="updateFormData('message', $event)"
+					name="message"
+					placeholder="Your message here..."
+					rows="4"
+					class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
+				></textarea>
+			</div>
 
-      <!-- Checkboxes -->
-      <div class="space-y-3">
-        <label class="flex items-center">
-          <input
-            type="checkbox"
-            [(ngModel)]="formData().subscribe"
-            (ngModelChange)="updateFormData('subscribe', $event)"
-            name="subscribe"
-            class="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
-          />
-          <span class="ml-3 text-slate-700">Subscribe to our newsletter</span>
-        </label>
+			<!-- Checkboxes -->
+			<div class="space-y-3">
+				<label class="flex items-center">
+					<input
+						type="checkbox"
+						[(ngModel)]="formData().subscribe"
+						(ngModelChange)="updateFormData('subscribe', $event)"
+						name="subscribe"
+						class="w-4 h-4 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+					/>
+					<span class="ml-3 text-slate-700">Subscribe to our newsletter</span>
+				</label>
 
-        <label class="flex items-start">
-          <input
-            type="checkbox"
-            [(ngModel)]="formData().terms"
-            (ngModelChange)="updateFormData('terms', $event)"
-            name="terms"
-            class="w-4 h-4 mt-1 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
-          />
-          <span class="ml-3 text-slate-700">
-            I accept the <span class="font-semibold text-blue-600">Terms and Conditions</span> *
-          </span>
-        </label>
+				<label class="flex items-start">
+					<input
+						type="checkbox"
+						[(ngModel)]="formData().terms"
+						(ngModelChange)="updateFormData('terms', $event)"
+						name="terms"
+						class="w-4 h-4 mt-1 text-blue-600 rounded focus:ring-2 focus:ring-blue-500"
+					/>
+					<span class="ml-3 text-slate-700">
+						I accept the
+						<span class="font-semibold text-blue-600">Terms and Conditions</span> *
+					</span>
+				</label>
 
-        @if (errors()['terms']) {
-          <p class="text-red-600 text-sm">{{ errors()['terms'] }}</p>
-        }
-      </div>
+				@if (errors()['terms']) {
+					<p class="text-red-600 text-sm">{{ errors()['terms'] }}</p>
+				}
+			</div>
 
-      <!-- Buttons -->
-      <div class="flex gap-3 pt-6">
-        <button
-          type="submit"
-          class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition"
-        >
-          Submit Form
-        </button>
-        <button
-          type="button"
-          (click)="resetForm()"
-          class="flex-1 border border-slate-300 hover:bg-slate-50 text-slate-900 font-semibold py-3 px-4 rounded-lg transition"
-        >
-          Reset
-        </button>
-      </div>
-    </form>
-  </div>
+			<!-- Buttons -->
+			<div class="flex gap-3 pt-6">
+				<button
+					type="submit"
+					class="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition"
+				>
+					Submit Form
+				</button>
+				<button
+					type="button"
+					(click)="resetForm()"
+					class="flex-1 border border-slate-300 hover:bg-slate-50 text-slate-900 font-semibold py-3 px-4 rounded-lg transition"
+				>
+					Reset
+				</button>
+			</div>
+		</form>
+	</div>
 </div>
