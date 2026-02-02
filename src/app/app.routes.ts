@@ -1,12 +1,11 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { List } from './pages/list/list';
-import { ListDev1 } from './pages/list-dev1/list-dev1';
-import { ProfileDev1 } from './pages/profile-dev1/profile-dev1';
-import { FormDev2 } from './pages/form-dev2/form-dev2';
-import { TableDev2 } from './pages/table-dev2/table-dev2';
-import { GalleryDev3 } from './pages/gallery-dev3/gallery-dev3';
-import { ContentDev3 } from './pages/content-dev3/content-dev3';
+import { Profile } from './pages/profile/profile';
+import { Form } from './pages/form/form';
+import { Table } from './pages/table/table';
+import { Gallery } from './pages/gallery/gallery';
+import { Content } from './pages/content/content';
 
 export const routes: Routes = [
 	{
@@ -18,27 +17,23 @@ export const routes: Routes = [
 		component: List,
 	},
 	{
-		path: 'dev1/list',
-		component: ListDev1,
+		path: 'profile',
+		component: Profile,
 	},
 	{
-		path: 'dev1/profile',
-		component: ProfileDev1,
+		path: 'form',
+		component: Form,
 	},
 	{
-		path: 'dev2/form',
-		component: FormDev2,
+		path: 'table',
+		component: Table,
 	},
 	{
-		path: 'dev2/table',
-		component: TableDev2,
+		path: 'gallery',
+		component: Gallery,
 	},
 	{
-		path: 'dev3/gallery',
-		component: GalleryDev3,
-	},
-	{
-		path: 'dev3/content',
-		component: ContentDev3,
+		path: 'content',
+		component: Content,
 	},
 ];

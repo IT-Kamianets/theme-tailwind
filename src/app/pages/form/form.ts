@@ -13,12 +13,12 @@ interface FormData {
 }
 
 @Component({
-  selector: 'app-form-dev2',
+  selector: 'app-form',
   imports: [CommonModule, FormsModule],
-  templateUrl: './form-dev2.html',
-  styleUrl: './form-dev2.css',
+  templateUrl: './form.html',
+  styleUrl: './form.css',
 })
-export class FormDev2 {
+export class Form {
   formData = signal<FormData>({
     name: '',
     email: '',

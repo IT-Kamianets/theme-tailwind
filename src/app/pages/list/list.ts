@@ -11,12 +11,12 @@ interface Item {
 }
 
 @Component({
-  selector: 'app-list-dev1',
-  imports: [CommonModule, RouterLink],
-  templateUrl: './list-dev1.html',
-  styleUrl: './list-dev1.css',
+  selector: 'app-list',
+  imports: [CommonModule],
+  templateUrl: './list.html',
+  styleUrl: './list.css',
 })
-export class ListDev1 {
+export class List {
   items = signal<Item[]>([
     {
       id: 1,

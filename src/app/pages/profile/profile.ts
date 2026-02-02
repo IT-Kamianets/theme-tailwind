@@ -2,7 +2,7 @@ import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-interface Profile {
+interface UserProfile {
   id: number;
   name: string;
   email: string;
@@ -13,13 +13,13 @@ interface Profile {
 }
 
 @Component({
-  selector: 'app-profile-dev1',
+  selector: 'app-profile',
   imports: [CommonModule, FormsModule],
-  templateUrl: './profile-dev1.html',
-  styleUrl: './profile-dev1.css',
+  templateUrl: './profile.html',
+  styleUrl: './profile.css',
 })
-export class ProfileDev1 {
-  profile = signal<Profile>({
+export class Profile {
+  profile = signal<UserProfile>({
     id: 1,
     name: 'John Developer',
     email: 'john@example.com',
@@ -30,7 +30,7 @@ export class ProfileDev1 {
   });
 
   isEditing = signal(false);
-  editForm = signal<Partial<Profile>>({});
+  editForm = signal<Partial<UserProfile>>({});
 
   startEdit() {
     this.editForm.set({ ...this.profile() });
@@ -38,7 +38,7 @@ export class ProfileDev1 {
   }
 
   saveEdit() {
-    this.profile.set(this.editForm() as Profile);
+    this.profile.set(this.editForm() as UserProfile);
     this.isEditing.set(false);
   }
 
