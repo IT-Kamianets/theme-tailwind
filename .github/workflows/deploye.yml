@@ -28,7 +28,7 @@ jobs:
               run: npm run build
 
             - name: Copy CNAME file
-              run: cp CNAME dist/tpotier.com/browser/
+              run: cp CNAME dist/theme-tailwind/browser/
 
             - name: Set up SSH
               env:
