@@ -10,12 +10,9 @@ import { Showcase } from '../../components/showcase/showcase';
 import { Testimonials } from '../../components/testimonials/testimonials';
 import { TrustBar } from '../../components/trust-bar/trust-bar';
 import { UseCases } from '../../components/use-cases/use-cases';
-import { Footer } from '../../layouts/footer/footer';
-import { Header } from '../../layouts/header/header';
 
 @Component({
 	imports: [
-		Header,
 		Hero,
 		TrustBar,
 		About,
@@ -27,7 +24,6 @@ import { Header } from '../../layouts/header/header';
 		Pricing,
 		Faq,
 		FinalCta,
-		Footer,
 	],
 	templateUrl: './home.html',
 	styleUrl: './home.css',

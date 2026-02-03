@@ -1,1 +1,262 @@
-/* Developer 2 Table styles */
+/* Advanced Data Table - Custom Animations & Styles */
+
+/* ============================================
+   KEYFRAME ANIMATIONS
+   ============================================ */
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes scale-in {
+	from {
+		opacity: 0;
+		transform: scale(0.95);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes slide-in-right {
+	from {
+		opacity: 0;
+		transform: translateX(100px);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes slide-out-right {
+	from {
+		opacity: 1;
+		transform: translateX(0);
+	}
+	to {
+		opacity: 0;
+		transform: translateX(100px);
+	}
+}
+
+@keyframes row-highlight {
+	0% {
+		background-color: rgba(251, 191, 36, 0.3);
+	}
+	100% {
+		background-color: transparent;
+	}
+}
+
+/* ============================================
+   ANIMATION UTILITY CLASSES
+   ============================================ */
+
+.animate-fade-in {
+	animation: fade-in 0.4s ease-out forwards;
+}
+
+.animate-scale-in {
+	animation: scale-in 0.3s ease-out forwards;
+}
+
+.animate-slide-in-right {
+	animation: slide-in-right 0.4s ease-out forwards;
+}
+
+.animate-row-added {
+	animation: row-highlight 1s ease-out forwards;
+}
+
+/* ============================================
+   TABLE ENHANCEMENTS
+   ============================================ */
+
+/* Sticky header for scrollable tables */
+thead th {
+	position: sticky;
+	top: 0;
+	z-index: 10;
+}
+
+/* Smooth row transitions */
+tbody tr {
+	transition: all 0.2s ease;
+}
+
+/* Row hover gradient effect */
+tbody tr:hover {
+	background: linear-gradient(90deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.05), transparent) !important;
+}
+
+/* Alternating row colors with smooth transition */
+tbody tr:nth-child(even) {
+	background-color: rgba(248, 250, 252, 0.5);
+}
+
+/* ============================================
+   FORM ELEMENTS
+   ============================================ */
+
+/* Custom select dropdown */
+select {
+	background-image: none;
+}
+
+/* Input focus glow effect */
+input:focus,
+select:focus,
+textarea:focus {
+	box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
+}
+
+/* Date input styling */
+input[type="date"] {
+	color-scheme: light;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+	opacity: 0.6;
+	cursor: pointer;
+	transition: opacity 0.2s;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+	opacity: 1;
+}
+
+/* Number input - remove spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+input[type="number"] {
+	-moz-appearance: textfield;
+}
+
+/* ============================================
+   MODAL STYLES
+   ============================================ */
+
+/* Modal backdrop blur effect */
+.modal-backdrop {
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: #f1f5f9;
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: linear-gradient(180deg, #f59e0b, #ea580c);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: linear-gradient(180deg, #d97706, #dc2626);
+}
+
+/* ============================================
+   BUTTON EFFECTS
+   ============================================ */
+
+/* Action buttons ripple effect on click */
+button:active {
+	transform: scale(0.97);
+}
+
+/* ============================================
+   BADGE STYLES
+   ============================================ */
+
+/* Department badges with subtle shadow */
+.badge {
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* ============================================
+   TOOLTIP STYLES (optional future use)
+   ============================================ */
+
+[title] {
+	position: relative;
+}
+
+/* ============================================
+   RESPONSIVE TABLE
+   ============================================ */
+
+@media (max-width: 1024px) {
+	table {
+		font-size: 0.875rem;
+	}
+	
+	td, th {
+		padding: 0.75rem 0.5rem;
+	}
+}
+
+/* ============================================
+   REDUCED MOTION SUPPORT
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+	.animate-fade-in,
+	.animate-scale-in,
+	.animate-slide-in-right,
+	.animate-row-added {
+		animation: none;
+		opacity: 1;
+		transform: none;
+	}
+	
+	tbody tr {
+		transition: none;
+	}
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+	/* Hide action buttons and modals in print */
+	button,
+	.fixed {
+		display: none !important;
+	}
+	
+	/* Remove shadows and backgrounds */
+	.shadow-lg,
+	.shadow-xl,
+	.shadow-2xl {
+		box-shadow: none !important;
+	}
+	
+	/* Full width table */
+	table {
+		width: 100% !important;
+	}
+}
