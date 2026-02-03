@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+﻿import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
 	selector: 'app-final-cta',
-	imports: [],
+	changeDetection: ChangeDetectionStrategy.OnPush,
+	imports: [RouterLink],
 	templateUrl: './final-cta.html',
 	styleUrl: './final-cta.css',
 })

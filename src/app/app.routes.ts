@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { Public } from './layouts/public/public';
 import { Content } from './pages/content/content';
 import { Form } from './pages/form/form';
 import { Gallery } from './pages/gallery/gallery';
@@ -10,34 +11,40 @@ import { Table } from './pages/table/table';
 export const routes: Routes = [
 	{
 		path: '',
-		component: Home,
-	},
-	{
-		path: 'list',
-		component: List,
-	},
-	{
-		path: 'profile',
-		component: Profile,
-	},
-	{
-		path: 'form',
-		component: Form,
-	},
-	{
-		path: 'table',
-		component: Table,
-	},
-	{
-		path: 'gallery',
-		component: Gallery,
-	},
-	{
-		path: 'content',
-		component: Content,
-	},
-	{
-		path: '**',
-		redirectTo: ''
+		component: Public,
+		children: [
+			{
+				path: '',
+				component: Home,
+			},
+			{
+				path: 'list',
+				component: List,
+			},
+			{
+				path: 'profile',
+				component: Profile,
+			},
+			{
+				path: 'form',
+				component: Form,
+			},
+			{
+				path: 'table',
+				component: Table,
+			},
+			{
+				path: 'gallery',
+				component: Gallery,
+			},
+			{
+				path: 'content',
+				component: Content,
+			},
+			{
+				path: '**',
+				redirectTo: '',
+			},
+		],
 	},
 ];
