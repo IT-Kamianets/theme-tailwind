@@ -202,11 +202,11 @@ export class Form {
 						placeholder: 'Select a category',
 						icon: '📂',
 						options: [
-							{ value: 'technology', label: 'Technology', icon: '💻' },
-							{ value: 'design', label: 'Design', icon: '🎨' },
-							{ value: 'marketing', label: 'Marketing', icon: '📈' },
-							{ value: 'finance', label: 'Finance', icon: '💰' },
-							{ value: 'other', label: 'Other', icon: '📋' }
+							{ value: 'general', label: 'General', icon: '📋' },
+							{ value: 'business', label: 'Business', icon: '💼' },
+							{ value: 'personal', label: 'Personal', icon: '👤' },
+							{ value: 'education', label: 'Education', icon: '📚' },
+							{ value: 'other', label: 'Other', icon: '📌' }
 						],
 						validation: [
 							{ type: 'required', message: 'Please select a category' }
@@ -367,12 +367,12 @@ export class Form {
 	// ============================================
 
 	updateField(key: keyof FormData, value: any) {
-		this.formData.update(data => ({ ...data, [key]: value }));
-		this.touched.update(t => ({ ...t, [key]: true }));
+		this.formData.update((data: FormData) => ({ ...data, [key]: value }));
+		this.touched.update((t: Record<string, boolean>) => ({ ...t, [key]: true }));
 		
 		// Clear error on change
 		if (this.errors()[key]) {
-			this.errors.update(err => {
+			this.errors.update((err: Record<string, string>) => {
 				const newErr = { ...err };
 				delete newErr[key];
 				return newErr;
@@ -446,7 +446,7 @@ export class Form {
 		const duplicates: string[] = [];
 
 		for (const file of files) {
-			const isDuplicate = currentDocs.some(d => d.name === file.name && d.size === file.size);
+				const isDuplicate = currentDocs.some((d: File) => d.name === file.name && d.size === file.size);
 			if (isDuplicate) {
 				duplicates.push(file.name);
 			} else {
@@ -496,13 +496,13 @@ export class Form {
 
 	nextSection() {
 		if (this.activeSection() < this.formConfig.sections.length - 1) {
-			this.activeSection.update(s => s + 1);
+			this.activeSection.update((s: number) => s + 1);
 		}
 	}
 
 	prevSection() {
 		if (this.activeSection() > 0) {
-			this.activeSection.update(s => s - 1);
+			this.activeSection.update((s: number) => s - 1);
 		}
 	}
 

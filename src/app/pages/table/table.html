@@ -1,12 +1,12 @@
 <div class="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-slate-100 py-8 px-4 sm:px-6 lg:px-8">
 	<div class="max-w-7xl mx-auto">
 		
-		<!-- Header -->
+		<!-- Header - Config-driven -->
 		<div class="mb-8 animate-fade-in">
 			<h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 mb-1">
-				Employee Database
+				{{ tableConfig.title }}
 			</h1>
-			<p class="text-slate-600">Manage and view employee records</p>
+			<p class="text-slate-600">{{ tableConfig.subtitle }}</p>
 		</div>
 
 		<!-- Notification Toast -->
@@ -32,79 +32,59 @@
 			</div>
 		}
 
-		<!-- Filters Section -->
+		<!-- Filters Section - Config-driven -->
 		<div class="bg-gradient-to-r from-slate-800 to-slate-900 rounded-2xl shadow-xl p-6 mb-6 animate-fade-in">
 			<div class="grid gap-6 md:grid-cols-4">
 				
-				<!-- Search Input -->
-				<div class="md:col-span-1">
-					<label class="block text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
-						<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-						</svg>
-						Search by name
-					</label>
-					<div class="relative group">
-						<input
-							type="text"
-							[value]="searchQuery()"
-							(input)="updateSearch($any($event.target).value)"
-							placeholder="Enter name..."
-							class="w-full pl-11 pr-4 py-3 bg-slate-700/50 border-2 border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-slate-700 transition-all duration-300 hover:border-slate-500"
-						/>
-						<svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-amber-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-						</svg>
-					</div>
-				</div>
-
-				<!-- Position Filter -->
-				<div>
-					<label class="block text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
-						<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-						</svg>
-						Position
-					</label>
-					<div class="relative">
-						<select
-							[value]="filterPosition()"
-							(change)="updateFilter('position', $any($event.target).value)"
-							class="w-full pl-4 pr-10 py-3 bg-slate-700/50 border-2 border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-slate-700 transition-all duration-300 appearance-none cursor-pointer hover:border-slate-500"
-						>
-							@for (option of tableConfig.filters[1].options; track option.value) {
-								<option [value]="option.value" class="bg-slate-800">{{ option.label }}</option>
-							}
-						</select>
-						<svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-amber-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-						</svg>
-					</div>
-				</div>
-
-				<!-- Department Filter -->
-				<div>
-					<label class="block text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
-						<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-						</svg>
-						Department
-					</label>
-					<div class="relative">
-						<select
-							[value]="filterDepartment()"
-							(change)="updateFilter('department', $any($event.target).value)"
-							class="w-full pl-4 pr-10 py-3 bg-slate-700/50 border-2 border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-slate-700 transition-all duration-300 appearance-none cursor-pointer hover:border-slate-500"
-						>
-							@for (option of tableConfig.filters[2].options; track option.value) {
-								<option [value]="option.value" class="bg-slate-800">{{ option.label }}</option>
-							}
-						</select>
-						<svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-amber-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-						</svg>
-					</div>
-				</div>
+				@for (filter of tableConfig.filters; track filter.key) {
+					@if (filter.type === 'search') {
+						<!-- Search Input -->
+						<div class="md:col-span-1">
+							<label class="block text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
+								<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+								</svg>
+								{{ filter.label }}
+							</label>
+							<div class="relative group">
+								<input
+									type="text"
+									[value]="searchQuery()"
+									(input)="updateSearch($any($event.target).value)"
+									[placeholder]="filter.placeholder || 'Search...'"
+									class="w-full pl-11 pr-4 py-3 bg-slate-700/50 border-2 border-slate-600 rounded-xl text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-slate-700 transition-all duration-300 hover:border-slate-500"
+								/>
+								<svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-amber-400 transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+								</svg>
+							</div>
+						</div>
+					} @else {
+						<!-- Select Filter -->
+						<div>
+							<label class="block text-sm font-semibold text-slate-300 mb-2 flex items-center gap-2">
+								<svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path>
+								</svg>
+								{{ filter.label }}
+							</label>
+							<div class="relative">
+								<select
+									[value]="getFilterValue(filter.key)"
+									(change)="updateFilter(filter.key, $any($event.target).value)"
+									class="w-full pl-4 pr-10 py-3 bg-slate-700/50 border-2 border-slate-600 rounded-xl text-white focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 focus:bg-slate-700 transition-all duration-300 appearance-none cursor-pointer hover:border-slate-500"
+								>
+									@for (option of filter.options; track option.value) {
+										<option [value]="option.value" class="bg-slate-800">{{ option.label }}</option>
+									}
+								</select>
+								<svg class="absolute right-3 top-1/2 -translate-y-1/2 w-5 h-5 text-amber-400 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+								</svg>
+							</div>
+						</div>
+					}
+				}
 
 				<!-- Clear Filters -->
 				<div class="flex items-end">
@@ -133,45 +113,31 @@
 		<!-- Table Container -->
 		<div class="bg-white rounded-2xl shadow-lg shadow-slate-200 overflow-hidden animate-fade-in">
 			
-			<!-- Table -->
+			<!-- Table - Config-driven columns -->
 			<div class="overflow-x-auto">
 				<table class="w-full">
 					<thead>
 						<tr class="bg-gradient-to-r from-slate-800 to-slate-900 text-white">
-							<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider border-r border-slate-700/50">First Name</th>
-							<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider border-r border-slate-700/50">Last Name</th>
-							<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider border-r border-slate-700/50">Phone</th>
-							<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider border-r border-slate-700/50">Email</th>
-							<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider border-r border-slate-700/50">Position</th>
-							<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider border-r border-slate-700/50">Department</th>
-							<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider border-r border-slate-700/50">
-								<button
-									(click)="toggleSort('salary')"
-									class="inline-flex items-center gap-2 hover:text-amber-400 transition-colors duration-200 ml-auto"
-								>
-									Salary
-									<span 
-										class="w-6 h-6 rounded-md flex items-center justify-center text-xs transition-all duration-200"
-										[class]="sortColumn() === 'salary' ? 'bg-amber-500 text-white' : 'bg-slate-700 text-slate-400'"
-									>
-										{{ getSortIcon('salary') }}
-									</span>
-								</button>
-							</th>
-							<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider border-r border-slate-700/50">
-								<button
-									(click)="toggleSort('hireDate')"
-									class="inline-flex items-center gap-2 hover:text-amber-400 transition-colors duration-200 mx-auto"
-								>
-									Hire Date
-									<span 
-										class="w-6 h-6 rounded-md flex items-center justify-center text-xs transition-all duration-200"
-										[class]="sortColumn() === 'hireDate' ? 'bg-amber-500 text-white' : 'bg-slate-700 text-slate-400'"
-									>
-										{{ getSortIcon('hireDate') }}
-									</span>
-								</button>
-							</th>
+							@for (column of tableConfig.columns; track column.key) {
+								<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider border-r border-slate-700/50">
+									@if (column.sortable) {
+										<button
+											(click)="toggleSort(column.key)"
+											class="inline-flex items-center gap-2 hover:text-amber-400 transition-colors duration-200 mx-auto"
+										>
+											{{ column.label }}
+											<span 
+												class="w-6 h-6 rounded-md flex items-center justify-center text-xs transition-all duration-200"
+												[class]="sortColumn() === column.key ? 'bg-amber-500 text-white' : 'bg-slate-700 text-slate-400'"
+											>
+												{{ getSortIcon(column.key) }}
+											</span>
+										</button>
+									} @else {
+										{{ column.label }}
+									}
+								</th>
+							}
 							<th class="text-center px-4 py-4 font-semibold text-sm uppercase tracking-wider">Actions</th>
 						</tr>
 					</thead>
@@ -181,23 +147,29 @@
 								class="group transition-all duration-200 hover:bg-amber-50"
 								[class]="odd ? 'bg-slate-50/50' : 'bg-white'"
 							>
-								<td class="px-4 py-4 text-center text-slate-900 font-medium border-r border-slate-200">{{ row.firstName }}</td>
-								<td class="px-4 py-4 text-center text-slate-900 border-r border-slate-200">{{ row.lastName }}</td>
-								<td class="px-4 py-4 text-center text-slate-600 font-mono text-sm border-r border-slate-200">{{ row.phone }}</td>
-								<td class="px-4 py-4 text-center text-slate-600 text-sm border-r border-slate-200">{{ row.email }}</td>
-								<td class="px-4 py-4 text-center text-slate-700 font-medium border-r border-slate-200">{{ row.position }}</td>
-								<td class="px-4 py-4 text-center border-r border-slate-200">
-									<span 
-										class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
-										[class]="getDepartmentColor(row.department).bg + ' ' + getDepartmentColor(row.department).text"
-									>
-										{{ row.department }}
-									</span>
-								</td>
-								<td class="px-4 py-4 text-center border-r border-slate-200">
-									<span class="font-bold text-slate-900">{{ formatCurrency(row.salary) }}</span>
-								</td>
-								<td class="px-4 py-4 text-center text-slate-600 text-sm border-r border-slate-200">{{ formatDate(row.hireDate) }}</td>
+								@for (column of tableConfig.columns; track column.key) {
+									<td class="px-4 py-4 text-center border-r border-slate-200">
+										@switch (column.type) {
+											@case ('badge') {
+												<span 
+													class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium"
+													[class]="getBadgeColors(row[column.key]).bg + ' ' + getBadgeColors(row[column.key]).text"
+												>
+													{{ row[column.key] }}
+												</span>
+											}
+											@case ('currency') {
+												<span class="font-bold text-slate-900">{{ formatCurrency(row[column.key]) }}</span>
+											}
+											@case ('date') {
+												<span class="text-slate-600 text-sm">{{ formatDate(row[column.key]) }}</span>
+											}
+											@default {
+												<span class="text-slate-700">{{ row[column.key] }}</span>
+											}
+										}
+									</td>
+								}
 								<td class="px-4 py-4">
 									<div class="flex items-center justify-center gap-2">
 										<!-- Edit Button -->
@@ -225,7 +197,7 @@
 							</tr>
 						} @empty {
 							<tr>
-								<td colspan="9" class="px-4 py-12 text-center">
+								<td [attr.colspan]="tableConfig.columns.length + 1" class="px-4 py-12 text-center">
 									<div class="flex flex-col items-center gap-4">
 										<div class="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center">
 											<svg class="w-8 h-8 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -247,20 +219,20 @@
 				</table>
 			</div>
 
-			<!-- Table Footer -->
+			<!-- Table Footer - Config-driven -->
 			<div class="px-6 py-4 bg-slate-50 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
 				<p class="text-sm text-slate-600">
 					Showing <span class="font-bold text-slate-900">{{ filteredRecords() }}</span> 
 					of <span class="font-bold text-slate-900">{{ totalRecords() }}</span> records
 				</p>
 				<button
-					(click)="addNewEmployee()"
+					(click)="addNewRecord()"
 					class="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-white font-medium rounded-xl transition-all duration-200 hover:shadow-lg"
 				>
 					<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
 						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
 					</svg>
-					Add New Employee
+					{{ tableConfig.addButtonLabel }}
 				</button>
 			</div>
 		</div>
@@ -268,7 +240,7 @@
 </div>
 
 <!-- ==================== -->
-<!-- EDIT MODAL -->
+<!-- EDIT MODAL - Config-driven with Validation -->
 <!-- ==================== -->
 @if (isEditModalOpen()) {
 	<div class="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fade-in">
@@ -284,7 +256,7 @@
 			<div class="bg-gradient-to-r from-slate-800 to-slate-900 px-6 py-4">
 				<div class="flex items-center justify-between">
 					<h2 class="text-xl font-bold text-white">
-						{{ editFormData()['id'] ? 'Edit Employee' : 'Add New Employee' }}
+						{{ editFormData()['id'] ? tableConfig.editModalTitle : 'Add New Record' }}
 					</h2>
 					<button
 						(click)="closeEditModal()"
@@ -297,115 +269,96 @@
 				</div>
 			</div>
 
-			<!-- Form -->
+			<!-- Form - Config-driven fields with validation -->
 			<div class="p-6 overflow-y-auto max-h-[calc(90vh-140px)]">
 				<div class="grid gap-5 md:grid-cols-2">
-					
-					<!-- First Name -->
-					<div>
-						<label class="block text-sm font-semibold text-slate-700 mb-2">First Name</label>
-						<input
-							type="text"
-							[value]="editFormData()['firstName'] || ''"
-							(input)="updateEditField('firstName', $any($event.target).value)"
-							placeholder="Enter first name"
-							class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
-						/>
-					</div>
+					@for (column of tableConfig.columns; track column.key) {
+						@if (column.editable) {
+							<div>
+								<label class="block text-sm font-semibold text-slate-700 mb-2">
+									{{ column.label }}
+									@if (validationRules[column.key]) {
+										<span class="text-red-500">*</span>
+									}
+								</label>
+								
+								@switch (column.inputType) {
+									@case ('select') {
+										<select
+											[value]="editFormData()[column.key] || ''"
+											(change)="updateEditField(column.key, $any($event.target).value)"
+											class="w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200 bg-white appearance-none cursor-pointer"
+											[class]="hasFieldError(column.key) ? 'border-red-500' : 'border-slate-300'"
+										>
+											<option value="">Select {{ column.label.toLowerCase() }}</option>
+											@for (option of column.options; track option.value) {
+												<option [value]="option.value">{{ option.label }}</option>
+											}
+										</select>
+									}
+									@case ('number') {
+										<input
+											type="number"
+											[value]="editFormData()[column.key] || 0"
+											(input)="updateEditField(column.key, +$any($event.target).value)"
+											[placeholder]="'Enter ' + column.label.toLowerCase()"
+											class="w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
+											[class]="hasFieldError(column.key) ? 'border-red-500' : 'border-slate-300'"
+										/>
+									}
+									@case ('date') {
+										<input
+											type="date"
+											[value]="editFormData()[column.key] || ''"
+											(input)="updateEditField(column.key, $any($event.target).value)"
+											class="w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
+											[class]="hasFieldError(column.key) ? 'border-red-500' : 'border-slate-300'"
+										/>
+									}
+									@case ('email') {
+										<input
+											type="email"
+											[value]="editFormData()[column.key] || ''"
+											(input)="updateEditField(column.key, $any($event.target).value)"
+											[placeholder]="'Enter ' + column.label.toLowerCase()"
+											class="w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
+											[class]="hasFieldError(column.key) ? 'border-red-500' : 'border-slate-300'"
+										/>
+									}
+									@case ('tel') {
+										<input
+											type="tel"
+											[value]="editFormData()[column.key] || ''"
+											(input)="updateEditField(column.key, $any($event.target).value)"
+											placeholder="+1 555-0100"
+											class="w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
+											[class]="hasFieldError(column.key) ? 'border-red-500' : 'border-slate-300'"
+										/>
+									}
+									@default {
+										<input
+											type="text"
+											[value]="editFormData()[column.key] || ''"
+											(input)="updateEditField(column.key, $any($event.target).value)"
+											[placeholder]="'Enter ' + column.label.toLowerCase()"
+											class="w-full px-4 py-2.5 border rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
+											[class]="hasFieldError(column.key) ? 'border-red-500' : 'border-slate-300'"
+										/>
+									}
+								}
 
-					<!-- Last Name -->
-					<div>
-						<label class="block text-sm font-semibold text-slate-700 mb-2">Last Name</label>
-						<input
-							type="text"
-							[value]="editFormData()['lastName'] || ''"
-							(input)="updateEditField('lastName', $any($event.target).value)"
-							placeholder="Enter last name"
-							class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
-						/>
-					</div>
-
-					<!-- Phone -->
-					<div>
-						<label class="block text-sm font-semibold text-slate-700 mb-2">Phone</label>
-						<input
-							type="tel"
-							[value]="editFormData()['phone'] || ''"
-							(input)="updateEditField('phone', $any($event.target).value)"
-							placeholder="+380 XX-XXX-XX-XX"
-							class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
-						/>
-					</div>
-
-					<!-- Email -->
-					<div>
-						<label class="block text-sm font-semibold text-slate-700 mb-2">Email</label>
-						<input
-							type="email"
-							[value]="editFormData()['email'] || ''"
-							(input)="updateEditField('email', $any($event.target).value)"
-							placeholder="email@example.com"
-							class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
-						/>
-					</div>
-
-					<!-- Position -->
-					<div>
-						<label class="block text-sm font-semibold text-slate-700 mb-2">Position</label>
-						<select
-							[value]="editFormData()['position'] || ''"
-							(change)="updateEditField('position', $any($event.target).value)"
-							class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200 bg-white appearance-none cursor-pointer"
-						>
-							<option value="">Select position</option>
-							<option value="Technician">Technician</option>
-							<option value="Packer">Packer</option>
-							<option value="Warehouse">Warehouse</option>
-							<option value="Driver">Driver</option>
-							<option value="Cleaner">Cleaner</option>
-							<option value="Manager">Manager</option>
-						</select>
-					</div>
-
-					<!-- Department -->
-					<div>
-						<label class="block text-sm font-semibold text-slate-700 mb-2">Department</label>
-						<select
-							[value]="editFormData()['department'] || ''"
-							(change)="updateEditField('department', $any($event.target).value)"
-							class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200 bg-white appearance-none cursor-pointer"
-						>
-							<option value="">Select department</option>
-							<option value="Production">Production</option>
-							<option value="Warehouse">Warehouse</option>
-							<option value="Logistics">Logistics</option>
-							<option value="Office">Office</option>
-							<option value="Production/Warehouse">Production/Warehouse</option>
-						</select>
-					</div>
-
-					<!-- Salary -->
-					<div>
-						<label class="block text-sm font-semibold text-slate-700 mb-2">Salary (₴)</label>
-						<input
-							type="number"
-							[value]="editFormData()['salary'] || 0"
-							(input)="updateEditField('salary', +$any($event.target).value)"
-							placeholder="Enter salary"
-							class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
-						/>
-					</div>
-
-					<!-- Hire Date -->
-					<div>
-						<label class="block text-sm font-semibold text-slate-700 mb-2">Hire Date</label>
-						<input
-							type="date"
-							[value]="editFormData()['hireDate'] || ''"
-							(input)="updateEditField('hireDate', $any($event.target).value)"
-							class="w-full px-4 py-2.5 border border-slate-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all duration-200"
-						/>
-					</div>
+								<!-- Validation Error -->
+								@if (hasFieldError(column.key)) {
+									<p class="mt-1 text-sm text-red-500 flex items-center gap-1">
+										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+										</svg>
+										{{ getFieldError(column.key) }}
+									</p>
+								}
+							</div>
+						}
+					}
 				</div>
 			</div>
 
@@ -418,7 +371,7 @@
 					Cancel
 				</button>
 				<button
-					(click)="saveEmployee()"
+					(click)="saveRecord()"
 					class="px-5 py-2.5 bg-gradient-to-r from-slate-700 to-slate-800 hover:from-slate-800 hover:to-slate-900 text-white font-semibold rounded-xl shadow-lg shadow-slate-300 transition-all duration-200 hover:shadow-xl"
 				>
 					Save Changes
@@ -450,11 +403,11 @@
 				</div>
 
 				<!-- Text -->
-				<h3 class="text-xl font-bold text-slate-900 mb-2">Delete Employee?</h3>
+				<h3 class="text-xl font-bold text-slate-900 mb-2">{{ tableConfig.deleteModalTitle }}?</h3>
 				<p class="text-slate-600 mb-6">
 					Are you sure you want to delete 
 					<span class="font-semibold text-slate-900">
-						{{ deletingEmployee()?.firstName }} {{ deletingEmployee()?.lastName }}
+						{{ deletingRecord()?.['firstName'] }} {{ deletingRecord()?.['lastName'] }}
 					</span>?
 					This action cannot be undone.
 				</p>
