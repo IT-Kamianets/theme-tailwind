@@ -1,1 +1,85 @@
-<p>footer works!</p>
+<footer class="footer">
+	<div class="mx-auto max-w-6xl px-4 py-10">
+		<div class="footer__top flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+			<div class="flex flex-col gap-3">
+				<div class="footer__brand text-sm font-semibold">theme-tailwind</div>
+
+				<div class="footer__links flex flex-wrap gap-2">
+					<a routerLink="/" class="footer__link text-sm transition">Home</a>
+					<a routerLink="/list" class="footer__link text-sm transition">List</a>
+					<a routerLink="/profile" class="footer__link text-sm transition">Profile</a>
+					<a routerLink="/form" class="footer__link text-sm transition">Form</a>
+					<a routerLink="/table" class="footer__link text-sm transition">Table</a>
+					<a routerLink="/gallery" class="footer__link text-sm transition">Gallery</a>
+					<a routerLink="/content" class="footer__link text-sm transition">Blog</a>
+				</div>
+			</div>
+
+			<div class="footer__controls grid gap-4 sm:grid-cols-3">
+				<div class="footer__group">
+					<div class="footer__label mb-2 text-xs font-semibold uppercase tracking-wide">
+						mode
+					</div>
+					<div class="footer__seg">
+						@for (m of modes; track m) {
+							<button
+								type="button"
+								class="footer__seg-btn text-xs transition"
+								[class.footer__seg-btn--active]="theme.mode() === m"
+								(click)="setMode(m)"
+							>
+								{{ m }}
+							</button>
+						}
+					</div>
+				</div>
+
+				<div class="footer__group">
+					<div class="footer__label mb-2 text-xs font-semibold uppercase tracking-wide">
+						density
+					</div>
+					<div class="footer__seg">
+						@for (d of densities; track d) {
+							<button
+								type="button"
+								class="footer__seg-btn text-xs transition"
+								[class.footer__seg-btn--active]="theme.density() === d"
+								(click)="setDensity(d)"
+							>
+								{{ d }}
+							</button>
+						}
+					</div>
+				</div>
+
+				<div class="footer__group">
+					<div class="footer__label mb-2 text-xs font-semibold uppercase tracking-wide">
+						radius
+					</div>
+					<div class="footer__seg">
+						@for (r of radii; track r) {
+							<button
+								type="button"
+								class="footer__seg-btn text-xs transition"
+								[class.footer__seg-btn--active]="theme.radius() === r"
+								(click)="setRadius(r)"
+							>
+								{{ r }}
+							</button>
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div
+			class="footer__bottom mt-6 flex flex-col gap-2 border-t pt-6 text-xs sm:flex-row sm:items-center sm:justify-between"
+		>
+			<p class="footer__muted">© {{ year }} theme-tailwind. All rights reserved.</p>
+			<p class="footer__muted">
+				mode: {{ theme.mode() }} · density: {{ theme.density() }} · radius:
+				{{ theme.radius() }}
+			</p>
+		</div>
+	</div>
+</footer>

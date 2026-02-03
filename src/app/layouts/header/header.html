@@ -1,56 +1,61 @@
-<header class="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur">
+<header class="header">
 	<nav class="mx-auto flex max-w-6xl items-center px-4 py-3">
-		<div class="text-sm font-semibold text-slate-900">theme-tailwind</div>
+		<div class="header__brand text-sm font-semibold">theme-tailwind</div>
 
-		<div class="ml-auto flex gap-1 flex-wrap justify-end">
+		<div class="header__nav ml-auto flex flex-wrap justify-end gap-1">
 			<a
 				routerLink="/"
-				routerLinkActive="bg-slate-900 text-white"
 				[routerLinkActiveOptions]="{ exact: true }"
-				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+				routerLinkActive="header__link--active"
+				class="header__link rounded-md px-3 py-2 text-sm font-medium transition"
 			>
 				Home
 			</a>
 
 			<a
 				routerLink="/list"
-				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+				routerLinkActive="header__link--active"
+				class="header__link rounded-md px-3 py-2 text-sm font-medium transition"
 			>
 				List
 			</a>
 
 			<a
 				routerLink="/profile"
-				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+				routerLinkActive="header__link--active"
+				class="header__link rounded-md px-3 py-2 text-sm font-medium transition"
 			>
 				Profile
 			</a>
 
 			<a
 				routerLink="/form"
-				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+				routerLinkActive="header__link--active"
+				class="header__link rounded-md px-3 py-2 text-sm font-medium transition"
 			>
 				Form
 			</a>
 
 			<a
 				routerLink="/table"
-				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+				routerLinkActive="header__link--active"
+				class="header__link rounded-md px-3 py-2 text-sm font-medium transition"
 			>
 				Table
 			</a>
 
 			<a
 				routerLink="/gallery"
-				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+				routerLinkActive="header__link--active"
+				class="header__link rounded-md px-3 py-2 text-sm font-medium transition"
 			>
 				Gallery
 			</a>
 
 			<a
 				routerLink="/content"
-				routerLinkActive="bg-slate-900 text-white"
-				class="rounded-md px-3 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 hover:text-slate-900 transition"
+				routerLinkActive="header__link--active"
+				class="header__link rounded-md px-3 py-2 text-sm font-medium transition"
 			>
 				Blog
 			</a>

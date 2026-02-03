@@ -1,5 +1,6 @@
-import { Component, signal, OnInit } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { ThemeService } from 'wacom';
 import { Header } from './layouts/header/header';
 
 @Component({
@@ -8,13 +9,10 @@ import { Header } from './layouts/header/header';
 	templateUrl: './app.html',
 	styleUrl: './app.css',
 })
-export class App implements OnInit {
-	protected readonly title = signal('theme-tailwind');
+export class App {
+	private _themeService = inject(ThemeService);
 
-	constructor(private router: Router) {}
-
-	ngOnInit() {
-		// Always redirect to home on app load
-		this.router.navigate(['/']);
+	constructor() {
+		this._themeService.init();
 	}
 }

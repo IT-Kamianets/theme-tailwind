@@ -1,0 +1,33 @@
+.header {
+	position: sticky;
+	top: 0;
+	z-index: 50;
+
+	border-bottom: 1px solid var(--c-border);
+	background: color-mix(in srgb, var(--c-bg-secondary) 80%, transparent);
+	backdrop-filter: blur(10px);
+}
+
+.header__brand {
+	color: var(--c-text-secondary);
+}
+
+.header__link {
+	color: var(--c-text-primary);
+	border-radius: var(--radius-btn);
+}
+
+.header__link:hover {
+	background: var(--c-bg-tertiary);
+	color: var(--c-text-secondary);
+}
+
+.header__link:focus-visible {
+	outline: none;
+	box-shadow: var(--focus-ring);
+}
+
+.header__link--active {
+	background: var(--c-text-secondary);
+	color: var(--c-bg-secondary);
+}
