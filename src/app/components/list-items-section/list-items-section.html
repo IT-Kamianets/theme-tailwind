@@ -1,1 +1,64 @@
-<p>list-items-section works!</p>
+<section class="list-items-section">
+	<!-- Header -->
+	<div class="section-header">
+		<h2 class="section-title">{{ title }}</h2>
+	</div>
+
+	<!-- Search Bar (only show when maxItems is 0 - full list view) -->
+	@if (showSearch && maxItems === 0) {
+		<div class="search-container">
+			<div class="search-input-wrapper">
+				<input
+					type="text"
+					placeholder="🔍 Пошук за назвою, описом або категорією..."
+					class="search-input"
+					[value]="searchQuery()"
+					(input)="searchQuery.set($event.target.value || '')"
+				/>
+				@if (searchQuery()) {
+					<button class="clear-btn" (click)="clearSearch()" title="Очистити пошук">
+						✕
+					</button>
+				}
+			</div>
+			<div class="search-stats">
+				{{ displayItems.length }} з {{ items.length }} результатів
+			</div>
+		</div>
+	}
+
+	<!-- Items Grid -->
+	<div [class]="'items-grid grid-cols-' + itemsPerRow">
+		@if (displayItems.length > 0) {
+			@for (item of displayItems; track item.id) {
+				<app-list-item
+					[item]="item"
+					[isSelected]="isItemSelected(item.id)"
+					(itemSelected)="onItemSelect($event)"
+				/>
+			}
+		} @else {
+			<div class="empty-state col-span-full">
+				<div class="empty-state-content">
+					<p class="text-2xl mb-[var(--sp-2)]">🔍</p>
+					<p style="color: var(--c-text-primary);">
+						Не знайдено результатів для "{{ searchQuery() }}"
+					</p>
+					<button class="empty-state-btn" (click)="clearSearch()">
+						Очистити пошук
+					</button>
+				</div>
+			</div>
+		}
+	</div>
+
+	<!-- View All Button (only show when maxItems is set and there are more items) -->
+	@if (showViewAllButton && maxItems > 0 && filteredItems.length > maxItems) {
+		<div class="view-all-container">
+			<button class="view-all-btn" (click)="onViewAllClick()">
+				Переглянути всі товари →
+			</button>
+		</div>
+	}
+</section>
+

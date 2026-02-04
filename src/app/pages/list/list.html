@@ -9,7 +9,10 @@
 		</div>
 
 		<!-- Filter Section -->
-		<div class="mb-[var(--sp-6)] animate-slide-in">
+		<div class="mb-[var(--sp-8)] animate-slide-in">
+			<p class="text-sm font-semibold mb-[var(--sp-3)]" style="color: var(--c-text-muted);">
+				FILTER BY CATEGORY
+			</p>
 			<div class="flex flex-wrap gap-[var(--sp-2)]">
 				@for (cat of categories(); track cat) {
 					<button
@@ -30,234 +33,14 @@
 			</div>
 		</div>
 
-		<!-- Main Content Grid -->
-		<div class="grid grid-cols-1 gap-[var(--sp-8)]">
-			<!-- List Section - Full Width -->
-			<div>
-				<div class="space-y-[var(--sp-4)]">
-					<h2 class="text-2xl font-bold mb-[var(--sp-6)] animate-bounce-in" style="color: var(--c-text-secondary);">
-						{{ filteredCategory() === 'All' ? 'All Items' : filteredCategory() }}
-					</h2>
-
-					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--sp-4)]">
-						@for (item of getFilteredItems(); track item.id) {
-							<app-list-item
-								[item]="item"
-								[isSelected]="selectedItem()?.id === item.id"
-								(itemSelected)="selectItem($event)"
-							/>
-						}
-
-						@if (getFilteredItems().length === 0) {
-							<div class="text-center py-[var(--sp-8)] animate-fade-in">
-								<p class="text-lg" style="color: var(--c-text-muted);">
-									No items found in this category
-								</p>
-							</div>
-						}
-					</div>
-				</div>
-			</div>
-
-			<!-- Detail Modal Overlay -->
-			@if (selectedItem()) {
-				<!-- Backdrop -->
-				<div 
-					class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 animate-fade-in"
-					(click)="clearSelection()"
-					style="pointer-events: auto;"
-				></div>
-
-				<!-- Modal Container -->
-				<div class="fixed inset-0 z-50 flex items-center justify-center p-[var(--sp-4)]" style="pointer-events: none;">
-					<div
-						class="bg-white rounded-[var(--radius-card)] p-[var(--sp-8)] max-w-2xl w-full shadow-2xl animate-scale-in max-h-[90vh] overflow-y-auto"
-						style="background-color: var(--c-bg-secondary); border: 1px solid var(--c-border); box-shadow: var(--shadow-md); pointer-events: auto;"
-						(click)="$event.stopPropagation()"
-					>
-						<!-- Close Button -->
-						<button
-							(click)="clearSelection()"
-							class="absolute top-[var(--sp-4)] right-[var(--sp-4)] text-2xl font-bold transition-all duration-[var(--motion)] hover:scale-125"
-							style="color: var(--c-text-muted); cursor: pointer;"
-						>
-							✕
-						</button>
-
-						@if (selectedItem(); as item) {
-							<div class="space-y-[var(--sp-6)]">
-								<!-- Header -->
-								<div>
-									<p class="text-xs font-semibold mb-[var(--sp-2)] uppercase tracking-wider" style="color: var(--c-text-muted);">
-										Selected Item
-									</p>
-									<h2 class="text-3xl font-bold" style="color: var(--c-text-secondary);">
-										{{ item.name }}
-									</h2>
-								</div>
-
-								<!-- Image -->
-								@if (item.image) {
-									<div class="relative h-64 overflow-hidden rounded-[var(--radius-card)] bg-gradient-to-br from-slate-200 to-slate-300">
-										<img 
-											[src]="item.image" 
-											[alt]="item.name"
-											class="w-full h-full object-cover"
-										/>
-									</div>
-								}
-
-								<!-- Details -->
-								<div class="space-y-[var(--sp-4)] border-t" style="border-color: var(--c-border); padding-top: var(--sp-4);">
-									<div>
-										<p class="text-sm font-medium mb-[var(--sp-1)]" style="color: var(--c-text-muted);">
-											Category
-										</p>
-										<p class="font-semibold text-lg" style="color: var(--c-text-secondary);">
-											{{ item.category }}
-										</p>
-									</div>
-
-									<div>
-										<p class="text-sm font-medium mb-[var(--sp-1)]" style="color: var(--c-text-muted);">
-											Description
-										</p>
-										<p class="font-semibold text-base" style="color: var(--c-text-primary);">
-											{{ item.description }}
-										</p>
-									</div>
-
-									<div class="grid grid-cols-2 gap-[var(--sp-4)]">
-										<div>
-											<p class="text-sm font-medium mb-[var(--sp-1)]" style="color: var(--c-text-muted);">
-												Item ID
-											</p>
-											<p class="font-semibold font-mono" style="color: var(--c-text-secondary);">
-												#{{ formatId(item.id) }}
-											</p>
-										</div>
-
-										<div>
-											<p class="text-sm font-medium mb-[var(--sp-1)]" style="color: var(--c-text-muted);">
-												Date Added
-											</p>
-											<p class="font-semibold" style="color: var(--c-text-secondary);">
-												{{ item.date }}
-											</p>
-										</div>
-									</div>
-								</div>
-
-								<!-- Actions -->
-								<div class="flex gap-[var(--sp-2)] pt-[var(--sp-4)]">
-									<button
-										class="flex-1 text-white font-semibold py-[var(--sp-3)] px-[var(--sp-4)] rounded-[var(--radius-btn)] transition-all duration-[var(--motion)] hover:shadow-md transform hover:-translate-y-1"
-										style="background-color: var(--c-primary); cursor: pointer;"
-										onmouseover="this.style.backgroundColor = 'var(--c-primary-hover)'; this.style.transform = 'translateY(-4px)'"
-										onmouseout="this.style.backgroundColor = 'var(--c-primary)'; this.style.transform = 'translateY(0)'"
-									>
-										View Details
-									</button>
-									<button
-										(click)="clearSelection()"
-										class="flex-1 font-semibold py-[var(--sp-3)] px-[var(--sp-4)] rounded-[var(--radius-btn)] transition-all duration-[var(--motion)] border hover:shadow-md transform hover:-translate-y-1"
-										style="border-color: var(--c-border); color: var(--c-text-primary); background-color: var(--c-bg-primary); cursor: pointer;"
-									>
-										Close
-									</button>
-								</div>
-							</div>
-						}
-					</div>
-				</div>
-			}
-
-			<!-- Detail Section - Hidden -->
-			<div class="lg:col-span-1 mt-14 hidden">
-				<div
-					style="background-color: var(--c-bg-secondary); border: 1px solid var(--c-border);"
-					class="detail-panel rounded-[var(--radius-card)] p-[var(--sp-6)] sticky top-[var(--sp-6)] z-40"
-					[style.boxShadow]="'var(--shadow-md)'"
-				>
-					@if (selectedItem(); as item) {
-						<div class="space-y-[var(--sp-6)] animate-slide-up">
-							<div>
-								<p class="text-xs font-semibold mb-[var(--sp-2)] uppercase tracking-wider" style="color: var(--c-text-muted);">
-									Selected Item
-								</p>
-								<h2 class="text-2xl font-bold" style="color: var(--c-text-secondary);">
-									{{ item.name }}
-								</h2>
-							</div>
-
-							<div class="space-y-[var(--sp-4)] border-t" style="border-color: var(--c-border); padding-top: var(--sp-4);">
-								<div>
-									<p class="text-sm font-medium mb-[var(--sp-1)]" style="color: var(--c-text-muted);">
-										Category
-									</p>
-									<p class="font-semibold" style="color: var(--c-text-secondary);">
-										{{ item.category }}
-									</p>
-								</div>
-
-								<div>
-									<p class="text-sm font-medium mb-[var(--sp-1)]" style="color: var(--c-text-muted);">
-										Description
-									</p>
-									<p class="font-semibold text-sm" style="color: var(--c-text-primary);">
-										{{ item.description }}
-									</p>
-								</div>
-
-								<div>
-									<p class="text-sm font-medium mb-[var(--sp-1)]" style="color: var(--c-text-muted);">
-										Item ID
-									</p>
-									<p class="font-semibold font-mono" style="color: var(--c-text-secondary);">
-										#{{ formatId(item.id) }}
-									</p>
-								</div>
-
-								<div>
-									<p class="text-sm font-medium mb-[var(--sp-1)]" style="color: var(--c-text-muted);">
-										Date Added
-									</p>
-									<p class="font-semibold" style="color: var(--c-text-secondary);">
-										{{ item.date }}
-									</p>
-								</div>
-							</div>
-
-							<div class="flex gap-[var(--sp-2)] pt-[var(--sp-4)] animate-slide-up">
-								<button
-									class="flex-1 text-white font-semibold py-[var(--sp-3)] px-[var(--sp-4)] rounded-[var(--radius-btn)] transition-all duration-[var(--motion)] hover:shadow-md transform hover:-translate-y-1"
-									style="background-color: var(--c-primary); cursor: pointer;"
-									onmouseover="this.style.backgroundColor = 'var(--c-primary-hover)'; this.style.transform = 'translateY(-4px)'"
-									onmouseout="this.style.backgroundColor = 'var(--c-primary)'; this.style.transform = 'translateY(0)'"
-								>
-									View Details
-								</button>
-								<button
-									(click)="clearSelection()"
-									class="flex-1 font-semibold py-[var(--sp-3)] px-[var(--sp-4)] rounded-[var(--radius-btn)] transition-all duration-[var(--motion)] border hover:shadow-md transform hover:-translate-y-1"
-									style="border-color: var(--c-border); color: var(--c-text-primary); background-color: var(--c-bg-primary); cursor: pointer;"
-								>
-									Clear
-								</button>
-							</div>
-						</div>
-					} @else {
-						<div class="flex flex-col items-center justify-center py-[var(--sp-8)] text-center animate-fade-in">
-							<p class="text-lg font-medium mb-[var(--sp-2)]" style="color: var(--c-text-primary);">
-								No item selected
-							</p>
-							<p class="text-sm" style="color: var(--c-text-muted);">
-								Click on an item to view details
-							</p>
-						</div>
-					}
-				</div>
-			</div>
-		</div>
+		<!-- List Items Section Component -->
+		<app-list-items-section
+			[items]="getFilteredItems()"
+			[title]="filteredCategory() === 'All' ? 'All Available Items' : filteredCategory()"
+			[showSearch]="true"
+			[itemsPerRow]="3"
+			[maxItems]="0"
+			[showViewAllButton]="false"
+		/>
 	</div>
 </div>

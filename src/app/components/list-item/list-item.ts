@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 export interface ListItemData {
@@ -19,7 +19,7 @@ export interface ListItemData {
 })
 export class ListItem {
 	@Input() item!: ListItemData;
-	@Input() isSelected = false;
+	@Input() isSelected: boolean = false;
 	@Output() itemSelected = new EventEmitter<ListItemData>();
 
 	onSelect(): void {

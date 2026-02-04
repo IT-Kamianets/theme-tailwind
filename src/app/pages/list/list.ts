@@ -1,26 +1,15 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal, effect, PLATFORM_ID, inject } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
-import { ListItem, ListItemData } from './list-item/list-item';
-
-interface Item {
-	id: number;
-	name: string;
-	description: string;
-	category: string;
-	date: string;
-	icon?: string;
-	image?: string;
-}
+import { Component, signal } from '@angular/core';
+import { ListItemsSection, ListItemData } from '../../components/list-items-section/list-items-section';
 
 @Component({
 	selector: 'app-list',
-	imports: [CommonModule, ListItem],
+	imports: [CommonModule, ListItemsSection],
 	templateUrl: './list.html',
 	styleUrl: './list.css',
 })
 export class List {
-	items = signal<Item[]>([
+	items = signal<ListItemData[]>([
 		{
 			id: 1,
 			name: 'Product Alpha',
@@ -77,26 +66,11 @@ export class List {
 		},
 	]);
 
-	selectedItem = signal<Item | null>(null);
+	selectedItem = signal<ListItemData | null>(null);
 	filteredCategory = signal<string>('All');
 	categories = signal<string[]>(['All', 'Electronics', 'Accessories', 'Tools']);
 
-	private platformId = inject(PLATFORM_ID);
-
-	constructor() {
-		// Контролює прокрутку сторінки залежно від відкритого модалу
-		effect(() => {
-			if (isPlatformBrowser(this.platformId)) {
-				if (this.selectedItem()) {
-					document.documentElement.style.overflow = 'hidden';
-				} else {
-					document.documentElement.style.overflow = '';
-				}
-			}
-		});
-	}
-
-	selectItem(item: Item): void {
+	selectItem(item: ListItemData): void {
 		this.selectedItem.set(item);
 	}
 
@@ -109,14 +83,10 @@ export class List {
 		this.clearSelection();
 	}
 
-	getFilteredItems(): Item[] {
+	getFilteredItems(): ListItemData[] {
 		const cat = this.filteredCategory();
 		const allItems = this.items();
 		const filtered = cat === 'All' ? allItems : allItems.filter(item => item.category === cat);
 		return filtered.sort((a, b) => a.id - b.id);
-	}
-
-	formatId(id: number): string {
-		return String(id).padStart(4, '0');
 	}
 }
