@@ -1,58 +1,27 @@
-import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-interface UserProfile {
-	id: number;
-	name: string;
-	email: string;
-	role: string;
-	bio: string;
-	status: 'active' | 'inactive' | 'pending';
-	joinDate: string;
-}
+import { CommonModule } from '@angular/common';
+import { ListItemData } from '../../components/list-items-section/list-items-section';
 
 @Component({
 	selector: 'app-profile',
-	imports: [CommonModule, FormsModule],
+	standalone: true,
+	imports: [CommonModule],
 	templateUrl: './profile.html',
 	styleUrl: './profile.css',
 })
 export class Profile {
-	profile = signal<UserProfile>({
+	product = signal<ListItemData>({
 		id: 1,
-		name: 'John Developer',
-		email: 'john@example.com',
-		role: 'Senior Developer',
-		bio: 'Passionate about building scalable applications and leading development teams.',
-		status: 'active',
-		joinDate: '2024-01-15',
+		name: 'Product Alpha',
+		description: 'This is a high-quality product designed to meet all your professional needs. It features premium materials, an ergonomic design, and industry-leading performance specifications.',
+		category: 'Electronics',
+		date: '2026-02-01',
+		icon: '⚡',
+		image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=600&fit=crop',
 	});
 
-	isEditing = signal(false);
-	editForm = signal<Partial<UserProfile>>({});
-
-	startEdit() {
-		this.editForm.set({ ...this.profile() });
-		this.isEditing.set(true);
-	}
-
-	saveEdit() {
-		this.profile.set(this.editForm() as UserProfile);
-		this.isEditing.set(false);
-	}
-
-	cancelEdit() {
-		this.isEditing.set(false);
-		this.editForm.set({});
-	}
-
-	getStatusColor(status: string): string {
-		const colors: Record<string, string> = {
-			active: 'bg-green-100 text-green-800',
-			inactive: 'bg-slate-100 text-slate-800',
-			pending: 'bg-yellow-100 text-yellow-800',
-		};
-		return colors[status] || 'bg-slate-100 text-slate-800';
+	addToCart(): void {
+		console.log('Added to cart:', this.product().name);
+		alert('Product added to cart!');
 	}
 }

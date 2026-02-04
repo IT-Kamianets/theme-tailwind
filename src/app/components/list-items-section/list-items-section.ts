@@ -1,12 +1,21 @@
-import { Component, Input, Output, EventEmitter, signal } from '@angular/core';
+import { Component, Input, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router'; // 1. Імпорт Router
 import { ListItem } from '../list-item/list-item';
-import type { ListItemData } from '../list-item/list-item';
 
-export type { ListItemData };
+export interface ListItemData {
+	id: number;
+	name: string;
+	description: string;
+	category: string;
+	date: string;
+	icon: string;
+	image: string;
+}
 
 @Component({
 	selector: 'app-list-items-section',
+	standalone: true,
 	imports: [CommonModule, ListItem],
 	templateUrl: './list-items-section.html',
 	styleUrl: './list-items-section.css',
@@ -16,64 +25,39 @@ export class ListItemsSection {
 	@Input() title: string = 'Items';
 	@Input() showSearch: boolean = true;
 	@Input() itemsPerRow: number = 3;
-	@Input() maxItems: number = 0; // 0 means show all
-	@Input() showViewAllButton: boolean = true;
-	@Output() viewAllClick = new EventEmitter<void>();
+	@Input() maxItems: number = 0;
+	@Input() showViewAllButton: boolean = false;
 
-	selectedItems = signal<Set<number>>(new Set());
-	searchQuery = signal<string>('');
+	// 2. Інжектимо Router для навігації
+	private router = inject(Router);
 
-	get displayItems(): ListItemData[] {
-		const filtered = this.filteredItems;
-		if (this.maxItems > 0) {
-			return filtered.slice(0, this.maxItems);
-		}
-		return filtered;
-	}
+	searchQuery = signal('');
 
-	get filteredItems(): ListItemData[] {
+	// Обчислюємо відфільтровані елементи (пошук)
+	filteredItems = computed(() => {
 		const query = this.searchQuery().toLowerCase();
-		return this.items.filter(
-			(item) =>
-				item.name.toLowerCase().includes(query) ||
-				item.description.toLowerCase().includes(query) ||
-				item.category.toLowerCase().includes(query)
+		if (!query) return this.items;
+		return this.items.filter(item => 
+			item.name.toLowerCase().includes(query) || 
+			item.description.toLowerCase().includes(query)
 		);
-	}
+	});
 
-	onItemSelect(item: ListItemData): void {
-		const selected = new Set(this.selectedItems());
-		if (selected.has(item.id)) {
-			selected.delete(item.id);
-		} else {
-			selected.add(item.id);
+	// Обчислюємо елементи для відображення (ліміт maxItems)
+	displayItems = computed(() => {
+		const items = this.filteredItems();
+		if (this.maxItems > 0) {
+			return items.slice(0, this.maxItems);
 		}
-		this.selectedItems.set(selected);
-	}
+		return items;
+	});
 
-	isItemSelected(itemId: number): boolean {
-		return this.selectedItems().has(itemId);
-	}
-
-	getCategoryColor(category: string): string {
-		const colorMap: Record<string, string> = {
-			Electronics: 'bg-blue-100 text-blue-800',
-			Accessories: 'bg-green-100 text-green-800',
-			Tools: 'bg-amber-100 text-amber-800',
-		};
-		return colorMap[category] || 'bg-gray-100 text-gray-800';
-	}
-
-	formatId(id: number): string {
-		return String(id).padStart(4, '0');
-	}
-
-	clearSearch(): void {
+	clearSearch() {
 		this.searchQuery.set('');
 	}
 
-	onViewAllClick(): void {
-		this.viewAllClick.emit();
+	// 3. Метод, що викликається при кліку на кнопку "View All"
+	onViewAllClick() {
+		this.router.navigate(['/list']);
 	}
 }
-

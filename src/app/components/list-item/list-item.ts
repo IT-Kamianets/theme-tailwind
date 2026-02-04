@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 
 export interface ListItemData {
 	id: number;
@@ -7,23 +8,24 @@ export interface ListItemData {
 	description: string;
 	category: string;
 	date: string;
-	icon?: string;
-	image?: string;
+	icon: string;
+	image: string;
 }
 
 @Component({
 	selector: 'app-list-item',
+	standalone: true,
 	imports: [CommonModule],
 	templateUrl: './list-item.html',
 	styleUrl: './list-item.css',
 })
 export class ListItem {
 	@Input() item!: ListItemData;
-	@Input() isSelected: boolean = false;
-	@Output() itemSelected = new EventEmitter<ListItemData>();
+	
+	private router = inject(Router);
 
-	onSelect(): void {
-		this.itemSelected.emit(this.item);
+	navigateToDetails(): void {
+		this.router.navigate(['/profile']);
 	}
 
 	getCategoryColor(category: string): string {
@@ -33,9 +35,5 @@ export class ListItem {
 			Tools: 'bg-amber-100 text-amber-800',
 		};
 		return colorMap[category] || 'bg-gray-100 text-gray-800';
-	}
-
-	formatId(id: number): string {
-		return String(id).padStart(4, '0');
 	}
 }
