@@ -8,6 +8,7 @@ interface Item {
 	category: string;
 	date: string;
 	icon?: string;
+	image?: string;
 }
 
 @Component({
@@ -25,6 +26,7 @@ export class List {
 			category: 'Electronics',
 			date: '2026-02-01',
 			icon: '⚡',
+			image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop',
 		},
 		{
 			id: 2,
@@ -33,6 +35,7 @@ export class List {
 			category: 'Accessories',
 			date: '2026-01-28',
 			icon: '🎁',
+			image: 'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=300&fit=crop',
 		},
 		{
 			id: 3,
@@ -41,6 +44,7 @@ export class List {
 			category: 'Electronics',
 			date: '2026-01-25',
 			icon: '✨',
+			image: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=300&fit=crop',
 		},
 		{
 			id: 4,
@@ -49,6 +53,7 @@ export class List {
 			category: 'Tools',
 			date: '2026-01-20',
 			icon: '🔧',
+			image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=400&h=300&fit=crop',
 		},
 		{
 			id: 5,
@@ -57,6 +62,7 @@ export class List {
 			category: 'Accessories',
 			date: '2026-01-18',
 			icon: '🌱',
+			image: 'https://images.unsplash.com/photo-1532453629622-f7c92ef2cfaa?w=400&h=300&fit=crop',
 		},
 		{
 			id: 6,
@@ -65,6 +71,7 @@ export class List {
 			category: 'Tools',
 			date: '2026-01-15',
 			icon: '🏆',
+			image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=300&fit=crop',
 		},
 	]);
 
