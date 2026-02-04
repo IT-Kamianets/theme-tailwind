@@ -82,11 +82,14 @@ export class List {
 
 	filterByCategory(category: string): void {
 		this.filteredCategory.set(category);
+		this.clearSelection();
 	}
 
 	getFilteredItems(): Item[] {
 		const cat = this.filteredCategory();
-		return cat === 'All' ? this.items() : this.items().filter(item => item.category === cat);
+		const allItems = this.items();
+		const filtered = cat === 'All' ? allItems : allItems.filter(item => item.category === cat);
+		return filtered.sort((a, b) => a.id - b.id);
 	}
 
 	getCategoryColor(category: string): string {
