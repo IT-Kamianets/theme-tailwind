@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal, effect, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
+import { ListItem, ListItemData } from './list-item/list-item';
 
 interface Item {
 	id: number;
@@ -14,7 +15,7 @@ interface Item {
 
 @Component({
 	selector: 'app-list',
-	imports: [CommonModule],
+	imports: [CommonModule, ListItem],
 	templateUrl: './list.html',
 	styleUrl: './list.css',
 })
@@ -113,15 +114,6 @@ export class List {
 		const allItems = this.items();
 		const filtered = cat === 'All' ? allItems : allItems.filter(item => item.category === cat);
 		return filtered.sort((a, b) => a.id - b.id);
-	}
-
-	getCategoryColor(category: string): string {
-		const colorMap: Record<string, string> = {
-			Electronics: 'bg-blue-100 text-blue-800',
-			Accessories: 'bg-green-100 text-green-800',
-			Tools: 'bg-amber-100 text-amber-800',
-		};
-		return colorMap[category] || 'bg-gray-100 text-gray-800';
 	}
 
 	formatId(id: number): string {

@@ -1,1 +1,46 @@
-<p>list-item works!</p>
+<div
+	(click)="onSelect()"
+	[style.backgroundColor]="'var(--c-bg-secondary)'"
+	[style.borderColor]="isSelected ? 'var(--c-primary)' : 'var(--c-border)'"
+	[class]="'list-item-stagger rounded-[var(--radius-card)] cursor-pointer transition-all duration-[var(--motion)] border-2 overflow-hidden ' + (isSelected ? 'ring-2 ring-[var(--c-primary)]/30 animate-pulse-glow' : 'hover:shadow-md')"
+	[style.boxShadow]="isSelected ? 'var(--shadow-md)' : 'var(--shadow-sm)'"
+>
+	<!-- Product Image -->
+	<div class="relative h-48 overflow-hidden bg-gradient-to-br from-slate-200 to-slate-300">
+		@if (item.image) {
+			<img 
+				[src]="item.image" 
+				[alt]="item.name"
+				class="w-full h-full object-cover transition-transform duration-[var(--motion)] hover:scale-110"
+			/>
+		} @else {
+			<div class="w-full h-full flex items-center justify-center text-6xl">
+				{{ item.icon || '📦' }}
+			</div>
+		}
+		<!-- Category Badge -->
+		<span
+			[class]="'absolute top-[var(--sp-2)] right-[var(--sp-2)] text-xs font-semibold px-[var(--sp-3)] py-[var(--sp-1)] rounded-full animate-scale-in ' + getCategoryColor(item.category)"
+		>
+			{{ item.category }}
+		</span>
+	</div>
+
+	<!-- Product Info -->
+	<div class="p-[var(--sp-6)]">
+		<div class="flex items-center gap-[var(--sp-2)] mb-[var(--sp-2)]">
+			<span class="text-2xl transition-transform duration-[var(--motion)] hover:scale-110">{{ item.icon || '📦' }}</span>
+			<h3 class="text-lg font-bold" style="color: var(--c-text-secondary);">
+				{{ item.name }}
+			</h3>
+		</div>
+
+		<p class="text-sm mb-[var(--sp-4)]" style="color: var(--c-text-primary);">
+			{{ item.description }}
+		</p>
+
+		<p class="text-xs" style="color: var(--c-text-muted);">
+			📅 {{ item.date }}
+		</p>
+	</div>
+</div>
