@@ -1,39 +1,6 @@
 <div class="min-h-screen" style="background-color: var(--c-bg-primary);">
 	<div class="max-w-7xl mx-auto px-[var(--sp-4)] sm:px-[var(--sp-6)] lg:px-[var(--sp-8)] py-[var(--sp-8)]">
-		<!-- Header -->
-		<div class="mb-[var(--sp-8)] animate-fade-in">
-			<h1 class="text-4xl font-bold mb-[var(--sp-2)]" style="color: var(--c-text-secondary);">
-				Items List
-			</h1>
-			<p class="text-lg" style="color: var(--c-text-primary);">Browse and manage your items</p>
-		</div>
-
-		<!-- Filter Section -->
-		<div class="mb-[var(--sp-8)] animate-slide-in">
-			<p class="text-sm font-semibold mb-[var(--sp-3)]" style="color: var(--c-text-muted);">
-				FILTER BY CATEGORY
-			</p>
-			<div class="flex flex-wrap gap-[var(--sp-2)]">
-				@for (cat of categories(); track cat) {
-					<button
-						(click)="filterByCategory(cat)"
-						[class.ring-2]="filteredCategory() === cat"
-						[style.backgroundColor]="
-							filteredCategory() === cat ? 'var(--c-primary)' : 'var(--c-bg-secondary)'
-						"
-						[style.color]="
-							filteredCategory() === cat ? 'white' : 'var(--c-text-primary)'
-						"
-						class="filter-btn px-[var(--sp-4)] py-[var(--sp-2)] rounded-[var(--radius)] font-medium transition-all duration-[var(--motion)]"
-						[style.boxShadow]="filteredCategory() === cat ? 'var(--shadow-md)' : 'var(--shadow-sm)'"
-					>
-						{{ cat }}
-					</button>
-				}
-			</div>
-		</div>
-
-		<!-- List Items Section Component -->
+		
 		<app-list-items-section
 			[items]="getFilteredItems()"
 			[title]="filteredCategory() === 'All' ? 'All Available Items' : filteredCategory()"
@@ -42,5 +9,17 @@
 			[maxItems]="0"
 			[showViewAllButton]="false"
 		/>
+
+		<div class="my-[var(--sp-12)] border-t border-[var(--c-border-primary)]"></div>
+
+		<app-list-items-section
+			[items]="items()" 
+			title="Featured Products (Test Component)"
+			[showSearch]="false"
+			[itemsPerRow]="3"
+			[maxItems]="3"
+			[showViewAllButton]="true"
+		/>
+
 	</div>
 </div>
