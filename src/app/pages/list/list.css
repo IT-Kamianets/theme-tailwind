@@ -6,6 +6,18 @@
 	width: 100%;
 }
 
+/* Modal styles */
+@media (max-width: 768px) {
+	.detail-panel {
+		max-width: 100% !important;
+	}
+}
+
+/* Prevent body scroll when modal is open */
+body.modal-open {
+	overflow: hidden;
+}
+
 /* ============================================
    KEYFRAME ANIMATIONS
    ============================================ */

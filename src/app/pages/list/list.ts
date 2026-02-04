@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { Component, signal, effect, PLATFORM_ID, inject } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 
 interface Item {
 	id: number;
@@ -78,6 +79,21 @@ export class List {
 	selectedItem = signal<Item | null>(null);
 	filteredCategory = signal<string>('All');
 	categories = signal<string[]>(['All', 'Electronics', 'Accessories', 'Tools']);
+
+	private platformId = inject(PLATFORM_ID);
+
+	constructor() {
+		// Контролює прокрутку сторінки залежно від відкритого модалу
+		effect(() => {
+			if (isPlatformBrowser(this.platformId)) {
+				if (this.selectedItem()) {
+					document.documentElement.style.overflow = 'hidden';
+				} else {
+					document.documentElement.style.overflow = '';
+				}
+			}
+		});
+	}
 
 	selectItem(item: Item): void {
 		this.selectedItem.set(item);
