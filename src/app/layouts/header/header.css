@@ -10,6 +10,31 @@
 
 /* Logo and brand are static text, no interaction */
 
+/* Hide scrollbar for navigation on mobile */
+.header__nav {
+	-ms-overflow-style: none;
+	scrollbar-width: none;
+}
+
+.header__nav::-webkit-scrollbar {
+	display: none;
+}
+
+/* Compact segment buttons on mobile */
+.header__seg-btn {
+	padding: 4px 6px;
+	color: var(--c-text-primary);
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
+
+@media (min-width: 640px) {
+	.header__seg-btn {
+		padding: 6px 10px;
+	}
+}
+
 .header__link {
 	color: var(--c-text-primary);
 	border-radius: var(--radius-btn);
@@ -37,14 +62,6 @@
 	border-radius: var(--radius-btn);
 	overflow: hidden;
 	background: var(--c-bg-tertiary);
-}
-
-.header__seg-btn {
-	padding: 6px 10px;
-	color: var(--c-text-primary);
-	border: none;
-	background: transparent;
-	cursor: pointer;
 }
 
 .header__seg-btn:hover {
