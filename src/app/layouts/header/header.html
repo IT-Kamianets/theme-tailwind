@@ -46,31 +46,31 @@
 		<!-- Mobile layout: 3 rows -->
 		<div class="sm:hidden">
 			<!-- Row 2: Navigation Links -->
-			<div class="header__nav flex items-center justify-center gap-1 py-1 overflow-x-auto -mx-3 px-3">
-				<a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="header__link--active" class="header__link rounded-md px-2 py-1 text-xs font-medium transition whitespace-nowrap">Home</a>
-				<a routerLink="/list" routerLinkActive="header__link--active" class="header__link rounded-md px-2 py-1 text-xs font-medium transition whitespace-nowrap">List</a>
-				<a routerLink="/profile" routerLinkActive="header__link--active" class="header__link rounded-md px-2 py-1 text-xs font-medium transition whitespace-nowrap">Profile</a>
-				<a routerLink="/form" routerLinkActive="header__link--active" class="header__link rounded-md px-2 py-1 text-xs font-medium transition whitespace-nowrap">Form</a>
-				<a routerLink="/table" routerLinkActive="header__link--active" class="header__link rounded-md px-2 py-1 text-xs font-medium transition whitespace-nowrap">Table</a>
-				<a routerLink="/gallery" routerLinkActive="header__link--active" class="header__link rounded-md px-2 py-1 text-xs font-medium transition whitespace-nowrap">Gallery</a>
-				<a routerLink="/content" routerLinkActive="header__link--active" class="header__link rounded-md px-2 py-1 text-xs font-medium transition whitespace-nowrap">Content</a>
+			<div class="header__nav flex items-center justify-center gap-0.5 py-1 overflow-x-auto -mx-3 px-3">
+				<a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="header__link--active" class="header__link rounded px-1.5 py-1 text-xs font-medium transition whitespace-nowrap">Home</a>
+				<a routerLink="/list" routerLinkActive="header__link--active" class="header__link rounded px-1.5 py-1 text-xs font-medium transition whitespace-nowrap">List</a>
+				<a routerLink="/profile" routerLinkActive="header__link--active" class="header__link rounded px-1.5 py-1 text-xs font-medium transition whitespace-nowrap">Profile</a>
+				<a routerLink="/form" routerLinkActive="header__link--active" class="header__link rounded px-1.5 py-1 text-xs font-medium transition whitespace-nowrap">Form</a>
+				<a routerLink="/table" routerLinkActive="header__link--active" class="header__link rounded px-1.5 py-1 text-xs font-medium transition whitespace-nowrap">Table</a>
+				<a routerLink="/gallery" routerLinkActive="header__link--active" class="header__link rounded px-1.5 py-1 text-xs font-medium transition whitespace-nowrap">Gallery</a>
+				<a routerLink="/content" routerLinkActive="header__link--active" class="header__link rounded px-1.5 py-1 text-xs font-medium transition whitespace-nowrap">Content</a>
 			</div>
 
 			<!-- Row 3: Theme Switchers -->
 			<div class="flex items-center justify-center gap-1 pt-1">
 				<div class="header__seg">
 					@for (m of modes; track m) {
-						<button type="button" class="header__seg-btn text-xs transition" [class.header__seg-btn--active]="theme.mode() === m" (click)="setMode(m)">{{ m }}</button>
+						<button type="button" class="header__seg-btn header__seg-btn--mobile transition" [class.header__seg-btn--active]="theme.mode() === m" (click)="setMode(m)">{{ m }}</button>
 					}
 				</div>
 				<div class="header__seg">
 					@for (d of densities; track d) {
-						<button type="button" class="header__seg-btn text-xs transition" [class.header__seg-btn--active]="theme.density() === d" (click)="setDensity(d)">{{ d }}</button>
+						<button type="button" class="header__seg-btn header__seg-btn--mobile transition" [class.header__seg-btn--active]="theme.density() === d" (click)="setDensity(d)">{{ d }}</button>
 					}
 				</div>
 				<div class="header__seg">
 					@for (r of radii; track r) {
-						<button type="button" class="header__seg-btn text-xs transition" [class.header__seg-btn--active]="theme.radius() === r" (click)="setRadius(r)">{{ r }}</button>
+						<button type="button" class="header__seg-btn header__seg-btn--mobile transition" [class.header__seg-btn--active]="theme.radius() === r" (click)="setRadius(r)">{{ r }}</button>
 					}
 				</div>
 			</div>

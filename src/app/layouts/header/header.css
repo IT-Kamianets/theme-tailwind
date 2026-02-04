@@ -43,7 +43,6 @@
 
 .header__link {
 	color: var(--c-text-primary);
-	border-radius: var(--radius-btn);
 }
 
 .header__link:hover {
@@ -57,8 +56,14 @@
 }
 
 .header__link--active {
-	background: var(--c-text-secondary);
-	color: var(--c-bg-secondary);
+	background-color: var(--c-primary) !important;
+	color: #fff !important;
+}
+
+/* Mobile switcher buttons - smaller font */
+.header__seg-btn--mobile {
+	font-size: 10px;
+	padding: 3px 5px;
 }
 
 /* Theme Switcher Segments */
