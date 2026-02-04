@@ -1,19 +1,18 @@
 <header class="header">
 	<nav class="mx-auto max-w-7xl px-3 py-2 sm:px-4 sm:py-3">
-		<!-- Row 1: Logo + Brand -->
-		<div class="flex items-center justify-center sm:justify-start gap-2 mb-1 sm:mb-0 sm:float-left">
-			<img 
-				src="logo.png" 
-				alt="Logo" 
-				class="w-6 h-6 sm:w-8 sm:h-8 object-contain rounded-[var(--radius)]"
-			/>
-			<span class="text-xs sm:text-sm font-bold tracking-wide" style="color: var(--c-text-secondary);">THEME-TAILWIND</span>
-		</div>
-
-		<!-- Desktop layout: inline -->
+		
+		<!-- ============================================ -->
+		<!-- DESKTOP LAYOUT (>= 640px) - Original design -->
+		<!-- ============================================ -->
 		<div class="hidden sm:flex sm:items-center sm:justify-between sm:gap-4">
-			<!-- Navigation Links -->
-			<div class="header__nav flex items-center justify-center flex-wrap gap-1">
+			<!-- Left: Logo + Brand -->
+			<div class="flex items-center gap-3 shrink-0">
+				<img src="logo.png" alt="Logo" class="w-8 h-8 object-contain rounded-[var(--radius)]"/>
+				<span class="text-sm font-bold tracking-wide" style="color: var(--c-text-secondary);">THEME-TAILWIND</span>
+			</div>
+
+			<!-- Center: Navigation Links -->
+			<div class="header__nav flex flex-wrap justify-center gap-1">
 				<a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="header__link--active" class="header__link rounded-md px-3 py-2 text-sm font-medium transition">Home</a>
 				<a routerLink="/list" routerLinkActive="header__link--active" class="header__link rounded-md px-3 py-2 text-sm font-medium transition">List</a>
 				<a routerLink="/profile" routerLinkActive="header__link--active" class="header__link rounded-md px-3 py-2 text-sm font-medium transition">Profile</a>
@@ -23,7 +22,7 @@
 				<a routerLink="/content" routerLinkActive="header__link--active" class="header__link rounded-md px-3 py-2 text-sm font-medium transition">Content</a>
 			</div>
 
-			<!-- Theme Switchers -->
+			<!-- Right: Theme Switchers -->
 			<div class="flex items-center gap-2 shrink-0">
 				<div class="header__seg">
 					@for (m of modes; track m) {
@@ -43,8 +42,16 @@
 			</div>
 		</div>
 
-		<!-- Mobile layout: 3 rows -->
+		<!-- ============================================ -->
+		<!-- MOBILE LAYOUT (< 640px) - 3 rows compact -->
+		<!-- ============================================ -->
 		<div class="sm:hidden">
+			<!-- Row 1: Logo + Brand -->
+			<div class="flex items-center justify-center gap-2 mb-1">
+				<img src="logo.png" alt="Logo" class="w-6 h-6 object-contain rounded-[var(--radius)]"/>
+				<span class="text-xs font-bold tracking-wide" style="color: var(--c-text-secondary);">THEME-TAILWIND</span>
+			</div>
+
 			<!-- Row 2: Navigation Links -->
 			<div class="header__nav flex items-center justify-center gap-0.5 py-1 overflow-x-auto -mx-3 px-3">
 				<a routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="header__link--active" class="header__link rounded px-1.5 py-1 text-xs font-medium transition whitespace-nowrap">Home</a>
