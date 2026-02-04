@@ -78,6 +78,67 @@
 	}
 }
 
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+@keyframes float {
+	0%, 100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-5px);
+	}
+}
+
+@keyframes glow-pulse {
+	0%, 100% {
+		box-shadow: 0 0 5px rgba(var(--c-primary-rgb, 99, 102, 241), 0.3);
+	}
+	50% {
+		box-shadow: 0 0 20px rgba(var(--c-primary-rgb, 99, 102, 241), 0.5);
+	}
+}
+
+@keyframes success-check {
+	0% {
+		transform: scale(0) rotate(-45deg);
+		opacity: 0;
+	}
+	50% {
+		transform: scale(1.2) rotate(0deg);
+	}
+	100% {
+		transform: scale(1) rotate(0deg);
+		opacity: 1;
+	}
+}
+
+@keyframes progress-pulse {
+	0%, 100% {
+		opacity: 1;
+	}
+	50% {
+		opacity: 0.7;
+	}
+}
+
+@keyframes confetti {
+	0% {
+		transform: translateY(0) rotate(0deg);
+		opacity: 1;
+	}
+	100% {
+		transform: translateY(-100px) rotate(720deg);
+		opacity: 0;
+	}
+}
+
 /* ============================================
    ANIMATION UTILITY CLASSES
    ============================================ */
@@ -100,6 +161,146 @@
 
 .animate-shake {
 	animation: shake 0.4s ease-in-out;
+}
+
+.animate-float {
+	animation: float 3s ease-in-out infinite;
+}
+
+.animate-glow {
+	animation: glow-pulse 2s ease-in-out infinite;
+}
+
+.animate-success {
+	animation: success-check 0.5s ease-out forwards;
+}
+
+/* ============================================
+   PREMIUM VISUAL EFFECTS
+   ============================================ */
+
+/* Gradient overlay for cards */
+.premium-card {
+	position: relative;
+	overflow: hidden;
+}
+
+.premium-card::before {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 3px;
+	background: linear-gradient(90deg, var(--c-primary), var(--c-secondary), var(--c-primary));
+	background-size: 200% 100%;
+	animation: shimmer 3s linear infinite;
+}
+
+/* Glassmorphism effect */
+.glass-effect {
+	background: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+	-webkit-backdrop-filter: blur(10px);
+	border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Neon glow effect for primary elements */
+.neon-glow {
+	box-shadow: 
+		0 0 5px var(--c-primary),
+		0 0 10px var(--c-primary),
+		0 0 20px rgba(var(--c-primary-rgb, 99, 102, 241), 0.3);
+}
+
+/* Hover lift effect */
+.hover-lift {
+	transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-lift:hover {
+	transform: translateY(-4px);
+	box-shadow: var(--shadow-md);
+}
+
+/* Gradient text effect */
+.gradient-heading {
+	background: linear-gradient(135deg, var(--c-text-secondary) 0%, var(--c-primary) 100%);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+/* Progress bar gradient */
+.progress-gradient {
+	background: linear-gradient(90deg, var(--c-primary), #8b5cf6, var(--c-secondary));
+	background-size: 200% 100%;
+	animation: shimmer 2s linear infinite;
+}
+
+/* Input focus ring */
+input:focus,
+select:focus,
+textarea:focus {
+	box-shadow: 
+		0 0 0 3px rgba(var(--c-primary-rgb, 99, 102, 241), 0.15),
+		0 0 20px rgba(var(--c-primary-rgb, 99, 102, 241), 0.1);
+	border-color: var(--c-primary) !important;
+}
+
+
+
+/* Premium button hover */
+button[type="submit"]:not(:disabled):hover {
+	transform: translateY(-2px);
+	box-shadow: 
+		0 4px 15px rgba(var(--c-primary-rgb, 99, 102, 241), 0.4),
+		0 0 30px rgba(var(--c-primary-rgb, 99, 102, 241), 0.2);
+}
+
+button[type="submit"]:not(:disabled):active {
+	transform: translateY(0);
+}
+
+/* Drag zone active state */
+.drag-active {
+	border-color: var(--c-primary) !important;
+	background: linear-gradient(135deg, rgba(var(--c-primary-rgb, 99, 102, 241), 0.05), rgba(var(--c-primary-rgb, 99, 102, 241), 0.1)) !important;
+	animation: pulse-ring 1s ease-in-out infinite;
+}
+
+/* Image preview hover */
+.image-preview-hover:hover {
+	transform: scale(1.05);
+	box-shadow: 
+		0 10px 30px rgba(0, 0, 0, 0.2),
+		0 0 20px rgba(var(--c-primary-rgb, 99, 102, 241), 0.3);
+}
+
+/* Field label icon animation */
+.field-icon {
+	display: inline-block;
+	transition: transform 0.3s ease;
+}
+
+.field-icon:hover {
+	transform: scale(1.2) rotate(10deg);
+}
+
+/* Error state shake */
+.error-shake {
+	animation: shake 0.4s ease-in-out;
+}
+
+/* Success message particles */
+.success-particles {
+	position: relative;
+}
+
+.success-particles::after {
+	content: '✨';
+	position: absolute;
+	animation: confetti 1s ease-out forwards;
 }
 
 /* ============================================

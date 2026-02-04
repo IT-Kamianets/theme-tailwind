@@ -1,12 +1,13 @@
-import { CommonModule } from '@angular/common';
-import { Component, signal, computed } from '@angular/core';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, signal, computed, OnInit, PLATFORM_ID, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 // ============================================
 // SCHEMA DEFINITIONS - Config-driven approach
 // ============================================
 
-type ColumnType = 'text' | 'number' | 'currency' | 'date' | 'status' | 'badge';
+type ColumnType = 'text' | 'number' | 'currency' | 'image' | 'badge' | 'date';
 type SortDirection = 'asc' | 'desc' | null;
 
 interface ColumnSchema {
@@ -18,8 +19,9 @@ interface ColumnSchema {
 	width?: string;
 	align?: 'left' | 'center' | 'right';
 	editable?: boolean;
-	inputType?: 'text' | 'email' | 'tel' | 'number' | 'date' | 'select';
-	options?: { value: string; label: string }[];
+	inputType?: 'text' | 'number' | 'select' | 'textarea';
+	options?: { value: string; label: string; icon?: string }[];
+	suffix?: string;
 }
 
 interface FilterOption {
@@ -38,12 +40,12 @@ interface FilterSchema {
 
 interface BadgeConfig {
 	value: string;
-	bgColor: string;
-	textColor: string;
+	label: string;
+	color: string;
 }
 
 interface ValidationRule {
-	type: 'required' | 'email' | 'minLength' | 'maxLength' | 'min' | 'max' | 'pattern';
+	type: 'required' | 'min' | 'max' | 'minLength' | 'maxLength';
 	value?: any;
 	message: string;
 }
@@ -62,15 +64,24 @@ interface TableConfig {
 	editModalTitle: string;
 	deleteModalTitle: string;
 	currencySymbol: string;
-	dateLocale: string;
+	emptyMessage: string;
 }
 
 // ============================================
-// DATA INTERFACE - Generic Record
+// DATA INTERFACE - Product Record
 // ============================================
 
-interface TableRecord {
+interface ProductRecord {
 	id: number;
+	productImage: string | null;
+	productName: string;
+	category: string;
+	price: number;
+	quantity: number;
+	sku: string;
+	description: string;
+	status: string;
+	createdAt: string;
 	[key: string]: any;
 }
 
@@ -80,81 +91,96 @@ interface TableRecord {
 	templateUrl: './table.html',
 	styleUrl: './table.css',
 })
-export class Table {
+export class Table implements OnInit {
+	constructor(private router: Router) {}
+
 	// ============================================
 	// TABLE CONFIGURATION - Schema-driven rendering
 	// ============================================
 
 	tableConfig: TableConfig = {
-		title: 'Data Table Template',
-		subtitle: 'Manage and view records with filtering, sorting, and CRUD operations',
-		addButtonLabel: 'Add New Record',
-		editModalTitle: 'Edit Record',
-		deleteModalTitle: 'Delete Record',
+		title: 'Product Database',
+		subtitle: 'Manage your inventory with filtering, sorting, and CRUD operations',
+		addButtonLabel: 'Add New Product',
+		editModalTitle: 'Edit Product',
+		deleteModalTitle: 'Delete Product',
 		currencySymbol: '$',
-		dateLocale: 'en-US',
+		emptyMessage: 'No products found. Add your first product!',
 		columns: [
-			{ key: 'firstName', label: 'First Name', type: 'text', editable: true, inputType: 'text' },
-			{ key: 'lastName', label: 'Last Name', type: 'text', editable: true, inputType: 'text' },
-			{ key: 'phone', label: 'Phone', type: 'text', editable: true, inputType: 'tel' },
-			{ key: 'email', label: 'Email', type: 'text', editable: true, inputType: 'email' },
-			{ key: 'role', label: 'Role', type: 'text', filterable: true, editable: true, inputType: 'select', options: [
-				{ value: 'Developer', label: 'Developer' },
-				{ value: 'Designer', label: 'Designer' },
-				{ value: 'Manager', label: 'Manager' },
-				{ value: 'Analyst', label: 'Analyst' },
-				{ value: 'Support', label: 'Support' },
+			{ key: 'productImage', label: 'IMAGE', type: 'image', width: '80px', align: 'center', editable: true },
+			{ key: 'productName', label: 'PRODUCT NAME', type: 'text', sortable: false, editable: true, inputType: 'text' },
+			{ key: 'category', label: 'CATEGORY', type: 'badge', filterable: true, editable: true, inputType: 'select', options: [
+				{ value: 'electronics', label: 'Electronics', icon: '💻' },
+				{ value: 'clothing', label: 'Clothing', icon: '👕' },
+				{ value: 'home', label: 'Home & Garden', icon: '🏠' },
+				{ value: 'sports', label: 'Sports & Outdoors', icon: '⚽' },
+				{ value: 'beauty', label: 'Beauty & Health', icon: '💄' },
+				{ value: 'toys', label: 'Toys & Games', icon: '🎮' },
+				{ value: 'food', label: 'Food & Beverages', icon: '🍕' },
+				{ value: 'other', label: 'Other', icon: '📌' }
 			]},
-			{ key: 'department', label: 'Department', type: 'badge', filterable: true, editable: true, inputType: 'select', options: [
-				{ value: 'Engineering', label: 'Engineering' },
-				{ value: 'Design', label: 'Design' },
-				{ value: 'Marketing', label: 'Marketing' },
-				{ value: 'Sales', label: 'Sales' },
-				{ value: 'HR', label: 'HR' },
+			{ key: 'price', label: 'PRICE', type: 'currency', sortable: true, align: 'right', editable: true, inputType: 'number' },
+			{ key: 'quantity', label: 'STOCK', type: 'number', sortable: true, align: 'center', editable: true, inputType: 'number', suffix: 'units' },
+			{ key: 'sku', label: 'SKU', type: 'text', editable: true, inputType: 'text' },
+			{ key: 'status', label: 'STATUS', type: 'badge', filterable: true, editable: true, inputType: 'select', options: [
+				{ value: 'active', label: 'Active', icon: '🟢' },
+				{ value: 'draft', label: 'Draft', icon: '📝' },
+				{ value: 'out_of_stock', label: 'Out of Stock', icon: '🔴' },
+				{ value: 'discontinued', label: 'Discontinued', icon: '⛔' }
 			]},
-			{ key: 'salary', label: 'Salary', type: 'currency', sortable: true, align: 'center', editable: true, inputType: 'number' },
-			{ key: 'startDate', label: 'Start Date', type: 'date', sortable: true, editable: true, inputType: 'date' },
+			{ key: 'createdAt', label: 'ADDED', type: 'date', sortable: true, align: 'center' }
 		],
 		filters: [
 			{
 				key: 'search',
 				label: 'Search',
 				type: 'search',
-				placeholder: 'Search by name...'
+				placeholder: 'Search products...'
 			},
 			{
-				key: 'role',
-				label: 'Role',
+				key: 'category',
+				label: 'Category',
 				type: 'select',
 				options: [
-					{ value: '', label: 'All Roles' },
-					{ value: 'Developer', label: 'Developer' },
-					{ value: 'Designer', label: 'Designer' },
-					{ value: 'Manager', label: 'Manager' },
-					{ value: 'Analyst', label: 'Analyst' },
-					{ value: 'Support', label: 'Support' },
+					{ value: '', label: 'All Categories' },
+					{ value: 'electronics', label: '💻 Electronics' },
+					{ value: 'clothing', label: '👕 Clothing' },
+					{ value: 'home', label: '🏠 Home & Garden' },
+					{ value: 'sports', label: '⚽ Sports & Outdoors' },
+					{ value: 'beauty', label: '💄 Beauty & Health' },
+					{ value: 'toys', label: '🎮 Toys & Games' },
+					{ value: 'food', label: '🍕 Food & Beverages' },
+					{ value: 'other', label: '📌 Other' }
 				]
 			},
 			{
-				key: 'department',
-				label: 'Department',
+				key: 'status',
+				label: 'Status',
 				type: 'select',
 				options: [
-					{ value: '', label: 'All Departments' },
-					{ value: 'Engineering', label: 'Engineering' },
-					{ value: 'Design', label: 'Design' },
-					{ value: 'Marketing', label: 'Marketing' },
-					{ value: 'Sales', label: 'Sales' },
-					{ value: 'HR', label: 'HR' },
+					{ value: '', label: 'All Statuses' },
+					{ value: 'active', label: '🟢 Active' },
+					{ value: 'draft', label: '📝 Draft' },
+					{ value: 'out_of_stock', label: '🔴 Out of Stock' },
+					{ value: 'discontinued', label: '⛔ Discontinued' }
 				]
 			}
 		],
 		badges: [
-			{ value: 'Engineering', bgColor: 'bg-blue-100', textColor: 'text-blue-700' },
-			{ value: 'Design', bgColor: 'bg-purple-100', textColor: 'text-purple-700' },
-			{ value: 'Marketing', bgColor: 'bg-amber-100', textColor: 'text-amber-700' },
-			{ value: 'Sales', bgColor: 'bg-emerald-100', textColor: 'text-emerald-700' },
-			{ value: 'HR', bgColor: 'bg-pink-100', textColor: 'text-pink-700' },
+			// Categories
+			{ value: 'electronics', label: 'Electronics', color: 'blue' },
+			{ value: 'clothing', label: 'Clothing', color: 'purple' },
+			{ value: 'home', label: 'Home & Garden', color: 'green' },
+			{ value: 'sports', label: 'Sports & Outdoors', color: 'orange' },
+			{ value: 'beauty', label: 'Beauty & Health', color: 'pink' },
+			{ value: 'toys', label: 'Toys & Games', color: 'yellow' },
+			{ value: 'food', label: 'Food & Beverages', color: 'red' },
+			{ value: 'other', label: 'Other', color: 'gray' },
+			// Statuses
+			{ value: 'active', label: 'Active', color: 'green' },
+			{ value: 'draft', label: 'Draft', color: 'gray' },
+			{ value: 'out_of_stock', label: 'Out of Stock', color: 'red' },
+			{ value: 'discontinued', label: 'Discontinued', color: 'dark' }
 		]
 	};
 
@@ -163,33 +189,23 @@ export class Table {
 	// ============================================
 
 	validationRules: FieldValidation = {
-		firstName: [
-			{ type: 'required', message: 'First name is required' },
-			{ type: 'minLength', value: 2, message: 'Minimum 2 characters' }
+		productName: [
+			{ type: 'required', message: 'Product name is required' },
+			{ type: 'minLength', value: 3, message: 'Minimum 3 characters' }
 		],
-		lastName: [
-			{ type: 'required', message: 'Last name is required' },
-			{ type: 'minLength', value: 2, message: 'Minimum 2 characters' }
+		category: [
+			{ type: 'required', message: 'Category is required' }
 		],
-		email: [
-			{ type: 'required', message: 'Email is required' },
-			{ type: 'email', message: 'Invalid email format' }
+		price: [
+			{ type: 'required', message: 'Price is required' },
+			{ type: 'min', value: 0.01, message: 'Price must be greater than 0' }
 		],
-		phone: [
-			{ type: 'required', message: 'Phone is required' }
+		quantity: [
+			{ type: 'required', message: 'Quantity is required' },
+			{ type: 'min', value: 0, message: 'Quantity cannot be negative' }
 		],
-		role: [
-			{ type: 'required', message: 'Role is required' }
-		],
-		department: [
-			{ type: 'required', message: 'Department is required' }
-		],
-		salary: [
-			{ type: 'required', message: 'Salary is required' },
-			{ type: 'min', value: 0, message: 'Salary must be positive' }
-		],
-		startDate: [
-			{ type: 'required', message: 'Start date is required' }
+		status: [
+			{ type: 'required', message: 'Status is required' }
 		]
 	};
 
@@ -197,40 +213,67 @@ export class Table {
 	// SAMPLE DATA
 	// ============================================
 
-	tableData = signal<TableRecord[]>([
-		{ id: 1, firstName: 'John', lastName: 'Smith', phone: '+1 555-0101', email: 'john.smith@example.com', role: 'Developer', department: 'Engineering', salary: 85000, startDate: '2023-03-15' },
-		{ id: 2, firstName: 'Sarah', lastName: 'Johnson', phone: '+1 555-0102', email: 'sarah.j@example.com', role: 'Designer', department: 'Design', salary: 72000, startDate: '2022-08-20' },
-		{ id: 3, firstName: 'Michael', lastName: 'Williams', phone: '+1 555-0103', email: 'michael.w@example.com', role: 'Manager', department: 'Engineering', salary: 95000, startDate: '2021-01-10' },
-		{ id: 4, firstName: 'Emily', lastName: 'Brown', phone: '+1 555-0104', email: 'emily.b@example.com', role: 'Analyst', department: 'Marketing', salary: 65000, startDate: '2024-02-28' },
-		{ id: 5, firstName: 'David', lastName: 'Miller', phone: '+1 555-0105', email: 'david.m@example.com', role: 'Developer', department: 'Engineering', salary: 88000, startDate: '2023-11-05' },
-		{ id: 6, firstName: 'Jessica', lastName: 'Davis', phone: '+1 555-0106', email: 'jessica.d@example.com', role: 'Support', department: 'HR', salary: 52000, startDate: '2024-06-12' },
-		{ id: 7, firstName: 'Robert', lastName: 'Wilson', phone: '+1 555-0107', email: 'robert.w@example.com', role: 'Manager', department: 'Sales', salary: 92000, startDate: '2020-09-18' },
-	]);
+	sampleProducts: ProductRecord[] = [
+		{ id: 1, productImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop', productName: 'Wireless Headphones Pro', category: 'electronics', price: 149.99, quantity: 50, sku: 'WHP-001', description: 'Premium wireless headphones with noise cancellation', status: 'active', createdAt: '2026-01-15T10:30:00Z' },
+		{ id: 2, productImage: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&h=100&fit=crop', productName: 'Smart Watch Series 5', category: 'electronics', price: 299.99, quantity: 25, sku: 'SWS-005', description: 'Advanced smartwatch with health monitoring', status: 'active', createdAt: '2026-01-20T14:15:00Z' },
+		{ id: 3, productImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&h=100&fit=crop', productName: 'Running Shoes Ultra', category: 'sports', price: 89.99, quantity: 100, sku: 'RSU-010', description: 'Lightweight running shoes for marathon', status: 'active', createdAt: '2026-01-22T09:00:00Z' },
+		{ id: 4, productImage: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=100&h=100&fit=crop', productName: 'Organic Face Cream', category: 'beauty', price: 34.99, quantity: 0, sku: 'OFC-020', description: 'Natural ingredients for healthy skin', status: 'out_of_stock', createdAt: '2026-01-25T11:45:00Z' },
+		{ id: 5, productImage: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=100&h=100&fit=crop', productName: 'Premium Coffee Beans', category: 'food', price: 24.99, quantity: 200, sku: 'PCB-100', description: 'Arabica beans from Colombia', status: 'active', createdAt: '2026-01-28T16:20:00Z' },
+		{ id: 6, productImage: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=100&h=100&fit=crop', productName: 'Gaming Controller X', category: 'toys', price: 59.99, quantity: 15, sku: 'GCX-050', description: 'Wireless controller for all platforms', status: 'draft', createdAt: '2026-02-01T08:30:00Z' }
+	];
 
 	// ============================================
 	// STATE MANAGEMENT
 	// ============================================
 
+	tableData = signal<ProductRecord[]>([]);
+
 	// Filters
 	searchQuery = signal('');
 	filterValues = signal<Record<string, string>>({});
 
-	// Sorting (3 states: null -> asc -> desc -> null)
+	// Sorting
 	sortColumn = signal<string | null>(null);
 	sortDirection = signal<SortDirection>(null);
 
 	// Edit modal
 	isEditModalOpen = signal(false);
-	editingRecord = signal<TableRecord | null>(null);
-	editFormData = signal<Partial<TableRecord>>({});
+	editingRecord = signal<ProductRecord | null>(null);
+	editFormData = signal<Partial<ProductRecord>>({});
 	editFormErrors = signal<Record<string, string>>({});
+	editImagePreview = signal<string | null>(null);
+	editImageError = signal<string | null>(null);
 
 	// Delete confirmation
 	isDeleteModalOpen = signal(false);
-	deletingRecord = signal<TableRecord | null>(null);
+	deletingRecord = signal<ProductRecord | null>(null);
 
 	// Notifications
 	notification = signal<{ message: string; type: 'success' | 'error' } | null>(null);
+
+	// ============================================
+	// LIFECYCLE
+	// ============================================
+
+	private platformId = inject(PLATFORM_ID);
+
+	ngOnInit() {
+		this.loadProducts();
+	}
+
+	loadProducts() {
+		if (isPlatformBrowser(this.platformId)) {
+			const stored = localStorage.getItem('products');
+			if (stored) {
+				const products = JSON.parse(stored);
+				this.tableData.set([...this.sampleProducts, ...products]);
+			} else {
+				this.tableData.set([...this.sampleProducts]);
+			}
+		} else {
+			this.tableData.set([...this.sampleProducts]);
+		}
+	}
 
 	// ============================================
 	// COMPUTED VALUES
@@ -243,16 +286,17 @@ export class Table {
 		const search = this.searchQuery().toLowerCase().trim();
 		if (search) {
 			data = data.filter(item =>
-				item['firstName']?.toLowerCase().includes(search) ||
-				item['lastName']?.toLowerCase().includes(search)
+				item.productName.toLowerCase().includes(search) ||
+				item.sku.toLowerCase().includes(search) ||
+				item.description?.toLowerCase().includes(search)
 			);
 		}
 
-		// Apply dynamic filters from filterValues
+		// Apply select filters
 		const filters = this.filterValues();
-		for (const [key, value] of Object.entries(filters)) {
-			if (value) {
-				data = data.filter(item => item[key]?.toString().includes(value));
+		for (const key of Object.keys(filters)) {
+			if (filters[key]) {
+				data = data.filter(item => item[key as keyof ProductRecord] === filters[key]);
 			}
 		}
 
@@ -261,25 +305,16 @@ export class Table {
 		const direction = this.sortDirection();
 		if (column && direction) {
 			data.sort((a, b) => {
-				let valueA = a[column];
-				let valueB = b[column];
-
-				// Handle date comparison
-				const colConfig = this.tableConfig.columns.find(c => c.key === column);
-				if (colConfig?.type === 'date') {
-					valueA = new Date(valueA as string).getTime();
-					valueB = new Date(valueB as string).getTime();
+				const aVal = a[column as keyof ProductRecord];
+				const bVal = b[column as keyof ProductRecord];
+				
+				if (typeof aVal === 'number' && typeof bVal === 'number') {
+					return direction === 'asc' ? aVal - bVal : bVal - aVal;
 				}
-
-				// Handle string comparison
-				if (typeof valueA === 'string' && typeof valueB === 'string') {
-					valueA = valueA.toLowerCase();
-					valueB = valueB.toLowerCase();
-				}
-
-				if (valueA < valueB) return direction === 'asc' ? -1 : 1;
-				if (valueA > valueB) return direction === 'asc' ? 1 : -1;
-				return 0;
+				
+				const aStr = String(aVal || '').toLowerCase();
+				const bStr = String(bVal || '').toLowerCase();
+				return direction === 'asc' ? aStr.localeCompare(bStr) : bStr.localeCompare(aStr);
 			});
 		}
 
@@ -289,119 +324,13 @@ export class Table {
 	totalRecords = computed(() => this.tableData().length);
 	filteredRecords = computed(() => this.filteredAndSortedData().length);
 
-	// ============================================
-	// VALIDATION LOGIC
-	// ============================================
-
-	validateField(key: string, value: any): string | null {
-		const rules = this.validationRules[key];
-		if (!rules) return null;
-
-		for (const rule of rules) {
-			switch (rule.type) {
-				case 'required':
-					if (value === null || value === undefined || value === '' || 
-						(typeof value === 'number' && isNaN(value))) {
-						return rule.message;
-					}
-					break;
-				case 'email':
-					if (value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-						return rule.message;
-					}
-					break;
-				case 'minLength':
-					if (value && value.length < rule.value) {
-						return rule.message;
-					}
-					break;
-				case 'maxLength':
-					if (value && value.length > rule.value) {
-						return rule.message;
-					}
-					break;
-				case 'min':
-					if (typeof value === 'number' && value < rule.value) {
-						return rule.message;
-					}
-					break;
-				case 'max':
-					if (typeof value === 'number' && value > rule.value) {
-						return rule.message;
-					}
-					break;
-				case 'pattern':
-					if (value && !new RegExp(rule.value).test(value)) {
-						return rule.message;
-					}
-					break;
-			}
-		}
-		return null;
-	}
-
-	validateEditForm(): boolean {
-		const formData = this.editFormData();
-		const errors: Record<string, string> = {};
-
-		for (const column of this.tableConfig.columns) {
-			if (column.editable) {
-				const error = this.validateField(column.key, formData[column.key]);
-				if (error) {
-					errors[column.key] = error;
-				}
-			}
-		}
-
-		this.editFormErrors.set(errors);
-		return Object.keys(errors).length === 0;
-	}
-
-	getFieldError(key: string): string {
-		return this.editFormErrors()[key] || '';
-	}
-
-	hasFieldError(key: string): boolean {
-		return !!this.editFormErrors()[key];
-	}
+	hasActiveFilters = computed(() => {
+		return this.searchQuery().trim() !== '' || 
+			Object.values(this.filterValues()).some(v => v !== '');
+	});
 
 	// ============================================
-	// SORTING LOGIC (3 states)
-	// ============================================
-
-	toggleSort(columnKey: string) {
-		const column = this.tableConfig.columns.find(c => c.key === columnKey);
-		if (!column?.sortable) return;
-
-		const currentColumn = this.sortColumn();
-		const currentDirection = this.sortDirection();
-
-		if (currentColumn !== columnKey) {
-			// New column: start with ascending
-			this.sortColumn.set(columnKey);
-			this.sortDirection.set('asc');
-		} else {
-			// Same column: cycle through states
-			if (currentDirection === 'asc') {
-				this.sortDirection.set('desc');
-			} else if (currentDirection === 'desc') {
-				this.sortColumn.set(null);
-				this.sortDirection.set(null);
-			} else {
-				this.sortDirection.set('asc');
-			}
-		}
-	}
-
-	getSortIcon(columnKey: string): string {
-		if (this.sortColumn() !== columnKey) return '↕';
-		if (this.sortDirection() === 'asc') return '↑';
-		if (this.sortDirection() === 'desc') return '↓';
-		return '↕';
-	}
-
-	// ============================================
-	// FILTER HANDLERS
+	// FILTER & SORT METHODS
 	// ============================================
 
 	updateSearch(value: string) {
@@ -409,7 +338,11 @@ export class Table {
 	}
 
 	updateFilter(key: string, value: string) {
-		this.filterValues.update((f: Record<string, string>) => ({ ...f, [key]: value }));
+		this.filterValues.update(f => ({ ...f, [key]: value }));
+	}
+
+	getFilterValue(key: string): string {
+		return this.filterValues()[key] || '';
 	}
 
 	clearFilters() {
@@ -417,24 +350,50 @@ export class Table {
 		this.filterValues.set({});
 	}
 
-	hasActiveFilters(): boolean {
-		const filters = this.filterValues();
-		return !!(this.searchQuery() || Object.values(filters).some(v => v));
+	toggleSort(column: string) {
+		const currentColumn = this.sortColumn();
+		const currentDirection = this.sortDirection();
+
+		if (currentColumn !== column) {
+			this.sortColumn.set(column);
+			this.sortDirection.set('asc');
+		} else if (currentDirection === 'asc') {
+			this.sortDirection.set('desc');
+		} else if (currentDirection === 'desc') {
+			this.sortColumn.set(null);
+			this.sortDirection.set(null);
+		} else {
+			this.sortDirection.set('asc');
+		}
 	}
 
-	getFilterValue(key: string): string {
-		return this.filterValues()[key] || '';
+	getSortIcon(column: string): string {
+		if (this.sortColumn() !== column) return '↕';
+		return this.sortDirection() === 'asc' ? '↑' : '↓';
+	}
+
+	// ============================================
+	// HELPER METHODS - Template type-safe accessors
+	// ============================================
+
+	getRecordValue(record: ProductRecord, key: string): any {
+		return record[key];
+	}
+
+	getEditFormValue(key: string): any {
+		return this.editFormData()[key];
 	}
 
 	// ============================================
 	// CRUD OPERATIONS
 	// ============================================
 
-	// Edit
-	openEditModal(record: TableRecord) {
+	openEditModal(record: ProductRecord) {
 		this.editingRecord.set(record);
 		this.editFormData.set({ ...record });
 		this.editFormErrors.set({});
+		this.editImagePreview.set(record.productImage || null);
+		this.editImageError.set(null);
 		this.isEditModalOpen.set(true);
 	}
 
@@ -443,45 +402,134 @@ export class Table {
 		this.editingRecord.set(null);
 		this.editFormData.set({});
 		this.editFormErrors.set({});
+		this.editImagePreview.set(null);
+		this.editImageError.set(null);
+	}
+
+	// Image editing handlers
+	onEditImageSelect(event: Event) {
+		const input = event.target as HTMLInputElement;
+		const file = input.files?.[0];
+		if (file) {
+			this.setEditImage(file);
+		}
+	}
+
+	setEditImage(file: File) {
+		// Validate file size (5MB max)
+		const maxSize = 5 * 1024 * 1024;
+		if (file.size > maxSize) {
+			this.editImageError.set('File is too large. Maximum size is 5MB.');
+			return;
+		}
+		
+		// Validate file type (only JPG and PNG)
+		const allowedTypes = ['image/jpeg', 'image/png'];
+		if (!allowedTypes.includes(file.type)) {
+			this.editImageError.set('Only JPG and PNG formats are allowed.');
+			return;
+		}
+		
+		// Clear any previous error
+		this.editImageError.set(null);
+		
+		// Create preview
+		const reader = new FileReader();
+		reader.onload = () => {
+			const imageData = reader.result as string;
+			this.editImagePreview.set(imageData);
+			this.editFormData.update(data => ({ ...data, productImage: imageData }));
+		};
+		reader.readAsDataURL(file);
+	}
+
+	removeEditImage() {
+		this.editImagePreview.set(null);
+		this.editFormData.update(data => ({ ...data, productImage: null }));
+		this.editImageError.set(null);
 	}
 
 	updateEditField(key: string, value: any) {
-		this.editFormData.update((data: Partial<TableRecord>) => ({ ...data, [key]: value }));
-		// Clear error on change
+		this.editFormData.update(data => ({ ...data, [key]: value }));
+		
 		if (this.editFormErrors()[key]) {
-			this.editFormErrors.update((err: Record<string, string>) => {
-				const newErr = { ...err };
-				delete newErr[key];
-				return newErr;
+			this.editFormErrors.update(errors => {
+				const newErrors = { ...errors };
+				delete newErrors[key];
+				return newErrors;
 			});
 		}
 	}
 
-	saveRecord() {
-		if (!this.validateEditForm()) {
-			return;
-		}
+	validateField(key: string, value: any): string | null {
+		const rules = this.validationRules[key];
+		if (!rules) return null;
 
-		const formData = this.editFormData();
-		
-		if (formData['id']) {
-			// Update existing
-			this.tableData.update((data: TableRecord[]) =>
-				data.map((rec: TableRecord) => rec.id === formData['id'] ? { ...rec, ...formData } as TableRecord : rec)
-			);
-			this.showNotification('Record updated successfully!', 'success');
-		} else {
-			// Add new
-			const newId = Math.max(0, ...this.tableData().map((r: TableRecord) => r.id)) + 1;
-			this.tableData.update((data: TableRecord[]) => [...data, { ...formData, id: newId } as TableRecord]);
-			this.showNotification('Record added successfully!', 'success');
+		for (const rule of rules) {
+			switch (rule.type) {
+				case 'required':
+					if (value === null || value === undefined || value === '') return rule.message;
+					break;
+				case 'min':
+					if (value !== null && value !== undefined && value < rule.value) return rule.message;
+					break;
+				case 'max':
+					if (value !== null && value !== undefined && value > rule.value) return rule.message;
+					break;
+				case 'minLength':
+					if (value && typeof value === 'string' && value.length < rule.value) return rule.message;
+					break;
+				case 'maxLength':
+					if (value && typeof value === 'string' && value.length > rule.value) return rule.message;
+					break;
+			}
 		}
-
-		this.closeEditModal();
+		return null;
 	}
 
-	// Delete
-	openDeleteModal(record: TableRecord) {
+	validateEditForm(): boolean {
+		const errors: Record<string, string> = {};
+		const data = this.editFormData();
+
+		for (const key of Object.keys(this.validationRules)) {
+			const error = this.validateField(key, data[key as keyof ProductRecord]);
+			if (error) errors[key] = error;
+		}
+
+		this.editFormErrors.set(errors);
+		return Object.keys(errors).length === 0;
+	}
+
+	hasFieldError(key: string): boolean {
+		return !!this.editFormErrors()[key];
+	}
+
+	getFieldError(key: string): string {
+		return this.editFormErrors()[key] || '';
+	}
+
+	saveRecord() {
+		if (!this.validateEditForm()) return;
+
+		const editedData = this.editFormData();
+		const recordId = editedData.id;
+
+		this.tableData.update(data => 
+			data.map(item => item.id === recordId ? { ...item, ...editedData } as ProductRecord : item)
+		);
+
+		// Update localStorage
+		this.syncToLocalStorage();
+
+		this.closeEditModal();
+		this.showNotification('Product updated successfully!', 'success');
+	}
+
+	addNewRecord() {
+		this.router.navigate(['/form']);
+	}
+
+	openDeleteModal(record: ProductRecord) {
 		this.deletingRecord.set(record);
 		this.isDeleteModalOpen.set(true);
 	}
@@ -492,80 +540,57 @@ export class Table {
 	}
 
 	confirmDelete() {
-		const record = this.deletingRecord();
-		if (!record) return;
-
-		this.tableData.update((data: TableRecord[]) => data.filter((rec: TableRecord) => rec.id !== record.id));
-		this.showNotification('Record deleted successfully!', 'success');
+		const recordId = this.deletingRecord()?.id;
+		if (recordId) {
+			this.tableData.update(data => data.filter(item => item.id !== recordId));
+			this.syncToLocalStorage();
+			this.showNotification('Product deleted successfully!', 'success');
+		}
 		this.closeDeleteModal();
 	}
 
-	// Add new record
-	addNewRecord() {
-		const newRecord: TableRecord = { id: 0 };
-		for (const col of this.tableConfig.columns) {
-			if (col.type === 'currency' || col.type === 'number') {
-				newRecord[col.key] = 0;
-			} else if (col.type === 'date') {
-				newRecord[col.key] = new Date().toISOString().split('T')[0];
-			} else {
-				newRecord[col.key] = '';
-			}
+	syncToLocalStorage() {
+		if (isPlatformBrowser(this.platformId)) {
+			const currentData = this.tableData();
+			const customProducts = currentData.filter(p => !this.sampleProducts.find(s => s.id === p.id));
+			localStorage.setItem('products', JSON.stringify(customProducts));
 		}
-		this.openEditModal(newRecord);
 	}
 
 	// ============================================
-	// UTILITY METHODS
+	// HELPER METHODS
 	// ============================================
-
-	getBadgeColors(value: string): { bg: string; text: string } {
-		const badge = this.tableConfig.badges.find(b => b.value === value);
-		return badge 
-			? { bg: badge.bgColor, text: badge.textColor }
-			: { bg: 'bg-slate-100', text: 'text-slate-700' };
-	}
-
-	formatCurrency(value: number): string {
-		return this.tableConfig.currencySymbol + new Intl.NumberFormat('en-US', {
-			minimumFractionDigits: 0,
-			maximumFractionDigits: 0
-		}).format(value);
-	}
-
-	formatDate(dateString: string): string {
-		return new Date(dateString).toLocaleDateString(this.tableConfig.dateLocale, {
-			year: 'numeric',
-			month: 'short',
-			day: 'numeric'
-		});
-	}
 
 	showNotification(message: string, type: 'success' | 'error') {
 		this.notification.set({ message, type });
 		setTimeout(() => this.notification.set(null), 3000);
 	}
 
-	getCellValue(record: TableRecord, column: ColumnSchema): string {
-		const value = record[column.key];
-		if (value === null || value === undefined) return '';
-		
-		switch (column.type) {
-			case 'currency':
-				return this.formatCurrency(value);
-			case 'date':
-				return this.formatDate(value);
-			default:
-				return value.toString();
-		}
+	formatCurrency(value: number): string {
+		return `${this.tableConfig.currencySymbol}${value.toFixed(2)}`;
 	}
 
-	getColumnByKey(key: string): ColumnSchema | undefined {
-		return this.tableConfig.columns.find(c => c.key === key);
+	formatDate(dateStr: string): string {
+		return new Date(dateStr).toLocaleDateString('en-US', {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric'
+		});
 	}
 
-	// Track function for ngFor
-	trackById(index: number, item: TableRecord): number {
-		return item.id;
+	getBadgeConfig(value: string): BadgeConfig | undefined {
+		return this.tableConfig.badges.find(b => b.value === value);
+	}
+
+	getCategoryLabel(value: string): string {
+		const column = this.tableConfig.columns.find(c => c.key === 'category');
+		const option = column?.options?.find(o => o.value === value);
+		return option?.label || value;
+	}
+
+	getStatusLabel(value: string): string {
+		const column = this.tableConfig.columns.find(c => c.key === 'status');
+		const option = column?.options?.find(o => o.value === value);
+		return option?.label || value;
 	}
 }

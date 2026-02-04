@@ -1,6 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { ThemeDensity, ThemeMode, ThemeRadius, ThemeService } from 'wacom';
 
 @Component({
 	selector: 'app-footer',
@@ -10,23 +9,40 @@ import { ThemeDensity, ThemeMode, ThemeRadius, ThemeService } from 'wacom';
 	styleUrl: './footer.css',
 })
 export class Footer {
-	protected readonly theme = inject(ThemeService);
-
-	protected readonly modes: (ThemeMode | string)[] = ['light', 'dark', 'itkp'];
-	protected readonly densities: ThemeDensity[] = ['comfortable', 'compact'];
-	protected readonly radii: ThemeRadius[] = ['rounded', 'square'];
-
 	protected readonly year = new Date().getFullYear();
 
-	protected setMode(mode: ThemeMode | string) {
-		this.theme.setMode(mode as ThemeMode);
-	}
+	protected readonly companyLinks = [
+		{ label: 'About Us', routerLink: '/' },
+		{ label: 'Our Team', routerLink: '/' },
+		{ label: 'Careers', routerLink: '/' },
+		{ label: 'Blog', routerLink: '/content' },
+	];
 
-	protected setDensity(density: ThemeDensity) {
-		this.theme.setDensity(density);
-	}
+	protected readonly productLinks = [
+		{ label: 'Features', routerLink: '/' },
+		{ label: 'Pricing', routerLink: '/' },
+		{ label: 'Demo', routerLink: '/' },
+		{ label: 'API Docs', routerLink: '/' },
+	];
 
-	protected setRadius(radius: ThemeRadius) {
-		this.theme.setRadius(radius);
-	}
+	protected readonly supportLinks = [
+		{ label: 'Help Center', routerLink: '/' },
+		{ label: 'Contact Us', routerLink: '/' },
+		{ label: 'FAQ', routerLink: '/' },
+		{ label: 'Status', routerLink: '/' },
+	];
+
+	protected readonly legalLinks = [
+		{ label: 'Privacy Policy', routerLink: '/' },
+		{ label: 'Terms of Service', routerLink: '/' },
+		{ label: 'Cookie Policy', routerLink: '/' },
+	];
+
+	protected readonly socialLinks = [
+		{ id: 'twitter', label: 'Twitter', url: 'https://twitter.com' },
+		{ id: 'facebook', label: 'Facebook', url: 'https://facebook.com' },
+		{ id: 'instagram', label: 'Instagram', url: 'https://instagram.com' },
+		{ id: 'linkedin', label: 'LinkedIn', url: 'https://linkedin.com' },
+		{ id: 'github', label: 'GitHub', url: 'https://github.com' },
+	];
 }

@@ -8,9 +8,7 @@
 	backdrop-filter: blur(10px);
 }
 
-.header__brand {
-	color: var(--c-text-secondary);
-}
+/* Logo and brand are static text, no interaction */
 
 .header__link {
 	color: var(--c-text-primary);
@@ -30,4 +28,35 @@
 .header__link--active {
 	background: var(--c-text-secondary);
 	color: var(--c-bg-secondary);
+}
+
+/* Theme Switcher Segments */
+.header__seg {
+	display: inline-flex;
+	border: 1px solid var(--c-border);
+	border-radius: var(--radius-btn);
+	overflow: hidden;
+	background: var(--c-bg-tertiary);
+}
+
+.header__seg-btn {
+	padding: 6px 10px;
+	color: var(--c-text-primary);
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}
+
+.header__seg-btn:hover {
+	color: var(--c-text-secondary);
+}
+
+.header__seg-btn--active {
+	background: var(--c-primary);
+	color: #fff;
+}
+
+.header__seg-btn:focus-visible {
+	outline: none;
+	box-shadow: var(--focus-ring);
 }
