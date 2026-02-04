@@ -7,6 +7,7 @@ interface Item {
 	description: string;
 	category: string;
 	date: string;
+	icon?: string;
 }
 
 @Component({
@@ -23,6 +24,7 @@ export class List {
 			description: 'High-quality product with premium features',
 			category: 'Electronics',
 			date: '2026-02-01',
+			icon: '⚡',
 		},
 		{
 			id: 2,
@@ -30,6 +32,7 @@ export class List {
 			description: 'Affordable solution for everyday needs',
 			category: 'Accessories',
 			date: '2026-01-28',
+			icon: '🎁',
 		},
 		{
 			id: 3,
@@ -37,6 +40,7 @@ export class List {
 			description: 'Advanced technology meets elegant design',
 			category: 'Electronics',
 			date: '2026-01-25',
+			icon: '✨',
 		},
 		{
 			id: 4,
@@ -44,25 +48,57 @@ export class List {
 			description: 'Essential item for professionals',
 			category: 'Tools',
 			date: '2026-01-20',
+			icon: '🔧',
+		},
+		{
+			id: 5,
+			name: 'Product Epsilon',
+			description: 'Sustainable and eco-friendly option',
+			category: 'Accessories',
+			date: '2026-01-18',
+			icon: '🌱',
+		},
+		{
+			id: 6,
+			name: 'Product Zeta',
+			description: 'Premium quality with lifetime warranty',
+			category: 'Tools',
+			date: '2026-01-15',
+			icon: '🏆',
 		},
 	]);
 
 	selectedItem = signal<Item | null>(null);
+	filteredCategory = signal<string>('All');
+	categories = signal<string[]>(['All', 'Electronics', 'Accessories', 'Tools']);
 
-	selectItem(item: Item) {
+	selectItem(item: Item): void {
 		this.selectedItem.set(item);
 	}
 
-	clearSelection() {
+	clearSelection(): void {
 		this.selectedItem.set(null);
 	}
 
+	filterByCategory(category: string): void {
+		this.filteredCategory.set(category);
+	}
+
+	getFilteredItems(): Item[] {
+		const cat = this.filteredCategory();
+		return cat === 'All' ? this.items() : this.items().filter(item => item.category === cat);
+	}
+
 	getCategoryColor(category: string): string {
-		const colors: Record<string, string> = {
+		const colorMap: Record<string, string> = {
 			Electronics: 'bg-blue-100 text-blue-800',
-			Accessories: 'bg-purple-100 text-purple-800',
-			Tools: 'bg-green-100 text-green-800',
+			Accessories: 'bg-green-100 text-green-800',
+			Tools: 'bg-amber-100 text-amber-800',
 		};
-		return colors[category] || 'bg-slate-100 text-slate-800';
+		return colorMap[category] || 'bg-gray-100 text-gray-800';
+	}
+
+	formatId(id: number): string {
+		return String(id).padStart(4, '0');
 	}
 }
