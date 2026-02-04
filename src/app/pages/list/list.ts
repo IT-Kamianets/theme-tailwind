@@ -62,7 +62,7 @@ export class List {
 			category: 'Accessories',
 			date: '2026-01-18',
 			icon: '🌱',
-			image: 'https://images.unsplash.com/photo-1532453629622-f7c92ef2cfaa?w=400&h=300&fit=crop',
+			image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop',
 		},
 		{
 			id: 6,
