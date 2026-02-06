@@ -44,6 +44,10 @@
 	--sp-6: 24px;
 	--sp-7: 32px;
 	--sp-8: 40px;
+	--sp-10: 48px;
+	--sp-12: 56px;
+	--sp-16: 72px;
+	--sp-20: 96px;
 
 	/* layout */
 	--container: 1210px;
@@ -115,6 +119,10 @@ html[data-density='compact'] {
 	--sp-6: 22px;
 	--sp-7: 28px;
 	--sp-8: 36px;
+	--sp-10: 42px;
+	--sp-12: 48px;
+	--sp-16: 64px;
+	--sp-20: 84px;
 
 	--gutter: 8px;
 }
