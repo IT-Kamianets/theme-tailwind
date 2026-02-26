@@ -7,17 +7,20 @@
 	},
 	"newProjectRoot": "projects",
 	"projects": {
-		"theme-tailwind": {
+		"app": {
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:component": {
-					"style": "scss",
-					"changeDetection": "OnPush"
+					"changeDetection": "OnPush",
+					"type": "component",
+					"skipTests": true,
+					"style": "scss"
 				},
 				"@schematics/angular:class": {
 					"skipTests": true
 				},
 				"@schematics/angular:directive": {
+					"type": "directive",
 					"skipTests": true
 				},
 				"@schematics/angular:guard": {
@@ -33,7 +36,8 @@
 					"skipTests": true
 				},
 				"@schematics/angular:service": {
-					"skipTests": true
+					"skipTests": true,
+					"type": "service"
 				},
 				"@schematics/angular:application": {
 					"strict": true
@@ -71,8 +75,8 @@
 								},
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "4kB",
-									"maximumError": "8kB"
+									"maximumWarning": "8kB",
+									"maximumError": "16kB"
 								}
 							],
 							"outputHashing": "all"
@@ -89,10 +93,10 @@
 					"builder": "@angular/build:dev-server",
 					"configurations": {
 						"production": {
-							"buildTarget": "theme-tailwind:build:production"
+							"buildTarget": "app:build:production"
 						},
 						"development": {
-							"buildTarget": "theme-tailwind:build:development"
+							"buildTarget": "app:build:development"
 						}
 					},
 					"defaultConfiguration": "development"

@@ -1,45 +1,45 @@
 import { Routes } from '@angular/router';
-import { Public } from './layouts/public/public';
-import { Content } from './pages/content/content';
-import { Form } from './pages/form/form';
-import { Gallery } from './pages/gallery/gallery';
-import { Home } from './pages/home/home';
-import { List } from './pages/list/list';
-import { Profile } from './pages/profile/profile';
-import { Table } from './pages/table/table';
+import { PublicComponent } from './layouts/public/public.component';
+import { ContentComponent } from './pages/content/content.component';
+import { FormComponent } from './pages/form/form.component';
+import { GalleryComponent } from './pages/gallery/gallery.component';
+import { HomeComponent } from './pages/home/home.component';
+import { ListComponent } from './pages/list/list.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { TableComponent } from './pages/table/table.component';
 
 export const routes: Routes = [
 	{
 		path: '',
-		component: Public,
+		component: PublicComponent,
 		children: [
 			{
 				path: '',
-				component: Home,
+				component: HomeComponent,
 			},
 			{
 				path: 'list',
-				component: List,
+				component: ListComponent,
 			},
 			{
 				path: 'profile',
-				component: Profile,
+				component: ProfileComponent,
 			},
 			{
 				path: 'form',
-				component: Form,
+				component: FormComponent,
 			},
 			{
 				path: 'table',
-				component: Table,
+				component: TableComponent,
 			},
 			{
 				path: 'gallery',
-				component: Gallery,
+				component: GalleryComponent,
 			},
 			{
 				path: 'content',
-				component: Content,
+				component: ContentComponent,
 			},
 		],
 	},
