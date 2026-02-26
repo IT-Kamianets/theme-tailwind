@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 export interface ListItemData {
@@ -13,6 +13,7 @@ export interface ListItemData {
 }
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-list-item',
 	standalone: true,
 	imports: [CommonModule],

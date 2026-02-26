@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 interface GalleryItem {
 	id: number;
@@ -11,6 +11,7 @@ interface GalleryItem {
 }
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-gallery',
 	imports: [CommonModule],
 	templateUrl: './gallery.component.html',

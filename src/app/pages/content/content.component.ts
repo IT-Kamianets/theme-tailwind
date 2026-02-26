@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 
 interface BlogPost {
 	id: number;
@@ -16,6 +16,7 @@ interface BlogPost {
 }
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-content',
 	imports: [CommonModule],
 	templateUrl: './content.component.html',

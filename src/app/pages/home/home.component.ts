@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { AboutComponent } from '../../components/about/about.component';
 import { FaqComponent } from '../../components/faq/faq.component';
 import { FeaturesComponent } from '../../components/features/features.component';
@@ -15,6 +15,7 @@ import { TestimonialsComponent } from '../../components/testimonials/testimonial
 import { TrustBarComponent } from '../../components/trust-bar/trust-bar.component';
 import { UseCasesComponent } from '../../components/use-cases/use-cases.component';
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	imports: [
 		HeroComponent,
 		TrustBarComponent,

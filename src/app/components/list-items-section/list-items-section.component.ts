@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, computed, inject, Input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Input, signal } from '@angular/core';
 import { Router } from '@angular/router'; // 1. Імпорт Router
 import { ListItemComponent } from '../list-item/list-item.component';
 
@@ -14,6 +14,7 @@ export interface ListItemData {
 }
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-list-items-section',
 	standalone: true,
 	imports: [CommonModule, ListItemComponent],

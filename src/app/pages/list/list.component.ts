@@ -1,11 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import {
 	ListItemData,
 	ListItemsSectionComponent,
 } from '../../components/list-items-section/list-items-section.component';
 
 @Component({
+	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-list',
 	imports: [CommonModule, ListItemsSectionComponent],
 	templateUrl: './list.component.html',
