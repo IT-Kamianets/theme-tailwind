@@ -1,5 +1,5 @@
-import { Component, Input, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, computed, inject, Input, signal } from '@angular/core';
 import { Router } from '@angular/router'; // 1. Імпорт Router
 import { ListItemComponent } from '../list-item/list-item.component';
 
@@ -37,9 +37,10 @@ export class ListItemsSectionComponent {
 	filteredItems = computed(() => {
 		const query = this.searchQuery().toLowerCase();
 		if (!query) return this.items;
-		return this.items.filter(item => 
-			item.name.toLowerCase().includes(query) || 
-			item.description.toLowerCase().includes(query)
+		return this.items.filter(
+			(item) =>
+				item.name.toLowerCase().includes(query) ||
+				item.description.toLowerCase().includes(query),
 		);
 	});
 

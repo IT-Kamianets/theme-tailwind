@@ -1,6 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, signal } from '@angular/core';
-import { ListItemsSectionComponent, ListItemData } from '../../components/list-items-section/list-items-section.component';
+import {
+	ListItemData,
+	ListItemsSectionComponent,
+} from '../../components/list-items-section/list-items-section.component';
 
 @Component({
 	selector: 'app-list',
@@ -86,7 +89,8 @@ export class ListComponent {
 	getFilteredItems(): ListItemData[] {
 		const cat = this.filteredCategory();
 		const allItems = this.items();
-		const filtered = cat === 'All' ? allItems : allItems.filter(item => item.category === cat);
+		const filtered =
+			cat === 'All' ? allItems : allItems.filter((item) => item.category === cat);
 		return filtered.sort((a, b) => a.id - b.id);
 	}
 }

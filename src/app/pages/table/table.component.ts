@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, signal, computed, OnInit, PLATFORM_ID, inject } from '@angular/core';
+import { Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 
@@ -107,35 +107,82 @@ export class TableComponent implements OnInit {
 		currencySymbol: '$',
 		emptyMessage: 'No products found. Add your first product!',
 		columns: [
-			{ key: 'productImage', label: 'IMAGE', type: 'image', width: '80px', align: 'center', editable: true },
-			{ key: 'productName', label: 'PRODUCT NAME', type: 'text', sortable: false, editable: true, inputType: 'text' },
-			{ key: 'category', label: 'CATEGORY', type: 'badge', filterable: true, editable: true, inputType: 'select', options: [
-				{ value: 'electronics', label: 'Electronics', icon: '💻' },
-				{ value: 'clothing', label: 'Clothing', icon: '👕' },
-				{ value: 'home', label: 'HomeComponent & Garden', icon: '🏠' },
-				{ value: 'sports', label: 'Sports & Outdoors', icon: '⚽' },
-				{ value: 'beauty', label: 'Beauty & Health', icon: '💄' },
-				{ value: 'toys', label: 'Toys & Games', icon: '🎮' },
-				{ value: 'food', label: 'Food & Beverages', icon: '🍕' },
-				{ value: 'other', label: 'Other', icon: '📌' }
-			]},
-			{ key: 'price', label: 'PRICE', type: 'currency', sortable: true, align: 'right', editable: true, inputType: 'number' },
-			{ key: 'quantity', label: 'STOCK', type: 'number', sortable: true, align: 'center', editable: true, inputType: 'number', suffix: 'units' },
+			{
+				key: 'productImage',
+				label: 'IMAGE',
+				type: 'image',
+				width: '80px',
+				align: 'center',
+				editable: true,
+			},
+			{
+				key: 'productName',
+				label: 'PRODUCT NAME',
+				type: 'text',
+				sortable: false,
+				editable: true,
+				inputType: 'text',
+			},
+			{
+				key: 'category',
+				label: 'CATEGORY',
+				type: 'badge',
+				filterable: true,
+				editable: true,
+				inputType: 'select',
+				options: [
+					{ value: 'electronics', label: 'Electronics', icon: '💻' },
+					{ value: 'clothing', label: 'Clothing', icon: '👕' },
+					{ value: 'home', label: 'HomeComponent & Garden', icon: '🏠' },
+					{ value: 'sports', label: 'Sports & Outdoors', icon: '⚽' },
+					{ value: 'beauty', label: 'Beauty & Health', icon: '💄' },
+					{ value: 'toys', label: 'Toys & Games', icon: '🎮' },
+					{ value: 'food', label: 'Food & Beverages', icon: '🍕' },
+					{ value: 'other', label: 'Other', icon: '📌' },
+				],
+			},
+			{
+				key: 'price',
+				label: 'PRICE',
+				type: 'currency',
+				sortable: true,
+				align: 'right',
+				editable: true,
+				inputType: 'number',
+			},
+			{
+				key: 'quantity',
+				label: 'STOCK',
+				type: 'number',
+				sortable: true,
+				align: 'center',
+				editable: true,
+				inputType: 'number',
+				suffix: 'units',
+			},
 			{ key: 'sku', label: 'SKU', type: 'text', editable: true, inputType: 'text' },
-			{ key: 'status', label: 'STATUS', type: 'badge', filterable: true, editable: true, inputType: 'select', options: [
-				{ value: 'active', label: 'Active', icon: '🟢' },
-				{ value: 'draft', label: 'Draft', icon: '📝' },
-				{ value: 'out_of_stock', label: 'Out of Stock', icon: '🔴' },
-				{ value: 'discontinued', label: 'Discontinued', icon: '⛔' }
-			]},
-			{ key: 'createdAt', label: 'ADDED', type: 'date', sortable: true, align: 'center' }
+			{
+				key: 'status',
+				label: 'STATUS',
+				type: 'badge',
+				filterable: true,
+				editable: true,
+				inputType: 'select',
+				options: [
+					{ value: 'active', label: 'Active', icon: '🟢' },
+					{ value: 'draft', label: 'Draft', icon: '📝' },
+					{ value: 'out_of_stock', label: 'Out of Stock', icon: '🔴' },
+					{ value: 'discontinued', label: 'Discontinued', icon: '⛔' },
+				],
+			},
+			{ key: 'createdAt', label: 'ADDED', type: 'date', sortable: true, align: 'center' },
 		],
 		filters: [
 			{
 				key: 'search',
 				label: 'Search',
 				type: 'search',
-				placeholder: 'Search products...'
+				placeholder: 'Search products...',
 			},
 			{
 				key: 'category',
@@ -150,8 +197,8 @@ export class TableComponent implements OnInit {
 					{ value: 'beauty', label: '💄 Beauty & Health' },
 					{ value: 'toys', label: '🎮 Toys & Games' },
 					{ value: 'food', label: '🍕 Food & Beverages' },
-					{ value: 'other', label: '📌 Other' }
-				]
+					{ value: 'other', label: '📌 Other' },
+				],
 			},
 			{
 				key: 'status',
@@ -162,9 +209,9 @@ export class TableComponent implements OnInit {
 					{ value: 'active', label: '🟢 Active' },
 					{ value: 'draft', label: '📝 Draft' },
 					{ value: 'out_of_stock', label: '🔴 Out of Stock' },
-					{ value: 'discontinued', label: '⛔ Discontinued' }
-				]
-			}
+					{ value: 'discontinued', label: '⛔ Discontinued' },
+				],
+			},
 		],
 		badges: [
 			// Categories
@@ -180,8 +227,8 @@ export class TableComponent implements OnInit {
 			{ value: 'active', label: 'Active', color: 'green' },
 			{ value: 'draft', label: 'Draft', color: 'gray' },
 			{ value: 'out_of_stock', label: 'Out of Stock', color: 'red' },
-			{ value: 'discontinued', label: 'Discontinued', color: 'dark' }
-		]
+			{ value: 'discontinued', label: 'Discontinued', color: 'dark' },
+		],
 	};
 
 	// ============================================
@@ -191,22 +238,18 @@ export class TableComponent implements OnInit {
 	validationRules: FieldValidation = {
 		productName: [
 			{ type: 'required', message: 'Product name is required' },
-			{ type: 'minLength', value: 3, message: 'Minimum 3 characters' }
+			{ type: 'minLength', value: 3, message: 'Minimum 3 characters' },
 		],
-		category: [
-			{ type: 'required', message: 'Category is required' }
-		],
+		category: [{ type: 'required', message: 'Category is required' }],
 		price: [
 			{ type: 'required', message: 'Price is required' },
-			{ type: 'min', value: 0.01, message: 'Price must be greater than 0' }
+			{ type: 'min', value: 0.01, message: 'Price must be greater than 0' },
 		],
 		quantity: [
 			{ type: 'required', message: 'Quantity is required' },
-			{ type: 'min', value: 0, message: 'Quantity cannot be negative' }
+			{ type: 'min', value: 0, message: 'Quantity cannot be negative' },
 		],
-		status: [
-			{ type: 'required', message: 'Status is required' }
-		]
+		status: [{ type: 'required', message: 'Status is required' }],
 	};
 
 	// ============================================
@@ -214,12 +257,84 @@ export class TableComponent implements OnInit {
 	// ============================================
 
 	sampleProducts: ProductRecord[] = [
-		{ id: 1, productImage: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop', productName: 'Wireless Headphones Pro', category: 'electronics', price: 149.99, quantity: 50, sku: 'WHP-001', description: 'Premium wireless headphones with noise cancellation', status: 'active', createdAt: '2026-01-15T10:30:00Z' },
-		{ id: 2, productImage: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&h=100&fit=crop', productName: 'Smart Watch Series 5', category: 'electronics', price: 299.99, quantity: 25, sku: 'SWS-005', description: 'Advanced smartwatch with health monitoring', status: 'active', createdAt: '2026-01-20T14:15:00Z' },
-		{ id: 3, productImage: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&h=100&fit=crop', productName: 'Running Shoes Ultra', category: 'sports', price: 89.99, quantity: 100, sku: 'RSU-010', description: 'Lightweight running shoes for marathon', status: 'active', createdAt: '2026-01-22T09:00:00Z' },
-		{ id: 4, productImage: 'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=100&h=100&fit=crop', productName: 'Organic Face Cream', category: 'beauty', price: 34.99, quantity: 0, sku: 'OFC-020', description: 'Natural ingredients for healthy skin', status: 'out_of_stock', createdAt: '2026-01-25T11:45:00Z' },
-		{ id: 5, productImage: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=100&h=100&fit=crop', productName: 'Premium Coffee Beans', category: 'food', price: 24.99, quantity: 200, sku: 'PCB-100', description: 'Arabica beans from Colombia', status: 'active', createdAt: '2026-01-28T16:20:00Z' },
-		{ id: 6, productImage: 'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=100&h=100&fit=crop', productName: 'Gaming Controller X', category: 'toys', price: 59.99, quantity: 15, sku: 'GCX-050', description: 'Wireless controller for all platforms', status: 'draft', createdAt: '2026-02-01T08:30:00Z' }
+		{
+			id: 1,
+			productImage:
+				'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=100&h=100&fit=crop',
+			productName: 'Wireless Headphones Pro',
+			category: 'electronics',
+			price: 149.99,
+			quantity: 50,
+			sku: 'WHP-001',
+			description: 'Premium wireless headphones with noise cancellation',
+			status: 'active',
+			createdAt: '2026-01-15T10:30:00Z',
+		},
+		{
+			id: 2,
+			productImage:
+				'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=100&h=100&fit=crop',
+			productName: 'Smart Watch Series 5',
+			category: 'electronics',
+			price: 299.99,
+			quantity: 25,
+			sku: 'SWS-005',
+			description: 'Advanced smartwatch with health monitoring',
+			status: 'active',
+			createdAt: '2026-01-20T14:15:00Z',
+		},
+		{
+			id: 3,
+			productImage:
+				'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=100&h=100&fit=crop',
+			productName: 'Running Shoes Ultra',
+			category: 'sports',
+			price: 89.99,
+			quantity: 100,
+			sku: 'RSU-010',
+			description: 'Lightweight running shoes for marathon',
+			status: 'active',
+			createdAt: '2026-01-22T09:00:00Z',
+		},
+		{
+			id: 4,
+			productImage:
+				'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=100&h=100&fit=crop',
+			productName: 'Organic Face Cream',
+			category: 'beauty',
+			price: 34.99,
+			quantity: 0,
+			sku: 'OFC-020',
+			description: 'Natural ingredients for healthy skin',
+			status: 'out_of_stock',
+			createdAt: '2026-01-25T11:45:00Z',
+		},
+		{
+			id: 5,
+			productImage:
+				'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=100&h=100&fit=crop',
+			productName: 'Premium Coffee Beans',
+			category: 'food',
+			price: 24.99,
+			quantity: 200,
+			sku: 'PCB-100',
+			description: 'Arabica beans from Colombia',
+			status: 'active',
+			createdAt: '2026-01-28T16:20:00Z',
+		},
+		{
+			id: 6,
+			productImage:
+				'https://images.unsplash.com/photo-1558171813-4c088753af8f?w=100&h=100&fit=crop',
+			productName: 'Gaming Controller X',
+			category: 'toys',
+			price: 59.99,
+			quantity: 15,
+			sku: 'GCX-050',
+			description: 'Wireless controller for all platforms',
+			status: 'draft',
+			createdAt: '2026-02-01T08:30:00Z',
+		},
 	];
 
 	// ============================================
@@ -285,10 +400,11 @@ export class TableComponent implements OnInit {
 		// Apply search filter
 		const search = this.searchQuery().toLowerCase().trim();
 		if (search) {
-			data = data.filter(item =>
-				item.productName.toLowerCase().includes(search) ||
-				item.sku.toLowerCase().includes(search) ||
-				item.description?.toLowerCase().includes(search)
+			data = data.filter(
+				(item) =>
+					item.productName.toLowerCase().includes(search) ||
+					item.sku.toLowerCase().includes(search) ||
+					item.description?.toLowerCase().includes(search),
 			);
 		}
 
@@ -296,7 +412,7 @@ export class TableComponent implements OnInit {
 		const filters = this.filterValues();
 		for (const key of Object.keys(filters)) {
 			if (filters[key]) {
-				data = data.filter(item => item[key as keyof ProductRecord] === filters[key]);
+				data = data.filter((item) => item[key as keyof ProductRecord] === filters[key]);
 			}
 		}
 
@@ -307,11 +423,11 @@ export class TableComponent implements OnInit {
 			data.sort((a, b) => {
 				const aVal = a[column as keyof ProductRecord];
 				const bVal = b[column as keyof ProductRecord];
-				
+
 				if (typeof aVal === 'number' && typeof bVal === 'number') {
 					return direction === 'asc' ? aVal - bVal : bVal - aVal;
 				}
-				
+
 				const aStr = String(aVal || '').toLowerCase();
 				const bStr = String(bVal || '').toLowerCase();
 				return direction === 'asc' ? aStr.localeCompare(bStr) : bStr.localeCompare(aStr);
@@ -325,8 +441,10 @@ export class TableComponent implements OnInit {
 	filteredRecords = computed(() => this.filteredAndSortedData().length);
 
 	hasActiveFilters = computed(() => {
-		return this.searchQuery().trim() !== '' || 
-			Object.values(this.filterValues()).some(v => v !== '');
+		return (
+			this.searchQuery().trim() !== '' ||
+			Object.values(this.filterValues()).some((v) => v !== '')
+		);
 	});
 
 	// ============================================
@@ -338,7 +456,7 @@ export class TableComponent implements OnInit {
 	}
 
 	updateFilter(key: string, value: string) {
-		this.filterValues.update(f => ({ ...f, [key]: value }));
+		this.filterValues.update((f) => ({ ...f, [key]: value }));
 	}
 
 	getFilterValue(key: string): string {
@@ -422,38 +540,38 @@ export class TableComponent implements OnInit {
 			this.editImageError.set('File is too large. Maximum size is 5MB.');
 			return;
 		}
-		
+
 		// Validate file type (only JPG and PNG)
 		const allowedTypes = ['image/jpeg', 'image/png'];
 		if (!allowedTypes.includes(file.type)) {
 			this.editImageError.set('Only JPG and PNG formats are allowed.');
 			return;
 		}
-		
+
 		// Clear any previous error
 		this.editImageError.set(null);
-		
+
 		// Create preview
 		const reader = new FileReader();
 		reader.onload = () => {
 			const imageData = reader.result as string;
 			this.editImagePreview.set(imageData);
-			this.editFormData.update(data => ({ ...data, productImage: imageData }));
+			this.editFormData.update((data) => ({ ...data, productImage: imageData }));
 		};
 		reader.readAsDataURL(file);
 	}
 
 	removeEditImage() {
 		this.editImagePreview.set(null);
-		this.editFormData.update(data => ({ ...data, productImage: null }));
+		this.editFormData.update((data) => ({ ...data, productImage: null }));
 		this.editImageError.set(null);
 	}
 
 	updateEditField(key: string, value: any) {
-		this.editFormData.update(data => ({ ...data, [key]: value }));
-		
+		this.editFormData.update((data) => ({ ...data, [key]: value }));
+
 		if (this.editFormErrors()[key]) {
-			this.editFormErrors.update(errors => {
+			this.editFormErrors.update((errors) => {
 				const newErrors = { ...errors };
 				delete newErrors[key];
 				return newErrors;
@@ -471,16 +589,20 @@ export class TableComponent implements OnInit {
 					if (value === null || value === undefined || value === '') return rule.message;
 					break;
 				case 'min':
-					if (value !== null && value !== undefined && value < rule.value) return rule.message;
+					if (value !== null && value !== undefined && value < rule.value)
+						return rule.message;
 					break;
 				case 'max':
-					if (value !== null && value !== undefined && value > rule.value) return rule.message;
+					if (value !== null && value !== undefined && value > rule.value)
+						return rule.message;
 					break;
 				case 'minLength':
-					if (value && typeof value === 'string' && value.length < rule.value) return rule.message;
+					if (value && typeof value === 'string' && value.length < rule.value)
+						return rule.message;
 					break;
 				case 'maxLength':
-					if (value && typeof value === 'string' && value.length > rule.value) return rule.message;
+					if (value && typeof value === 'string' && value.length > rule.value)
+						return rule.message;
 					break;
 			}
 		}
@@ -514,8 +636,10 @@ export class TableComponent implements OnInit {
 		const editedData = this.editFormData();
 		const recordId = editedData.id;
 
-		this.tableData.update(data => 
-			data.map(item => item.id === recordId ? { ...item, ...editedData } as ProductRecord : item)
+		this.tableData.update((data) =>
+			data.map((item) =>
+				item.id === recordId ? ({ ...item, ...editedData } as ProductRecord) : item,
+			),
 		);
 
 		// Update localStorage
@@ -542,7 +666,7 @@ export class TableComponent implements OnInit {
 	confirmDelete() {
 		const recordId = this.deletingRecord()?.id;
 		if (recordId) {
-			this.tableData.update(data => data.filter(item => item.id !== recordId));
+			this.tableData.update((data) => data.filter((item) => item.id !== recordId));
 			this.syncToLocalStorage();
 			this.showNotification('Product deleted successfully!', 'success');
 		}
@@ -552,7 +676,9 @@ export class TableComponent implements OnInit {
 	syncToLocalStorage() {
 		if (isPlatformBrowser(this.platformId)) {
 			const currentData = this.tableData();
-			const customProducts = currentData.filter(p => !this.sampleProducts.find(s => s.id === p.id));
+			const customProducts = currentData.filter(
+				(p) => !this.sampleProducts.find((s) => s.id === p.id),
+			);
 			localStorage.setItem('products', JSON.stringify(customProducts));
 		}
 	}
@@ -574,23 +700,23 @@ export class TableComponent implements OnInit {
 		return new Date(dateStr).toLocaleDateString('en-US', {
 			year: 'numeric',
 			month: 'short',
-			day: 'numeric'
+			day: 'numeric',
 		});
 	}
 
 	getBadgeConfig(value: string): BadgeConfig | undefined {
-		return this.tableConfig.badges.find(b => b.value === value);
+		return this.tableConfig.badges.find((b) => b.value === value);
 	}
 
 	getCategoryLabel(value: string): string {
-		const column = this.tableConfig.columns.find(c => c.key === 'category');
-		const option = column?.options?.find(o => o.value === value);
+		const column = this.tableConfig.columns.find((c) => c.key === 'category');
+		const option = column?.options?.find((o) => o.value === value);
 		return option?.label || value;
 	}
 
 	getStatusLabel(value: string): string {
-		const column = this.tableConfig.columns.find(c => c.key === 'status');
-		const option = column?.options?.find(o => o.value === value);
+		const column = this.tableConfig.columns.find((c) => c.key === 'status');
+		const option = column?.options?.find((o) => o.value === value);
 		return option?.label || value;
 	}
 }

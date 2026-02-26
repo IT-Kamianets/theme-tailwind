@@ -52,13 +52,21 @@
 }
 
 @keyframes shake {
-	0%, 100% {
+	0%,
+	100% {
 		transform: translateX(0);
 	}
-	10%, 30%, 50%, 70%, 90% {
+	10%,
+	30%,
+	50%,
+	70%,
+	90% {
 		transform: translateX(-4px);
 	}
-	20%, 40%, 60%, 80% {
+	20%,
+	40%,
+	60%,
+	80% {
 		transform: translateX(4px);
 	}
 }
@@ -88,7 +96,8 @@
 }
 
 @keyframes float {
-	0%, 100% {
+	0%,
+	100% {
 		transform: translateY(0);
 	}
 	50% {
@@ -97,7 +106,8 @@
 }
 
 @keyframes glow-pulse {
-	0%, 100% {
+	0%,
+	100% {
 		box-shadow: 0 0 5px rgba(var(--c-primary-rgb, 99, 102, 241), 0.3);
 	}
 	50% {
@@ -120,7 +130,8 @@
 }
 
 @keyframes progress-pulse {
-	0%, 100% {
+	0%,
+	100% {
 		opacity: 1;
 	}
 	50% {
@@ -207,7 +218,7 @@
 
 /* Neon glow effect for primary elements */
 .neon-glow {
-	box-shadow: 
+	box-shadow:
 		0 0 5px var(--c-primary),
 		0 0 10px var(--c-primary),
 		0 0 20px rgba(var(--c-primary-rgb, 99, 102, 241), 0.3);
@@ -215,7 +226,9 @@
 
 /* Hover lift effect */
 .hover-lift {
-	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	transition:
+		transform 0.3s ease,
+		box-shadow 0.3s ease;
 }
 
 .hover-lift:hover {
@@ -242,37 +255,39 @@
 input:focus,
 select:focus,
 textarea:focus {
-	box-shadow: 
+	box-shadow:
 		0 0 0 3px rgba(var(--c-primary-rgb, 99, 102, 241), 0.15),
 		0 0 20px rgba(var(--c-primary-rgb, 99, 102, 241), 0.1);
 	border-color: var(--c-primary) !important;
 }
 
-
-
 /* Premium button hover */
-button[type="submit"]:not(:disabled):hover {
+button[type='submit']:not(:disabled):hover {
 	transform: translateY(-2px);
-	box-shadow: 
+	box-shadow:
 		0 4px 15px rgba(var(--c-primary-rgb, 99, 102, 241), 0.4),
 		0 0 30px rgba(var(--c-primary-rgb, 99, 102, 241), 0.2);
 }
 
-button[type="submit"]:not(:disabled):active {
+button[type='submit']:not(:disabled):active {
 	transform: translateY(0);
 }
 
 /* Drag zone active state */
 .drag-active {
 	border-color: var(--c-primary) !important;
-	background: linear-gradient(135deg, rgba(var(--c-primary-rgb, 99, 102, 241), 0.05), rgba(var(--c-primary-rgb, 99, 102, 241), 0.1)) !important;
+	background: linear-gradient(
+		135deg,
+		rgba(var(--c-primary-rgb, 99, 102, 241), 0.05),
+		rgba(var(--c-primary-rgb, 99, 102, 241), 0.1)
+	) !important;
 	animation: pulse-ring 1s ease-in-out infinite;
 }
 
 /* Image preview hover */
 .image-preview-hover:hover {
 	transform: scale(1.05);
-	box-shadow: 
+	box-shadow:
 		0 10px 30px rgba(0, 0, 0, 0.2),
 		0 0 20px rgba(var(--c-primary-rgb, 99, 102, 241), 0.3);
 }
@@ -315,16 +330,16 @@ textarea:focus {
 }
 
 /* Custom file input styling */
-input[type="file"] {
+input[type='file'] {
 	cursor: pointer;
 }
 
 /* Date input custom styling */
-input[type="date"] {
+input[type='date'] {
 	color-scheme: light;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type='date']::-webkit-calendar-picker-indicator {
 	opacity: 0;
 	position: absolute;
 	right: 0;
@@ -374,8 +389,8 @@ select {
    ============================================ */
 
 /* Hide default checkbox/radio */
-input[type="checkbox"].sr-only,
-input[type="radio"].sr-only {
+input[type='checkbox'].sr-only,
+input[type='radio'].sr-only {
 	position: absolute;
 	width: 1px;
 	height: 1px;

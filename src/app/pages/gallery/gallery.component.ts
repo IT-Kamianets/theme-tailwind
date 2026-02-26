@@ -23,7 +23,8 @@ export class GalleryComponent {
 			title: 'Wireless Headphones',
 			description: 'Premium noise-cancelling over-ear headphones',
 			category: 'Electronics',
-			imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=600&h=600&fit=crop',
 			tags: ['headphones', 'audio', 'wireless'],
 		},
 		{
@@ -31,7 +32,8 @@ export class GalleryComponent {
 			title: 'Smart Watch',
 			description: 'Modern smartwatch with health tracking features',
 			category: 'Electronics',
-			imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=600&h=600&fit=crop',
 			tags: ['smartwatch', 'wearable', 'tech'],
 		},
 		{
@@ -39,7 +41,8 @@ export class GalleryComponent {
 			title: 'Running Shoes',
 			description: 'Lightweight performance running shoes',
 			category: 'Sports',
-			imageUrl: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&h=600&fit=crop',
 			tags: ['shoes', 'running', 'fitness'],
 		},
 		{
@@ -47,7 +50,8 @@ export class GalleryComponent {
 			title: 'Leather Backpack',
 			description: 'Handcrafted leather backpack for everyday carry',
 			category: 'Accessories',
-			imageUrl: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=600&h=600&fit=crop',
 			tags: ['backpack', 'leather', 'bag'],
 		},
 		{
@@ -55,7 +59,8 @@ export class GalleryComponent {
 			title: 'Coffee Beans',
 			description: 'Single-origin specialty coffee beans',
 			category: 'Lifestyle',
-			imageUrl: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&h=600&fit=crop',
 			tags: ['coffee', 'beans', 'food'],
 		},
 		{
@@ -63,7 +68,8 @@ export class GalleryComponent {
 			title: 'Mechanical Keyboard',
 			description: 'RGB mechanical keyboard with custom switches',
 			category: 'Electronics',
-			imageUrl: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=600&h=600&fit=crop',
 			tags: ['keyboard', 'mechanical', 'gaming'],
 		},
 		{
@@ -71,7 +77,8 @@ export class GalleryComponent {
 			title: 'Sunglasses',
 			description: 'Polarized aviator sunglasses with UV protection',
 			category: 'Accessories',
-			imageUrl: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=600&h=600&fit=crop',
 			tags: ['sunglasses', 'eyewear', 'fashion'],
 		},
 		{
@@ -79,7 +86,8 @@ export class GalleryComponent {
 			title: 'Yoga Mat',
 			description: 'Non-slip eco-friendly premium yoga mat',
 			category: 'Sports',
-			imageUrl: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=600&h=600&fit=crop',
 			tags: ['yoga', 'mat', 'fitness'],
 		},
 		{
@@ -87,7 +95,8 @@ export class GalleryComponent {
 			title: 'Skincare Set',
 			description: 'Essential skincare routine kit with natural ingredients',
 			category: 'Lifestyle',
-			imageUrl: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=600&h=600&fit=crop',
 			tags: ['skincare', 'beauty', 'wellness'],
 		},
 		{
@@ -95,7 +104,8 @@ export class GalleryComponent {
 			title: 'Wireless Earbuds',
 			description: 'Compact true wireless earbuds with charging case',
 			category: 'Electronics',
-			imageUrl: 'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1606220588913-b3aacb4d2f46?w=600&h=600&fit=crop',
 			tags: ['earbuds', 'audio', 'wireless'],
 		},
 		{
@@ -103,7 +113,8 @@ export class GalleryComponent {
 			title: 'Wrist Watch',
 			description: 'Classic analog wristwatch with leather strap',
 			category: 'Accessories',
-			imageUrl: 'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1524592094714-0f0654e20314?w=600&h=600&fit=crop',
 			tags: ['watch', 'classic', 'luxury'],
 		},
 		{
@@ -111,7 +122,8 @@ export class GalleryComponent {
 			title: 'Scented Candle',
 			description: 'Hand-poured soy wax candle with essential oils',
 			category: 'Lifestyle',
-			imageUrl: 'https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=600&h=600&fit=crop',
+			imageUrl:
+				'https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=600&h=600&fit=crop',
 			tags: ['candle', 'home', 'aromatherapy'],
 		},
 	]);

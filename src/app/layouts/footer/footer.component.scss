@@ -53,7 +53,9 @@
 .footer__link {
 	color: var(--c-text-muted);
 	text-decoration: none;
-	transition: color var(--motion) ease, padding-left var(--motion) ease;
+	transition:
+		color var(--motion) ease,
+		padding-left var(--motion) ease;
 	display: inline-block;
 }
 

@@ -1,5 +1,5 @@
 import { CommonModule, isPlatformBrowser } from '@angular/common';
-import { Component, signal, computed, PLATFORM_ID, inject } from '@angular/core';
+import { Component, computed, inject, PLATFORM_ID, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
@@ -10,7 +10,15 @@ import { Router, RouterLink } from '@angular/router';
 type FieldType = 'text' | 'number' | 'textarea' | 'select' | 'file';
 
 interface ValidationRule {
-	type: 'required' | 'minLength' | 'maxLength' | 'min' | 'max' | 'pattern' | 'fileSize' | 'fileType';
+	type:
+		| 'required'
+		| 'minLength'
+		| 'maxLength'
+		| 'min'
+		| 'max'
+		| 'pattern'
+		| 'fileSize'
+		| 'fileType';
 	value?: any;
 	message: string;
 }
@@ -91,9 +99,17 @@ export class FormComponent {
 				hint: 'Recommended: 800x800px, max 5MB (JPG or PNG)',
 				icon: '🖼️',
 				validation: [
-					{ type: 'fileSize', value: 5 * 1024 * 1024, message: 'Image must be less than 5MB' },
-					{ type: 'fileType', value: ['image/jpeg', 'image/png'], message: 'Only JPG and PNG formats allowed' }
-				]
+					{
+						type: 'fileSize',
+						value: 5 * 1024 * 1024,
+						message: 'Image must be less than 5MB',
+					},
+					{
+						type: 'fileType',
+						value: ['image/jpeg', 'image/png'],
+						message: 'Only JPG and PNG formats allowed',
+					},
+				],
 			},
 			{
 				key: 'productName',
@@ -104,8 +120,8 @@ export class FormComponent {
 				validation: [
 					{ type: 'required', message: 'Product name is required' },
 					{ type: 'minLength', value: 3, message: 'At least 3 characters required' },
-					{ type: 'maxLength', value: 100, message: 'Maximum 100 characters' }
-				]
+					{ type: 'maxLength', value: 100, message: 'Maximum 100 characters' },
+				],
 			},
 			{
 				key: 'category',
@@ -121,11 +137,9 @@ export class FormComponent {
 					{ value: 'beauty', label: 'Beauty & Health', icon: '💄' },
 					{ value: 'toys', label: 'Toys & Games', icon: '🎮' },
 					{ value: 'food', label: 'Food & Beverages', icon: '🍕' },
-					{ value: 'other', label: 'Other', icon: '📌' }
+					{ value: 'other', label: 'Other', icon: '📌' },
 				],
-				validation: [
-					{ type: 'required', message: 'Please select a category' }
-				]
+				validation: [{ type: 'required', message: 'Please select a category' }],
 			},
 			{
 				key: 'price',
@@ -137,8 +151,8 @@ export class FormComponent {
 				validation: [
 					{ type: 'required', message: 'Price is required' },
 					{ type: 'min', value: 0.01, message: 'Price must be greater than 0' },
-					{ type: 'max', value: 999999.99, message: 'Price too high' }
-				]
+					{ type: 'max', value: 999999.99, message: 'Price too high' },
+				],
 			},
 			{
 				key: 'quantity',
@@ -149,8 +163,8 @@ export class FormComponent {
 				suffix: 'units',
 				validation: [
 					{ type: 'required', message: 'Quantity is required' },
-					{ type: 'min', value: 0, message: 'Quantity cannot be negative' }
-				]
+					{ type: 'min', value: 0, message: 'Quantity cannot be negative' },
+				],
 			},
 			{
 				key: 'sku',
@@ -160,8 +174,12 @@ export class FormComponent {
 				icon: '🏷️',
 				hint: 'Unique identifier for inventory tracking',
 				validation: [
-					{ type: 'pattern', value: '^[A-Za-z0-9-]+$', message: 'Only letters, numbers and dashes allowed' }
-				]
+					{
+						type: 'pattern',
+						value: '^[A-Za-z0-9-]+$',
+						message: 'Only letters, numbers and dashes allowed',
+					},
+				],
 			},
 			{
 				key: 'status',
@@ -173,11 +191,9 @@ export class FormComponent {
 					{ value: 'active', label: 'Active', icon: '🟢' },
 					{ value: 'draft', label: 'Draft', icon: '📝' },
 					{ value: 'out_of_stock', label: 'Out of Stock', icon: '🔴' },
-					{ value: 'discontinued', label: 'Discontinued', icon: '⛔' }
+					{ value: 'discontinued', label: 'Discontinued', icon: '⛔' },
 				],
-				validation: [
-					{ type: 'required', message: 'Please select a status' }
-				]
+				validation: [{ type: 'required', message: 'Please select a status' }],
 			},
 			{
 				key: 'description',
@@ -188,10 +204,10 @@ export class FormComponent {
 				rows: 4,
 				hint: 'Describe the product features, materials, dimensions, etc.',
 				validation: [
-					{ type: 'maxLength', value: 1000, message: 'Maximum 1000 characters' }
-				]
-			}
-		]
+					{ type: 'maxLength', value: 1000, message: 'Maximum 1000 characters' },
+				],
+			},
+		],
 	};
 
 	// ============================================
@@ -206,7 +222,7 @@ export class FormComponent {
 		quantity: null,
 		sku: '',
 		description: '',
-		status: ''
+		status: '',
 	});
 
 	// Image error message
@@ -216,7 +232,7 @@ export class FormComponent {
 	touched = signal<Record<string, boolean>>({});
 	submitted = signal(false);
 	isSubmitting = signal(false);
-	
+
 	// Image preview
 	imagePreview = signal<string | null>(null);
 	dragOver = signal(false);
@@ -233,7 +249,8 @@ export class FormComponent {
 				if (value && value !== '') filled++;
 			} else if (key === 'price' || key === 'quantity') {
 				// Numbers count only if they have actual value
-				if (value !== null && value !== undefined && value !== '' && !isNaN(Number(value))) filled++;
+				if (value !== null && value !== undefined && value !== '' && !isNaN(Number(value)))
+					filled++;
 			} else {
 				// Strings count only if not empty
 				if (value !== '' && value !== null && value !== undefined) filled++;
@@ -257,25 +274,36 @@ export class FormComponent {
 					if (value === null || value === undefined || value === '') return rule.message;
 					break;
 				case 'minLength':
-					if (value && typeof value === 'string' && value.length < rule.value) return rule.message;
+					if (value && typeof value === 'string' && value.length < rule.value)
+						return rule.message;
 					break;
 				case 'maxLength':
-					if (value && typeof value === 'string' && value.length > rule.value) return rule.message;
+					if (value && typeof value === 'string' && value.length > rule.value)
+						return rule.message;
 					break;
 				case 'min':
-					if (value !== null && value !== undefined && value < rule.value) return rule.message;
+					if (value !== null && value !== undefined && value < rule.value)
+						return rule.message;
 					break;
 				case 'max':
-					if (value !== null && value !== undefined && value > rule.value) return rule.message;
+					if (value !== null && value !== undefined && value > rule.value)
+						return rule.message;
 					break;
 				case 'pattern':
-					if (value && typeof value === 'string' && value.length > 0 && !new RegExp(rule.value).test(value)) return rule.message;
+					if (
+						value &&
+						typeof value === 'string' &&
+						value.length > 0 &&
+						!new RegExp(rule.value).test(value)
+					)
+						return rule.message;
 					break;
 				case 'fileSize':
 					if (value instanceof File && value.size > rule.value) return rule.message;
 					break;
 				case 'fileType':
-					if (value instanceof File && !rule.value.includes(value.type)) return rule.message;
+					if (value instanceof File && !rule.value.includes(value.type))
+						return rule.message;
 					break;
 			}
 		}
@@ -284,7 +312,7 @@ export class FormComponent {
 
 	validateForm(): boolean {
 		const newErrors: Record<string, string> = {};
-		
+
 		for (const field of this.formConfig.fields) {
 			const value = this.formData()[field.key as keyof ProductData];
 			const error = this.validateField(field, value);
@@ -302,7 +330,7 @@ export class FormComponent {
 	updateField(key: keyof ProductData, value: any) {
 		this.formData.update((data: ProductData) => ({ ...data, [key]: value }));
 		this.touched.update((t: Record<string, boolean>) => ({ ...t, [key]: true }));
-		
+
 		// Clear error on change
 		if (this.errors()[key]) {
 			this.errors.update((err: Record<string, string>) => {
@@ -335,21 +363,23 @@ export class FormComponent {
 		// Validate file size (5MB max)
 		const maxSize = 5 * 1024 * 1024;
 		if (file.size > maxSize) {
-			this.imageError.set(`File is too large (${this.formatFileSize(file.size)}). Maximum size is 5MB.`);
+			this.imageError.set(
+				`File is too large (${this.formatFileSize(file.size)}). Maximum size is 5MB.`,
+			);
 			return;
 		}
-		
+
 		// Validate file type (only JPG and PNG)
 		const allowedTypes = ['image/jpeg', 'image/png'];
 		if (!allowedTypes.includes(file.type)) {
 			this.imageError.set('Only JPG and PNG formats are allowed.');
 			return;
 		}
-		
+
 		// Clear any previous error
 		this.imageError.set(null);
 		this.updateField('productImage', file);
-		
+
 		// Create preview
 		const reader = new FileReader();
 		reader.onload = () => {
@@ -370,7 +400,9 @@ export class FormComponent {
 			if (isPlatformBrowser(this.platformId)) {
 				const errorKeys = Object.keys(this.errors());
 				if (errorKeys.length > 0) {
-					const firstErrorField = document.querySelector(`[data-field="${errorKeys[0]}"]`);
+					const firstErrorField = document.querySelector(
+						`[data-field="${errorKeys[0]}"]`,
+					);
 					if (firstErrorField) {
 						firstErrorField.scrollIntoView({ behavior: 'smooth', block: 'center' });
 					}
@@ -385,7 +417,7 @@ export class FormComponent {
 		setTimeout(() => {
 			this.isSubmitting.set(false);
 			this.submitted.set(true);
-			
+
 			// Store product data for table page (in real app, this would be an API call)
 			if (isPlatformBrowser(this.platformId)) {
 				const products = JSON.parse(localStorage.getItem('products') || '[]');
@@ -393,7 +425,7 @@ export class FormComponent {
 					id: Date.now(),
 					...this.formData(),
 					productImage: this.imagePreview(),
-					createdAt: new Date().toISOString()
+					createdAt: new Date().toISOString(),
 				};
 				products.push(newProduct);
 				localStorage.setItem('products', JSON.stringify(products));
@@ -419,7 +451,7 @@ export class FormComponent {
 			quantity: null,
 			sku: '',
 			description: '',
-			status: ''
+			status: '',
 		});
 		this.errors.set({});
 		this.touched.set({});
@@ -429,7 +461,7 @@ export class FormComponent {
 
 	// Helper methods
 	getFieldConfig(key: string): FieldSchema | undefined {
-		return this.formConfig.fields.find(f => f.key === key);
+		return this.formConfig.fields.find((f) => f.key === key);
 	}
 
 	formatFileSize(bytes: number): string {

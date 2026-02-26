@@ -1,5 +1,5 @@
-import { Component, Input, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 export interface ListItemData {
@@ -21,7 +21,7 @@ export interface ListItemData {
 })
 export class ListItemComponent {
 	@Input() item!: ListItemData;
-	
+
 	private router = inject(Router);
 
 	navigateToDetails(): void {

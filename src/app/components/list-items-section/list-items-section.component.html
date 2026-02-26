@@ -1,7 +1,9 @@
 <section class="py-[var(--sp-8)] animate-fade-in">
-	<div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-[var(--sp-6)] gap-[var(--sp-4)]">
+	<div
+		class="flex flex-col md:flex-row justify-between items-start md:items-center mb-[var(--sp-6)] gap-[var(--sp-4)]"
+	>
 		<div>
-			<h2 class="text-2xl font-bold" style="color: var(--c-text-primary);">
+			<h2 class="text-2xl font-bold" style="color: var(--c-text-primary)">
 				{{ title }}
 			</h2>
 			<div class="h-1 w-20 bg-[var(--c-primary)] mt-2 rounded-full"></div>
@@ -29,7 +31,7 @@
 	</div>
 
 	@if (displayItems().length > 0) {
-		<div 
+		<div
 			class="grid gap-[var(--sp-6)]"
 			[class.grid-cols-1]="itemsPerRow === 1"
 			[class.sm:grid-cols-2]="itemsPerRow >= 2"
@@ -41,10 +43,12 @@
 			}
 		</div>
 	} @else {
-		<div class="text-center py-[var(--sp-12)] bg-[var(--c-bg-secondary)] rounded-[var(--radius)] border border-[var(--c-border-primary)] border-dashed">
+		<div
+			class="text-center py-[var(--sp-12)] bg-[var(--c-bg-secondary)] rounded-[var(--radius)] border border-[var(--c-border-primary)] border-dashed"
+		>
 			<p class="text-[var(--c-text-muted)]">No items found matching your criteria.</p>
 			@if (searchQuery()) {
-				<button 
+				<button
 					(click)="clearSearch()"
 					class="mt-[var(--sp-4)] text-[var(--c-primary)] font-medium hover:underline"
 				>

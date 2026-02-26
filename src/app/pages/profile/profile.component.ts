@@ -1,5 +1,5 @@
-import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Component, signal } from '@angular/core';
 import { ListItemData } from '../../components/list-items-section/list-items-section.component';
 
 @Component({
@@ -13,7 +13,8 @@ export class ProfileComponent {
 	product = signal<ListItemData>({
 		id: 1,
 		name: 'Product Alpha',
-		description: 'This is a high-quality product designed to meet all your professional needs. It features premium materials, an ergonomic design, and industry-leading performance specifications.',
+		description:
+			'This is a high-quality product designed to meet all your professional needs. It features premium materials, an ergonomic design, and industry-leading performance specifications.',
 		category: 'Electronics',
 		date: '2026-02-01',
 		icon: '⚡',

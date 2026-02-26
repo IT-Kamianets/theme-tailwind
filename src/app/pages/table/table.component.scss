@@ -67,7 +67,8 @@
 }
 
 @keyframes pulse-glow {
-	0%, 100% {
+	0%,
+	100% {
 		box-shadow: 0 0 5px rgba(var(--c-primary-rgb, 251, 191, 36), 0.3);
 	}
 	50% {
@@ -235,7 +236,8 @@ td span.font-bold {
 
 /* Empty state animation */
 @keyframes empty-bounce {
-	0%, 100% {
+	0%,
+	100% {
 		transform: translateY(0);
 	}
 	50% {
@@ -273,31 +275,29 @@ textarea:focus {
 	box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.15);
 }
 
-
-
 /* Date input styling */
-input[type="date"] {
+input[type='date'] {
 	color-scheme: light;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator {
+input[type='date']::-webkit-calendar-picker-indicator {
 	opacity: 0.6;
 	cursor: pointer;
 	transition: opacity 0.2s;
 }
 
-input[type="date"]::-webkit-calendar-picker-indicator:hover {
+input[type='date']::-webkit-calendar-picker-indicator:hover {
 	opacity: 1;
 }
 
 /* Number input - remove spinners */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
+input[type='number']::-webkit-outer-spin-button,
+input[type='number']::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	margin: 0;
 }
 
-input[type="number"] {
+input[type='number'] {
 	-moz-appearance: textfield;
 }
 
@@ -425,18 +425,42 @@ html[data-mode='dark'] .badge-discontinued {
 	background-color: rgba(255, 255, 255, 0.1);
 }
 
-html[data-mode='dark'] .badge-electronics { color: rgb(96, 165, 250); }
-html[data-mode='dark'] .badge-clothing { color: rgb(192, 132, 252); }
-html[data-mode='dark'] .badge-home { color: rgb(74, 222, 128); }
-html[data-mode='dark'] .badge-sports { color: rgb(251, 146, 60); }
-html[data-mode='dark'] .badge-beauty { color: rgb(244, 114, 182); }
-html[data-mode='dark'] .badge-toys { color: rgb(250, 204, 21); }
-html[data-mode='dark'] .badge-food { color: rgb(248, 113, 113); }
-html[data-mode='dark'] .badge-other { color: rgb(156, 163, 175); }
-html[data-mode='dark'] .badge-active { color: rgb(74, 222, 128); }
-html[data-mode='dark'] .badge-draft { color: rgb(156, 163, 175); }
-html[data-mode='dark'] .badge-out_of_stock { color: rgb(248, 113, 113); }
-html[data-mode='dark'] .badge-discontinued { color: rgb(156, 163, 175); }
+html[data-mode='dark'] .badge-electronics {
+	color: rgb(96, 165, 250);
+}
+html[data-mode='dark'] .badge-clothing {
+	color: rgb(192, 132, 252);
+}
+html[data-mode='dark'] .badge-home {
+	color: rgb(74, 222, 128);
+}
+html[data-mode='dark'] .badge-sports {
+	color: rgb(251, 146, 60);
+}
+html[data-mode='dark'] .badge-beauty {
+	color: rgb(244, 114, 182);
+}
+html[data-mode='dark'] .badge-toys {
+	color: rgb(250, 204, 21);
+}
+html[data-mode='dark'] .badge-food {
+	color: rgb(248, 113, 113);
+}
+html[data-mode='dark'] .badge-other {
+	color: rgb(156, 163, 175);
+}
+html[data-mode='dark'] .badge-active {
+	color: rgb(74, 222, 128);
+}
+html[data-mode='dark'] .badge-draft {
+	color: rgb(156, 163, 175);
+}
+html[data-mode='dark'] .badge-out_of_stock {
+	color: rgb(248, 113, 113);
+}
+html[data-mode='dark'] .badge-discontinued {
+	color: rgb(156, 163, 175);
+}
 
 /* Dark mode scrollbar */
 html[data-mode='dark'] ::-webkit-scrollbar-track {
@@ -445,10 +469,12 @@ html[data-mode='dark'] ::-webkit-scrollbar-track {
 
 /* Dark mode row hover */
 html[data-mode='dark'] tbody tr:hover {
-	background: linear-gradient(90deg, 
-		rgba(251, 191, 36, 0.15), 
-		rgba(251, 191, 36, 0.08), 
-		transparent) !important;
+	background: linear-gradient(
+		90deg,
+		rgba(251, 191, 36, 0.15),
+		rgba(251, 191, 36, 0.08),
+		transparent
+	) !important;
 }
 
 /* ITKP mode badge adjustments */
@@ -469,10 +495,12 @@ html[data-mode='itkp'] .badge-discontinued {
 
 /* ITKP mode row hover */
 html[data-mode='itkp'] tbody tr:hover {
-	background: linear-gradient(90deg, 
-		rgba(251, 191, 36, 0.12), 
-		rgba(251, 191, 36, 0.06), 
-		transparent) !important;
+	background: linear-gradient(
+		90deg,
+		rgba(251, 191, 36, 0.12),
+		rgba(251, 191, 36, 0.06),
+		transparent
+	) !important;
 }
 
 /* ============================================
@@ -491,8 +519,9 @@ html[data-mode='itkp'] tbody tr:hover {
 	table {
 		font-size: 0.875rem;
 	}
-	
-	td, th {
+
+	td,
+	th {
 		padding: 0.75rem 0.5rem;
 	}
 }
@@ -510,7 +539,7 @@ html[data-mode='itkp'] tbody tr:hover {
 		opacity: 1;
 		transform: none;
 	}
-	
+
 	tbody tr {
 		transition: none;
 	}
@@ -526,14 +555,14 @@ html[data-mode='itkp'] tbody tr:hover {
 	.fixed {
 		display: none !important;
 	}
-	
+
 	/* Remove shadows and backgrounds */
 	.shadow-lg,
 	.shadow-xl,
 	.shadow-2xl {
 		box-shadow: none !important;
 	}
-	
+
 	/* Full width table */
 	table {
 		width: 100% !important;

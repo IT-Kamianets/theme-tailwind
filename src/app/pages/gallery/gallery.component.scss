@@ -62,7 +62,8 @@
 }
 
 @keyframes float {
-	0%, 100% {
+	0%,
+	100% {
 		transform: translateY(0);
 	}
 	50% {
@@ -71,7 +72,8 @@
 }
 
 @keyframes pulse-glow {
-	0%, 100% {
+	0%,
+	100% {
 		box-shadow: 0 0 20px rgba(37, 110, 255, 0.3);
 	}
 	50% {
@@ -98,7 +100,8 @@
 }
 
 @keyframes bounce-subtle {
-	0%, 100% {
+	0%,
+	100% {
 		transform: translateY(0);
 	}
 	50% {
@@ -134,11 +137,7 @@
 	left: -50%;
 	width: 200%;
 	height: 200%;
-	background: radial-gradient(
-		circle,
-		rgba(37, 110, 255, 0.1) 0%,
-		transparent 50%
-	);
+	background: radial-gradient(circle, rgba(37, 110, 255, 0.1) 0%, transparent 50%);
 	animation: rotate-slow 30s linear infinite;
 }
 
@@ -179,18 +178,42 @@
    STAGGERED ANIMATIONS FOR GALLERY ITEMS
    ============================================ */
 
-.gallery-grid > *:nth-child(1) { animation-delay: 0.05s; }
-.gallery-grid > *:nth-child(2) { animation-delay: 0.1s; }
-.gallery-grid > *:nth-child(3) { animation-delay: 0.15s; }
-.gallery-grid > *:nth-child(4) { animation-delay: 0.2s; }
-.gallery-grid > *:nth-child(5) { animation-delay: 0.25s; }
-.gallery-grid > *:nth-child(6) { animation-delay: 0.3s; }
-.gallery-grid > *:nth-child(7) { animation-delay: 0.35s; }
-.gallery-grid > *:nth-child(8) { animation-delay: 0.4s; }
-.gallery-grid > *:nth-child(9) { animation-delay: 0.45s; }
-.gallery-grid > *:nth-child(10) { animation-delay: 0.5s; }
-.gallery-grid > *:nth-child(11) { animation-delay: 0.55s; }
-.gallery-grid > *:nth-child(12) { animation-delay: 0.6s; }
+.gallery-grid > *:nth-child(1) {
+	animation-delay: 0.05s;
+}
+.gallery-grid > *:nth-child(2) {
+	animation-delay: 0.1s;
+}
+.gallery-grid > *:nth-child(3) {
+	animation-delay: 0.15s;
+}
+.gallery-grid > *:nth-child(4) {
+	animation-delay: 0.2s;
+}
+.gallery-grid > *:nth-child(5) {
+	animation-delay: 0.25s;
+}
+.gallery-grid > *:nth-child(6) {
+	animation-delay: 0.3s;
+}
+.gallery-grid > *:nth-child(7) {
+	animation-delay: 0.35s;
+}
+.gallery-grid > *:nth-child(8) {
+	animation-delay: 0.4s;
+}
+.gallery-grid > *:nth-child(9) {
+	animation-delay: 0.45s;
+}
+.gallery-grid > *:nth-child(10) {
+	animation-delay: 0.5s;
+}
+.gallery-grid > *:nth-child(11) {
+	animation-delay: 0.55s;
+}
+.gallery-grid > *:nth-child(12) {
+	animation-delay: 0.6s;
+}
 
 .gallery-item {
 	opacity: 0;
@@ -310,7 +333,7 @@
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(135deg, transparent, rgba(255,255,255,0.2), transparent);
+	background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
 	transform: translateX(-100%);
 	transition: transform 0.5s ease;
 }
@@ -378,11 +401,11 @@
    MASONRY-LIKE VARYING HEIGHTS
    ============================================ */
 
-.gallery-grid > *:nth-child(3n+1) {
+.gallery-grid > *:nth-child(3n + 1) {
 	aspect-ratio: 1 / 1;
 }
 
-.gallery-grid > *:nth-child(3n+2) {
+.gallery-grid > *:nth-child(3n + 2) {
 	aspect-ratio: 4 / 5;
 }
 
