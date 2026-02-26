@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@use 'tailwindcss';
 
 /* Design tokens (CSS variables). Runtime-themable; keep SCSS using var(--token) */
 :root {
