@@ -31,9 +31,10 @@
 		"@tailwindcss/cli": "^4.1.18",
 		"@tailwindcss/postcss": "^4.1.18",
 		"express": "^5.1.0",
+		"material-symbols": "^0.40.2",
 		"rxjs": "~7.8.0",
 		"tslib": "^2.3.0",
-		"wacom": "^21.2.1"
+		"wacom": "21.2.2"
 	},
 	"devDependencies": {
 		"@angular/build": "^21.2.0",

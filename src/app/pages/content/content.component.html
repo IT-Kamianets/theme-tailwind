@@ -28,18 +28,21 @@
 						color: white;
 						box-shadow: 0 10px 30px rgba(37, 110, 255, 0.3);
 					"
+					translate
 				>
 					Product Blog
 				</span>
 				<h1
 					class="hero-title text-4xl md:text-5xl lg:text-6xl font-bold mb-[var(--sp-4)]"
 					style="color: var(--c-text-secondary)"
+					translate
 				>
 					Reviews & Guides
 				</h1>
 				<p
 					class="hero-subtitle text-xl max-w-2xl mx-auto"
 					style="color: var(--c-text-muted)"
+					translate
 				>
 					Expert reviews, buying guides, and tips for smarter shopping
 				</p>
@@ -80,7 +83,7 @@
 							d="M15 19l-7-7 7-7"
 						></path>
 					</svg>
-					Back to Posts
+					<span translate>Back to Posts</span>
 				</button>
 
 				<!-- Featured Image -->
@@ -102,12 +105,12 @@
 								box-shadow: 0 5px 20px rgba(37, 110, 255, 0.4);
 							"
 						>
-							{{ post.category }}
+							{{ post.category | translate }}
 						</span>
 						<h1
 							class="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight"
 						>
-							{{ post.title }}
+							{{ post.title | translate }}
 						</h1>
 					</div>
 				</div>
@@ -131,7 +134,7 @@
 								{{ post.author }}
 							</p>
 							<p class="text-sm" style="color: var(--c-text-muted)">
-								{{ post.date }} · {{ post.readTime }} min read
+								{{ post.date }} · {{ post.readTime }} {{ 'min read' | translate }}
 							</p>
 						</div>
 					</div>
@@ -157,14 +160,14 @@
 						class="text-xl leading-relaxed mb-[var(--sp-8)]"
 						style="color: var(--c-text-primary)"
 					>
-						{{ post.excerpt }}
+						{{ post.excerpt | translate }}
 					</p>
 
 					<div
 						class="leading-relaxed space-y-[var(--sp-6)] text-lg"
 						style="color: var(--c-text-primary)"
 					>
-						<p>{{ post.content }}</p>
+						<p>{{ post.content | translate }}</p>
 
 						<blockquote
 							class="article-blockquote border-l-4 pl-[var(--sp-8)] py-[var(--sp-4)] my-[var(--sp-8)] italic text-xl relative"
@@ -178,8 +181,10 @@
 								);
 							"
 						>
-							Continue reading for more insights on this topic. Subscribe to our
-							newsletter to stay updated with the latest articles and tutorials.
+							{{
+								'Continue reading for more insights on this topic. Subscribe to our newsletter to stay updated with the latest articles and tutorials.'
+									| translate
+							}}
 						</blockquote>
 					</div>
 
@@ -190,10 +195,10 @@
 					>
 						<div>
 							<h3 class="font-bold text-lg" style="color: var(--c-text-secondary)">
-								Enjoyed this article?
+								<span translate>Enjoyed this article?</span>
 							</h3>
 							<p class="text-sm" style="color: var(--c-text-muted)">
-								Share it with your network
+								<span translate>Share it with your network</span>
 							</p>
 						</div>
 						<div class="flex gap-[var(--sp-4)]">
@@ -280,23 +285,23 @@
 										class="category-badge text-xs font-bold px-[var(--sp-4)] py-[var(--sp-2)] rounded-full text-white"
 										style="background-color: var(--c-primary)"
 									>
-										{{ posts()[0].category }}
+										{{ posts()[0].category | translate }}
 									</span>
 									<span class="text-sm" style="color: var(--c-text-muted)">
-										{{ posts()[0].readTime }} min read
+										{{ posts()[0].readTime }} {{ 'min read' | translate }}
 									</span>
 								</div>
 								<h2
 									class="text-2xl md:text-3xl lg:text-4xl font-bold mb-[var(--sp-4)] leading-tight"
 									style="color: var(--c-text-secondary)"
 								>
-									{{ posts()[0].title }}
+									{{ posts()[0].title | translate }}
 								</h2>
 								<p
 									class="mb-[var(--sp-6)] text-lg line-clamp-2"
 									style="color: var(--c-text-muted)"
 								>
-									{{ posts()[0].excerpt }}
+									{{ posts()[0].excerpt | translate }}
 								</p>
 								<div class="flex items-center gap-[var(--sp-4)]">
 									<div class="author-avatar">
@@ -330,7 +335,7 @@
 						class="text-2xl font-bold whitespace-nowrap"
 						style="color: var(--c-text-secondary)"
 					>
-						More Articles
+						<span translate>More Articles</span>
 					</h2>
 					<div
 						class="flex-1 h-px"
@@ -369,7 +374,7 @@
 										class="category-badge text-xs font-bold px-[var(--sp-3)] py-[var(--sp-2)] rounded-full text-white"
 										style="background-color: var(--c-primary)"
 									>
-										{{ post.category }}
+										{{ post.category | translate }}
 									</span>
 								</div>
 							</div>
@@ -380,13 +385,13 @@
 									class="text-xl font-bold mb-[var(--sp-3)] line-clamp-2 leading-tight"
 									style="color: var(--c-text-secondary)"
 								>
-									{{ post.title }}
+									{{ post.title | translate }}
 								</h3>
 								<p
 									class="text-sm mb-[var(--sp-5)] line-clamp-2"
 									style="color: var(--c-text-muted)"
 								>
-									{{ post.excerpt }}
+									{{ post.excerpt | translate }}
 								</p>
 
 								<div class="flex items-center justify-between">
@@ -408,7 +413,7 @@
 										class="read-more-arrow text-sm font-semibold flex items-center gap-1"
 										style="color: var(--c-primary)"
 									>
-										Read
+										{{ 'Read' | translate }}
 										<svg
 											class="w-4 h-4"
 											fill="none"
@@ -477,17 +482,19 @@
 						</div>
 
 						<h3 class="text-3xl md:text-4xl font-bold mb-[var(--sp-3)] text-white">
-							Stay Updated
+							<span translate>Stay Updated</span>
 						</h3>
 						<p class="mb-[var(--sp-8)] text-white/70 max-w-lg mx-auto text-lg">
-							Get the latest articles and tutorials delivered straight to your inbox.
-							No spam, ever.
+							{{
+								'Get the latest articles and tutorials delivered straight to your inbox. No spam, ever.'
+									| translate
+							}}
 						</p>
 
 						<form class="flex gap-[var(--sp-3)] flex-col sm:flex-row max-w-lg mx-auto">
 							<input
 								type="email"
-								placeholder="Enter your email"
+								[placeholder]="'Enter your email' | translate"
 								class="newsletter-input flex-1 px-[var(--sp-6)] py-[var(--sp-4)] rounded-full focus:outline-none text-base"
 								style="
 									background-color: rgba(255, 255, 255, 0.15);
@@ -501,7 +508,7 @@
 								class="newsletter-btn font-bold px-[var(--sp-8)] py-[var(--sp-4)] rounded-full text-base"
 								style="background-color: white; color: var(--c-primary)"
 							>
-								Subscribe
+								{{ 'Subscribe' | translate }}
 							</button>
 						</form>
 					</div>

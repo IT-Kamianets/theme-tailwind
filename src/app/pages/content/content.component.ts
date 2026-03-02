@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { TranslateDirective, TranslatePipe } from 'wacom';
 
 interface BlogPost {
 	id: number;
@@ -18,7 +19,7 @@ interface BlogPost {
 @Component({
 	changeDetection: ChangeDetectionStrategy.OnPush,
 	selector: 'app-content',
-	imports: [CommonModule],
+	imports: [CommonModule, TranslateDirective, TranslatePipe],
 	templateUrl: './content.component.html',
 	styleUrl: './content.component.scss',
 })
@@ -26,158 +27,168 @@ export class ContentComponent {
 	posts = signal<BlogPost[]>([
 		{
 			id: 1,
-			title: 'Top 5 Wireless Headphones of 2026',
+			title: 'Топ-5 бездротових навушників 2026 року',
 			excerpt:
-				'We tested dozens of wireless headphones to find the best options for every budget and listening style.',
-			content: `Wireless headphones have come a long way in 2026, with improvements in noise cancellation, battery life, and sound quality across every price range. In this roundup, we compare the top contenders — from premium over-ear models with spatial audio to budget-friendly earbuds that punch well above their weight. Whether you prioritize bass-heavy sound, crystal-clear calls, or all-day comfort, our expert picks will help you find the perfect pair.`,
+				'Ми протестували десятки бездротових навушників, щоб знайти найкращі варіанти для будь-якого бюджету та стилю прослуховування.',
+			content:
+				'У 2026 році бездротові навушники суттєво вдосконалилися: кращі шумозаглушення, автономність і якість звуку в усіх цінових категоріях. У цьому огляді ми порівнюємо лідерів ринку: від преміальних накладних моделей із просторовим аудіо до доступних вкладишів, які приємно дивують можливостями. Якщо для вас важливі насичені баси, кришталево чисті дзвінки або комфорт на весь день, наші експертні добірки допоможуть знайти ідеальну пару.',
 			author: 'Alex Rivera',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
 			date: '2026-02-01',
 			readTime: 10,
-			category: 'Reviews',
-			tags: ['headphones', 'audio', 'wireless'],
+			category: 'Огляди',
+			tags: ['навушники', 'аудіо', 'бездротові'],
 			image: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=800&h=400&fit=crop',
 		},
 		{
 			id: 2,
-			title: 'Smart Watch Buying Guide',
+			title: 'Посібник із вибору смартгодинника',
 			excerpt:
-				'Everything you need to know before choosing your next smartwatch — features, compatibility, and value.',
-			content: `The smartwatch market is more competitive than ever, with options ranging from fitness-focused trackers to full-featured wrist computers. This guide breaks down the key factors to consider: operating system compatibility, health sensors, battery life, build quality, and app ecosystems. We also compare the latest models side by side so you can make an informed decision that fits your lifestyle and budget.`,
+				'Усе, що потрібно знати перед вибором наступного смартгодинника: функції, сумісність і вигідність.',
+			content:
+				'Ринок смартгодинників конкурентний як ніколи: від фітнес-трекерів до повноцінних компʼютерів на запʼясті. У цьому гайді розбираємо ключові критерії вибору: сумісність із ОС, датчики здоровʼя, автономність, якість збірки та екосистему застосунків. Також порівнюємо найновіші моделі поруч, щоб ви могли обрати варіант під свій стиль життя та бюджет.',
 			author: 'Maya Chen',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face',
 			date: '2026-01-28',
 			readTime: 12,
-			category: 'Guides',
-			tags: ['smartwatch', 'wearables', 'tech'],
+			category: 'Посібники',
+			tags: ['смартгодинник', 'гаджети', 'техніка'],
 			image: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=800&h=400&fit=crop',
 		},
 		{
 			id: 3,
-			title: 'How to Choose Running Shoes',
+			title: 'Як вибрати бігові кросівки',
 			excerpt:
-				'A sports expert breaks down fit, cushioning, and terrain types to help you find the right running shoe.',
-			content: `Choosing the right running shoe can make or break your training. In this guide, we cover the essentials: understanding pronation, selecting the right cushioning level, and matching shoe type to your running surface. From road runners to trail specialists, we explain what to look for in a shoe and highlight the top-performing models across different categories. Plus, tips on when to replace your shoes and how to extend their lifespan.`,
+				'Спортивний експерт пояснює посадку, амортизацію та типи покриття, щоб допомогти вам обрати правильні бігові кросівки.',
+			content:
+				'Правильно підібрані бігові кросівки можуть кардинально вплинути на ваші тренування. У цьому матеріалі ми розглядаємо основи: що таке пронація, як обрати рівень амортизації та який тип взуття підійде саме для вашого покриття. Від шосейного бігу до трейлу пояснюємо, на що звертати увагу, і виділяємо найкращі моделі в різних категоріях. Також додаємо поради, коли варто змінювати кросівки та як подовжити їхній строк служби.',
 			author: 'Jordan Blake',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
 			date: '2026-01-25',
 			readTime: 8,
-			category: 'Guides',
-			tags: ['running', 'shoes', 'fitness'],
+			category: 'Посібники',
+			tags: ['біг', 'кросівки', 'фітнес'],
 			image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&h=400&fit=crop',
 		},
 		{
 			id: 4,
-			title: 'Skincare Essentials: What Actually Works',
+			title: 'Основи догляду за шкірою: що справді працює',
 			excerpt:
-				'Cut through the marketing hype — these are the skincare products backed by dermatologists.',
-			content: `The skincare industry is flooded with miracle claims and trendy ingredients, but which products actually deliver results? We consulted dermatologists and reviewed clinical studies to identify the essentials every routine should include. From cleansers and sunscreens to serums and moisturizers, this article covers what works, what doesn't, and how to build a simple yet effective skincare regimen without breaking the bank.`,
+				'Без маркетингового шуму: це засоби для догляду за шкірою, які підтримують дерматологи.',
+			content:
+				'Індустрія догляду за шкірою переповнена чудо-обіцянками та модними інгредієнтами, але які продукти справді дають результат? Ми проконсультувалися з дерматологами та проаналізували клінічні дослідження, щоб визначити базу, яка має бути в кожному догляді. Від очищення й SPF до сироваток і кремів: у статті розбираємо, що працює, що ні, і як зібрати просту, але ефективну рутину без зайвих витрат.',
 			author: 'Sophia Laurent',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
 			date: '2026-01-20',
 			readTime: 9,
-			category: 'Reviews',
-			tags: ['skincare', 'beauty', 'wellness'],
+			category: 'Огляди',
+			tags: ['догляд', 'краса', 'здоровʼя'],
 			image: 'https://images.unsplash.com/photo-1556228578-0d85b1a4d571?w=800&h=400&fit=crop',
 		},
 		{
 			id: 5,
-			title: "Coffee Lover's Guide to Premium Beans",
+			title: 'Гайд кавомана: як обирати преміальні зерна',
 			excerpt:
-				'From single-origin to blends, discover how to pick the best coffee beans for your perfect cup.',
-			content: `Great coffee starts with great beans, but navigating the world of specialty coffee can be overwhelming. This guide covers the fundamentals — roast levels, origin characteristics, and processing methods — so you can confidently choose beans that match your taste. We also share brewing tips for popular methods like pour-over, French press, and espresso, along with our top picks for online coffee subscriptions.`,
+				'Від моносортів до блендів: дізнайтеся, як обрати найкращі зерна для ідеальної чашки кави.',
+			content:
+				'Чудова кава починається з якісних зерен, але розібратися у світі specialty-кави буває непросто. У цьому гайді ми пояснюємо базові речі: рівні обсмаження, особливості походження та методи обробки, щоб ви впевнено обирали зерна під свій смак. Також ділимося порадами із заварювання для популярних методів, як-от пуровер, френч-прес і еспресо, та рекомендуємо найкращі онлайн-підписки на каву.',
 			author: 'Marco Espinoza',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
 			date: '2026-01-15',
 			readTime: 7,
-			category: 'Tips',
-			tags: ['coffee', 'food', 'lifestyle'],
+			category: 'Поради',
+			tags: ['кава', 'їжа', 'лайфстайл'],
 			image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=400&fit=crop',
 		},
 		{
 			id: 6,
-			title: 'Best Mechanical Keyboards for Every Budget',
+			title: 'Найкращі механічні клавіатури для будь-якого бюджету',
 			excerpt:
-				'From entry-level to enthusiast, these are the mechanical keyboards worth your money in 2026.',
-			content: `Mechanical keyboards have exploded in popularity, and the options can be overwhelming. In this review, we break down our top picks across three price tiers — budget, mid-range, and premium. We evaluate switch types, build quality, keycap materials, and software features. Whether you're a gamer, programmer, or office worker, there's a perfect board out there for you. We also cover hot-swappable options for those who like to experiment with different switches.`,
+				'Від початкового рівня до ентузіастів: це механічні клавіатури, які варті ваших грошей у 2026 році.',
+			content:
+				'Механічні клавіатури стрімко набрали популярність, і від кількості варіантів легко розгубитися. У цьому огляді ми зібрали найкращі моделі в трьох цінових сегментах: бюджетному, середньому та преміальному. Оцінюємо типи перемикачів, якість збірки, матеріали кейкапів і програмні можливості. Незалежно від того, ви геймер, програміст чи офісний працівник, тут знайдеться ідеальна клавіатура. Також розглядаємо hot-swap моделі для тих, хто любить експериментувати з перемикачами.',
 			author: 'Alex Rivera',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop&crop=face',
 			date: '2026-01-12',
 			readTime: 11,
-			category: 'Reviews',
-			tags: ['keyboard', 'mechanical', 'gaming'],
+			category: 'Огляди',
+			tags: ['клавіатура', 'механіка', 'геймінг'],
 			image: 'https://images.unsplash.com/photo-1618384887929-16ec33fab9ef?w=800&h=400&fit=crop',
 		},
 		{
 			id: 7,
-			title: '10 Tips for Better Product Photography',
+			title: '10 порад для кращої предметної фотографії',
 			excerpt:
-				'Simple techniques to make your product shots look professional — no expensive gear required.',
-			content: `Great product photos can make or break an online listing. The good news? You don't need a professional studio to get stunning results. This article shares ten practical tips: from setting up natural lighting and choosing the right background to editing tricks that make colors pop. We also recommend affordable tools and apps that can elevate your photography game, whether you're shooting with a smartphone or a DSLR.`,
+				'Прості прийоми, які зроблять ваші фото товарів професійними без дорогого обладнання.',
+			content:
+				'Якісні фото товару можуть суттєво вплинути на успіх онлайн-оголошення. Хороша новина: для вражаючого результату не потрібна професійна студія. У цій статті зібрано десять практичних порад: від налаштування природного освітлення та вибору фону до прийомів редагування, які роблять кольори яскравішими. Також ми радимо доступні інструменти й застосунки, що піднімуть ваш рівень зйомки на смартфоні або DSLR.',
 			author: 'Sophia Laurent',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&fit=crop&crop=face',
 			date: '2026-01-08',
 			readTime: 6,
-			category: 'Tips',
-			tags: ['photography', 'ecommerce', 'marketing'],
+			category: 'Поради',
+			tags: ['фото', 'ecommerce', 'маркетинг'],
 			image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?w=800&h=400&fit=crop',
 		},
 		{
 			id: 8,
-			title: 'Backpack Essentials: What to Look For',
+			title: 'Рюкзак: ключові речі, на які варто звернути увагу',
 			excerpt:
-				'A complete guide to finding the right backpack for commuting, travel, or everyday use.',
-			content: `A good backpack is an investment that pays off daily. But with hundreds of options on the market, how do you pick the right one? This guide walks you through the key features to consider: capacity, compartment layout, material durability, comfort systems, and water resistance. We compare popular styles — from sleek urban daypacks to rugged travel packs — and highlight the best options in each category for 2026.`,
+				'Повний гайд з вибору правильного рюкзака для міста, подорожей або щоденного використання.',
+			content:
+				'Хороший рюкзак це інвестиція, яка щодня себе виправдовує. Але як обрати правильний серед сотень моделей? У цьому гайді розглядаємо головні характеристики: обʼєм, організацію відділень, міцність матеріалів, комфорт носіння та водозахист. Порівнюємо популярні стилі від міських daypack до витривалих тревел-моделей і виділяємо найкращі варіанти у кожній категорії на 2026 рік.',
 			author: 'Jordan Blake',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100&h=100&fit=crop&crop=face',
 			date: '2026-01-05',
 			readTime: 8,
-			category: 'Guides',
-			tags: ['backpack', 'travel', 'accessories'],
+			category: 'Посібники',
+			tags: ['рюкзак', 'подорожі', 'аксесуари'],
 			image: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=800&h=400&fit=crop',
 		},
 		{
 			id: 9,
-			title: 'HomeComponent Fragrance: Candles vs Diffusers',
+			title: 'Аромат для дому: свічки чи дифузори',
 			excerpt:
-				'Which home scenting method is right for you? We compare cost, safety, and scent throw.',
-			content: `Creating a pleasant atmosphere at home often starts with fragrance. But should you go with scented candles or reed diffusers? Each has its strengths and trade-offs. Candles offer a warm ambiance and stronger scent throw, while diffusers provide consistent, maintenance-free fragrance. We compare the two across multiple factors including safety, cost per hour, scent variety, and room coverage. Plus, our top product recommendations for each category.`,
+				'Який спосіб ароматизації дому підходить саме вам? Порівнюємо вартість, безпеку та інтенсивність аромату.',
+			content:
+				'Створення затишної атмосфери вдома часто починається з аромату. Але що обрати: ароматичні свічки чи дифузори? Кожен варіант має свої переваги й компроміси. Свічки дають теплу атмосферу та інтенсивніший аромат, тоді як дифузори забезпечують стабільний запах без зайвого догляду. Ми порівнюємо їх за безпекою, вартістю за годину, різноманіттям ароматів і площею покриття. А також додаємо наші найкращі рекомендації в кожній категорії.',
 			author: 'Maya Chen',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&fit=crop&crop=face',
 			date: '2026-01-02',
 			readTime: 5,
-			category: 'Tips',
-			tags: ['candles', 'home', 'lifestyle'],
+			category: 'Поради',
+			tags: ['свічки', 'дім', 'лайфстайл'],
 			image: 'https://images.unsplash.com/photo-1602028915047-37269d1a73f7?w=800&h=400&fit=crop',
 		},
 		{
 			id: 10,
-			title: 'Sunglasses Buying Guide: UV Protection Matters',
+			title: 'Гайд із вибору сонцезахисних окулярів: захист від UV має значення',
 			excerpt:
-				'Not all sunglasses are equal — learn what lens features actually protect your eyes.',
-			content: `Sunglasses are more than a fashion accessory — they're essential eye protection. But many shoppers focus on style and overlook the specs that matter most. This guide explains UV protection ratings, polarization, lens materials, and frame fit. We debunk common myths (like darker lenses being safer) and recommend the best sunglasses across different price points, from drugstore finds to premium designer options.`,
+				'Не всі сонцезахисні окуляри однакові: дізнайтеся, які характеристики лінз дійсно захищають очі.',
+			content:
+				'Сонцезахисні окуляри це не лише аксесуар, а й важливий захист очей. Багато покупців зосереджуються на стилі та ігнорують ключові характеристики. У цьому гайді пояснюємо рівні UV-захисту, поляризацію, матеріали лінз і правильну посадку оправи. Розвінчуємо популярні міфи та радимо найкращі моделі в різних цінових категоріях: від бюджетних до преміальних дизайнерських.',
 			author: 'Marco Espinoza',
 			authorAvatar:
 				'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100&h=100&fit=crop&crop=face',
 			date: '2025-12-28',
 			readTime: 7,
-			category: 'Guides',
-			tags: ['sunglasses', 'eyewear', 'fashion'],
+			category: 'Посібники',
+			tags: ['окуляри', 'зір', 'мода'],
 			image: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=800&h=400&fit=crop',
 		},
 	]);
 
 	selectedPost = signal<BlogPost | null>(null);
-	categories = signal<string[]>(['All', 'Guides', 'Reviews', 'Tips']);
+	categories = signal<string[]>(['Усі', 'Посібники', 'Огляди', 'Поради']);
 
 	selectPost(post: BlogPost) {
 		this.selectedPost.set(post);

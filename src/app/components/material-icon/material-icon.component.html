@@ -1,0 +1,9 @@
+<span class="material-icon" [attr.aria-label]="ariaLabel()" role="img">
+	<span class="material-icon__glyph material-symbols-outlined" aria-hidden="true">
+		{{ icon() }}
+	</span>
+
+	@if (showText()) {
+		<span class="material-icon__text">{{ text() }}</span>
+	}
+</span>

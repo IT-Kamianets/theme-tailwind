@@ -1,0 +1,18 @@
+.material-icon {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4rem;
+	line-height: 1;
+}
+
+.material-icon__glyph {
+	font-size: 1.25rem;
+	line-height: 1;
+	vertical-align: middle;
+}
+
+.material-icon__text {
+	font-size: 0.95rem;
+	line-height: 1.1;
+	white-space: nowrap;
+}
