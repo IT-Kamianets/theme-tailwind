@@ -3,8 +3,8 @@ import { CoreService } from 'wacom';
 
 @Component({
 	selector: 'material-icon',
-	templateUrl: './material.component.html',
-	styleUrls: ['./material.component.scss'],
+	templateUrl: './material-icon.component.html',
+	styleUrl: './material-icon.component.scss',
 	changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MaterialIconComponent {
